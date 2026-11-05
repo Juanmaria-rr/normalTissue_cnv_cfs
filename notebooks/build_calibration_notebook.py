@@ -127,10 +127,11 @@ def plot_rt_deciles(cell, b, ax):
     rv = rt_for(b).reindex(list(zip(p.chromosome, p.start))).values
     k = np.isfinite(r) & np.isfinite(rv)
     dec = pd.qcut(rv[k], 10, labels=False)
-    m = pd.Series(r[k]).groupby(dec).mean()
-    ax.plot(m.index + 1, m.values, "o-", color="#55a868", ms=3)
+    g = pd.Series(r[k]).groupby(dec)
+    m, se = g.mean(), g.std() / np.sqrt(g.size())
+    ax.errorbar(m.index + 1, m.values, yerr=1.96 * se.values, fmt="o-", color="#55a868", ms=3, capsize=2, elinewidth=.8)
     ax.axhline(1, color="#999999", lw=.6); ax.set_ylim(.8, 1.25)
-    ax.set_xlabel("RT decile (1 = late, 10 = early)", fontsize=7); ax.set_ylabel("mean ratio", fontsize=7)
+    ax.set_xlabel("RT decile (1 = late, 10 = early)", fontsize=7); ax.set_ylabel("mean ratio (95% CI)", fontsize=7)
 
 def plot_profile(cell, b, ax, title=None):
     p = profiles(b)

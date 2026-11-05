@@ -118,9 +118,10 @@ def fig_sphase():
     for cell, col, lab in ((S_CELL, DCOL["P07"], "P07 co · S phase"), (BIAS_CELL, DCOL["P20"], "P20 · batch bias"),
                            (G1_CELL, DCOL["P18"], "P18 · G1")):
         p = profile(cell, 500).dropna(subset=["rt", "ratio"])
-        m = p.groupby(pd.qcut(p.rt, 10, labels=False)).ratio.mean()
+        g = p.groupby(pd.qcut(p.rt, 10, labels=False)).ratio
+        m, se = g.mean(), g.std() / np.sqrt(g.size())  # 95% CI of the decile mean = mean +/- 1.96 SE
         rho = p[["ratio", "rt"]].corr("spearman").iloc[0, 1]
-        c.plot(m.index + 1, m.values, "o-", ms=3, color=col, label=f"{lab} (ρ = {rho:.2f})")
+        c.errorbar(m.index + 1, m.values, yerr=1.96 * se.values, fmt="o-", ms=3, capsize=2, elinewidth=.8, color=col, label=f"{lab} (ρ = {rho:.2f})")
     c.axhline(1, color="#999999", lw=.6); c.set_ylim(.85, 1.2)
     c.set_xlabel("RT decile (1 late … 10 early)"); c.set_ylabel("mean ratio")
     c.legend(fontsize=7, loc="upper left"); c.set_title("C · Decile signature")

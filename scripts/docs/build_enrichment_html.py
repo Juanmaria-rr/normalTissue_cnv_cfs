@@ -275,6 +275,21 @@ def funnel_tables(res):
     return tot, don, br
 
 
+# plain-language meaning of each funnel stage (section 2.1)
+STAGE_DEFS = [
+    ("1 wells", "Every well of the 5 pilot donors listed in ENA (one well = one sequenced library, i.e. one putative cell), including control and empty wells."),
+    ("2 imaging", "Wells that the authors' imaging scored as holding exactly one good-quality cell (qc_flag = Good, cell_flag = yes) and that are not control wells. These are the pilot cells."),
+    ("3 aligned", "Cells whose reads were trimmed, aligned to hg19 and deduplicated (all imaging-selected cells)."),
+    ("4 mapping ≥ 90%", "Cells with at least 90% of reads mapped to the genome. An alarm for a failed library; it does not remove cells."),
+    ("5 fitted (≥ 20k reads)", "Cells with at least 20,000 usable reads (mapped, MAPQ ≥ 37, not duplicates); below that a profile is mostly empty and is not fitted."),
+    ("6 depth_ok", "Cells with enough usable reads to tell one copy apart from noise: at least 15 reads per bin per chromosome copy in a diploid cell, i.e. 15 × 2 × usable bins / 0.91 = 396k, 145k and 64k reads at 200 kb, 500 kb and 1 Mb. Depends on the bin size."),
+    ("7 noise_excess ≤ 1.5", "Cells whose bin-to-bin variation is at most 1.5 times what read-count (Poisson) sampling alone would give; noisier profiles produce false segments."),
+    ("8 rt_rho ≤ 0.10", "Cells whose copy-number profile does not follow replication timing (Spearman ρ ≤ 0.10); higher values indicate a cell caught in S phase, whose profile imitates gains and losses. This is the main analysis set."),
+    ("9 ≥ 1 breakend (E2–E4)", "Main-set cells with at least one copy-number change of the main definition (a segment ≥ 1 Mb with ratio > 1.3 or < 0.7 next to a different state)."),
+    ("10 ≥ 1 interstitial", "Of those, cells with at least one breakend inside a chromosome arm (not at the centromere)."),
+    ("11 ≥ 1 interstitial loss", "Of those, cells with at least one interstitial breakend whose altered side is a loss."),
+]
+
 CSS = """
 :root{--bg:#f7f8f9;--surface:#fff;--fg:#1b232b;--muted:#56636f;--rule:#d6dde3;--accent:#0f6e73;--code:#eef1f4;
 --font:"Public Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--display:"Newsreader",Georgia,serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
@@ -338,19 +353,24 @@ Every number in this document is read from those tables.</p>
     P('<h2 id="funnel">2 · Thresholds and data funnel</h2><p>Criteria applied at each step, from the well to the event that enters the tests. '
       'Several act on reads or segments and do not exclude cells; two are alarms only.</p>')
     P(table(thr, list(thr.columns)))
-    P("<h3>2.1 Cells per stage (5 donors)</h3>")
+    P(method("<b>Source:</b> decisions recorded in the project log and README; thresholds implemented in <code>scripts/03_cn_qc/cn_qc_metrics.R</code>, "
+             "<code>scripts/06_enrichment/build_event_table.py</code> and the HealthOmics workflows."))
+    P("<h3>2.1 Cells per stage (5 donors)</h3><p>Each stage keeps the cells of the previous one that meet one more criterion (stage 4 is reported but removes no cells).</p>")
+    sd = pd.DataFrame(STAGE_DEFS, columns=["stage", "what it means"])
+    P('<div class="tablebox wrap">' + table(sd, list(sd.columns))[len('<div class="tablebox">'):])
     P(table(tot, list(tot.columns), num=["200 kb", "500 kb", "1 Mb"]))
     P(fig("fig_funnel", "<b>What is shown.</b> Cells left after each criterion, cumulative, per bin (log scale); in brackets, % of the imaging-selected cells (stage 2). "
-          "Stages 1–4 do not depend on the bin. The “mapping ≥ 90%” stage does not exclude cells and is not drawn."))
+          "Stages 1–4 do not depend on the bin. The “mapping ≥ 90%” stage does not exclude cells and is not drawn. <b>Source:</b> <code>results/enrichment/pilot/funnel_cells.tsv</code> (script <code>scripts/06_enrichment/funnel.py</code>)."))
     P(method("<b>What is counted.</b> Pilot cells (wells). Stages 1–2: ENA and authors' metadata; 3: aligned cells; 5–8: <code>master_cells</code>; "
              "9–11: main-set cells with at least one breakend of the main definition (E2–E4), interstitial, and interstitial loss. "
-             "<b>Limitation.</b> Stage 1 counts every well of the donor in ENA, including control and empty wells."))
+             "<b>Limitation.</b> Stage 1 counts every well of the donor in ENA, including control and empty wells. <b>Source:</b> <code>data/metadata/cells.tsv</code>, <code>data/pilot/align_qc_pilot.tsv</code>, <code>results/enrichment/pilot/master_cells.tsv</code>, <code>results/enrichment/pilot/funnel_cells.tsv</code> (script <code>scripts/06_enrichment/funnel.py</code>)."))
     P("<h3>2.2 Cells per stage and donor (500 kb)</h3>")
     P(table(don, list(don.columns), num=list(don.columns[1:])))
+    P(method("<b>Source:</b> <code>results/enrichment/pilot/funnel_cells.tsv</code> (script <code>scripts/06_enrichment/funnel.py</code>)."))
     P("<h3>2.3 From breakends to events (main set)</h3>")
     P(table(br, list(br.columns), num=["200 kb", "500 kb", "1 Mb"]))
     P(method("<b>What is counted.</b> Breakends of the main-set cells (one row per cell and breakend); then interstitial E2–E4 collapsed events, the loss events, "
-             "and how many of these overlap MiDAS domains (Macheret union and HS68 only)."))
+             "and how many of these overlap MiDAS domains (Macheret union and HS68 only). <b>Source:</b> <code>results/enrichment/pilot/funnel_breakends.tsv</code>, <code>results/enrichment/pilot/master_breakends.tsv</code>, <code>results/enrichment/pilot/master_events.tsv</code> (script <code>scripts/06_enrichment/funnel.py</code>)."))
 
     P('<h2 id="cells">3 · Cells</h2><p>Criteria: <code>depth_ok</code> (usable reads ≥ 15 × 2 × usable bins / 0.91), '
       '<code>noise_excess</code> ≤ 1.5 and <code>rt_rho</code> ≤ 0.10, the same in the three bins. The “no cuts” set requires only <code>depth_ok</code>; '
@@ -359,7 +379,7 @@ Every number in this document is read from those tables.</p>
             num=["fitted", "depth_ok", "noise > 1.5", "rt_rho > 0.10", "main set"]))
     P(method("<b>What is counted.</b> Cells fitted by <code>pureSamples_absCN</code> (≥ 20,000 reads), those passing <code>depth_ok</code>, "
              "how many of these exceed each cut (a cell can exceed both), and those left in the main set. "
-             "<b>Limitation.</b> <code>depth_ok</code> depends on the batch (instrument, read length, assay)."))
+             "<b>Limitation.</b> <code>depth_ok</code> depends on the batch (instrument, read length, assay). <b>Source:</b> <code>results/pilot_cn/qc/cn_qc_&lt;bin&gt;kb.tsv</code> (script <code>scripts/03_cn_qc/cn_qc_metrics.R</code>)."))
 
     P("""<h2 id="events">4 · Breakends and events</h2>
 <ol><li><b>States.</b> On the QDNAseq segments (CBS, <code>undo.SD = 1</code>), segment ratio = value / median of the cell's segments; gain if &gt; 1.2, loss if &lt; 0.8 (permissive rule); consecutive segments with the same state are merged (length-weighted ratio) and merged segments &lt; 1 Mb are dropped.</li>
@@ -371,7 +391,7 @@ Every number in this document is read from those tables.</p>
     P(table(events_section(res), ["bin", "type", "direction", "breakends", "events", "E1", "E2", "E3", "E4", "in 1 cell"],
             num=["breakends", "events", "E1", "E2", "E3", "E4", "in 1 cell"]))
     P(method("<b>What is counted.</b> Main set. “breakends” = breakends of all cells (a clone contributes one per cell); “events” = after collapsing within the donor; "
-             "strata and “in 1 cell” are counted on events. <b>Limitation.</b> Linking at 2 Mb can merge two nearby independent breaks of the same donor."))
+             "strata and “in 1 cell” are counted on events. <b>Limitation.</b> Linking at 2 Mb can merge two nearby independent breaks of the same donor. <b>Source:</b> <code>results/enrichment/pilot/main/events_&lt;bin&gt;kb.tsv</code>, <code>results/enrichment/pilot/main/breakends_&lt;bin&gt;kb.tsv</code> (script <code>scripts/06_enrichment/build_event_table.py</code>)."))
 
     cat_all = pd.concat([cat, der], ignore_index=True)
     cat_t = cat_all.assign(n=cat_all.n.map(lambda v: fmt(int(v))), total=cat_all.total_mb.map(lambda v: fmt(v, 1)), med=cat_all.median_mb.map(fmt))
@@ -389,12 +409,12 @@ Every number in this document is read from those tables.</p>
              "one facet of fragility in specific cell types. Derived sets combine them (consensus) or predict fragility in breast epithelium from "
              "known determinants (breast_predicted). Large-gene sets are controls: most known CFS lie in very large genes, so an enrichment in CFS "
              "should be compared with an enrichment in large genes as such; test B also adjusts for the fraction of each window in genes &gt; 300 kb. "
-             "<b>Limitation.</b> The gene sets ignore expression; breast_predicted is their expression-aware counterpart."))
+             "<b>Limitation.</b> The gene sets ignore expression; breast_predicted is their expression-aware counterpart. <b>Source:</b> <code>data/features/cfs/cfs_catalogs_hg19.tsv</code>, <code>data/features/cfs/cfs_derived_hg19.tsv</code>, <code>data/features/cfs/cfs_consensus_regions.tsv</code>, <code>data/features/cfs/breast_gene_accessibility.tsv</code>, <code>data/features/genes/large_genes_*.tsv</code> (script <code>scripts/05_features/*.py</code>)."))
     P("<h3>5.2 Size of each set</h3>")
     P(table(cat_t.rename(columns={"cell_type": "cell type / tier", "total": "total Mb", "med": "median Mb"}),
             ["catalog", "cell type / tier", "n", "total Mb", "median Mb"], num=["n", "total Mb", "median Mb"]))
     P(method(f"<b>What is counted.</b> Sites per set after harmonisation (overlapping sites within a set are counted separately, so total Mb can exceed the covered genome). "
-             f"Genes: &gt; 300 kb {fmt(len(g3))} loci ({fmt(g3.span_kb.sum() / 1e3, 0)} Mb); &gt; 1 Mb {fmt(len(g1))} loci ({fmt(g1.span_kb.sum() / 1e3, 0)} Mb)."))
+             f"Genes: &gt; 300 kb {fmt(len(g3))} loci ({fmt(g3.span_kb.sum() / 1e3, 0)} Mb); &gt; 1 Mb {fmt(len(g1))} loci ({fmt(g1.span_kb.sum() / 1e3, 0)} Mb). <b>Source:</b> <code>data/features/cfs/cfs_catalogs_summary.tsv</code>, <code>data/features/cfs/cfs_derived_hg19.tsv</code>, <code>data/features/genes/large_genes_*.tsv</code> (script <code>build_cfs_catalogs.py, build_cfs_consensus.py, build_gene_features.py</code>)."))
 
     P("""<h2 id="testa">6 · Test A: positional permutation</h2>
 <p><b>Null.</b> Each interstitial event is re-placed on its chromosome, centred on a usable bin of the same replication-timing quintile (RT of the interval; quintiles of the usable bins of the same size), with the same width and without overlapping pericentromeric blocks ± 1 Mb. Because candidate placements are equiprobable, each event's null overlap probability p<sub>i</sub> is computed exactly by enumerating all its candidate placements.</p>
@@ -407,27 +427,30 @@ Every number in this document is read from those tables.</p>
     P(table(shuffle_rows(res), ["set", "bin", "direction", "shuffles", "median", "2.5%", "97.5%", "observed fold"],
             num=["shuffles", "median", "2.5%", "97.5%", "observed fold"]))
     P(method("<b>What is counted.</b> Distribution of the fold over 20 shuffled versions of each set (interstitial events, E2–E4), and the fold of the real set. "
-             "<b>Limitation.</b> 20 shuffles give a coarse estimate of the extreme percentiles."))
+             "<b>Limitation.</b> 20 shuffles give a coarse estimate of the extreme percentiles. <b>Source:</b> <code>results/enrichment/pilot/main/test_a_shuffle_controls.tsv</code>, <code>results/enrichment/pilot/main/test_a.tsv</code> (script <code>scripts/06_enrichment/test_a_permutation.py</code>)."))
     P("<h3>6.2 Results: interstitial losses (E2–E4)</h3>")
     P(table(test_a_rows(ta, "loss"), ["set", "bin", "events", "obs.", "exp.", "fold [95% CI]", "p (enrich.)", "q"],
             num=["events", "obs.", "exp.", "p (enrich.)", "q"]))
+    P(method("<b>Source:</b> <code>results/enrichment/pilot/main/test_a.tsv</code> (script <code>scripts/06_enrichment/test_a_permutation.py</code>). Rows: direction = loss, stratum = main."))
     P("<h3>6.3 Results: interstitial gains (E2–E4)</h3>")
     P(table(test_a_rows(ta, "gain"), ["set", "bin", "events", "obs.", "exp.", "fold [95% CI]", "p (enrich.)", "q"],
             num=["events", "obs.", "exp.", "p (enrich.)", "q"]))
+    P(method("<b>Source:</b> <code>results/enrichment/pilot/main/test_a.tsv</code> (script <code>scripts/06_enrichment/test_a_permutation.py</code>). Rows: direction = gain, stratum = main."))
     P(fig("fig_a_forest", "<b>What is shown.</b> Test A fold (point) with bootstrap 95% CI (line), per set and bin, for interstitial E2–E4 losses and gains. "
           "Grey bar: 2.5–97.5% percentiles of the fold over the 20 shuffled versions of the set (losses in the left panel; all directions in the right one). "
-          "<b>Limitation.</b> Axis truncated at 6."))
+          "<b>Limitation.</b> Axis truncated at 6. <b>Source:</b> <code>results/enrichment/pilot/main/test_a.tsv</code>, <code>results/enrichment/pilot/main/test_a_shuffle_controls.tsv</code> (script <code>scripts/docs/enrichment_figures.py</code>)."))
     P("<h3>6.4 By deviation stratum</h3>")
-    P(fig("fig_a_strata", "<b>What is shown.</b> Test A fold per stratum (E1 0.2–0.3; E2 0.3–0.4; E3 0.4–0.6; E4 ≥ 0.6) for four sets, for losses and for all directions. "
-          "<b>Limitation.</b> E4 has very few events (see the events table); a fold of 0 or a very high fold in E4 reflects counts of 0–2."))
+    P(fig("fig_a_strata", "<b>What is shown.</b> Test A fold with bootstrap 95% CI per stratum (E1 0.2–0.3; E2 0.3–0.4; E3 0.4–0.6; E4 ≥ 0.6) for four sets, for losses and for all directions; sets are dodged horizontally. "
+          "<b>Limitation.</b> E4 has very few events (see the events table); a fold of 0 or a very high fold in E4 reflects counts of 0–2; CIs are truncated at 8. <b>Source:</b> <code>results/enrichment/pilot/main/test_a.tsv</code> (script <code>scripts/docs/enrichment_figures.py</code>)."))
     P("<h3>6.5 Loss events overlapping HS68 MiDAS sites (500 kb)</h3>")
     P(table(hs, list(hs.columns), num=["cells"]))
-    P(method("<b>What is counted.</b> Main-set interstitial E2–E4 loss events at 500 kb whose interval overlaps an HS68 MiDAS domain; the annotation is the gene/intergenic column of Macheret et al. 2020 Table S1."))
+    P(method("<b>What is counted.</b> Main-set interstitial E2–E4 loss events at 500 kb whose interval overlaps an HS68 MiDAS domain; the annotation is the gene/intergenic column of Macheret et al. 2020 Table S1. <b>Source:</b> <code>results/enrichment/pilot/main/events_500kb.tsv</code>, <code>data/features/cfs/cfs_catalogs_hg19.tsv</code> (script <code>scripts/docs/build_enrichment_html.py</code>)."))
     P("<h3>6.6 Sensitivity</h3><p>Fold (observed / expected) for interstitial E2–E4 losses: main set, without the noise and S-phase cuts, with the same cells in the three bins (those passing the cuts at 200 kb, 500 kb and 1 Mb), and leaving out each donor.</p>")
     sens = sensitivity_rows(res)
     P(table(sens, list(sens.columns)))
-    P(fig("fig_a_sensitivity", "<b>What is shown.</b> Test A fold for E2–E4 losses for five sets in each sensitivity analysis. "
-          "<b>Limitation.</b> No CI in this figure; see the table."))
+    P(method("<b>Source:</b> <code>results/enrichment/pilot/main/test_a.tsv</code>, <code>results/enrichment/pilot/nocuts/test_a.tsv</code>, <code>results/enrichment/pilot/samecells/test_a.tsv</code>, <code>results/enrichment/pilot/main/test_a_without_&lt;donor&gt;.tsv</code> (script <code>scripts/06_enrichment/test_a_permutation.py</code>)."))
+    P(fig("fig_a_sensitivity", "<b>What is shown.</b> Test A fold (point) with bootstrap 95% CI (line) for E2–E4 losses for five sets in each sensitivity analysis. "
+          "<b>Limitation.</b> The runs share most events, so their CIs are not independent; axis truncated at 8. <b>Source:</b> <code>results/enrichment/pilot/{main,nocuts,samecells}/test_a*.tsv</code> (script <code>scripts/docs/enrichment_figures.py</code>)."))
 
     P(f"""<h2 id="testb">7 · Test B: per-window regression</h2>
 <p>Windows: usable 1 Mb bins outside pericentromeric blocks ± 1 Mb (the same for the three event bin sizes). Rows: donor × window. Response: number of interstitial events whose midpoint falls in the window.</p>
@@ -436,8 +459,9 @@ Every number in this document is read from those tables.</p>
 <li>Family: negative binomial (NB2) with alpha from the Cameron–Trivedi auxiliary regression on the Poisson fit; if alpha ≤ 0, Poisson with HC1 robust errors. In this run: {", ".join(f"{k} = {v}" for k, v in fams.items())} of {nb} models.</li>
 <li>q: BH within each set and model.</li></ul>""")
     P(table(tb, list(tb.columns), num=["events", "p", "q"]))
+    P(method("<b>Source:</b> <code>results/enrichment/pilot/main/test_b.tsv</code> (script <code>scripts/06_enrichment/test_b_regression.py</code>). Rows: direction = loss, stratum = main."))
     P(fig("fig_b_irr", "<b>What is shown.</b> IRR (log scale) of overlapping each set for interstitial E2–E4 losses, unadjusted (grey) and adjusted for RT, GC, mappability, genes &gt; 300 kb, chromosome and donor (red). "
-          "<b>Limitation.</b> The event midpoint is used (not its width) and the overlap per window is binary."))
+          "<b>Limitation.</b> The event midpoint is used (not its width) and the overlap per window is binary. <b>Source:</b> <code>results/enrichment/pilot/main/test_b.tsv</code> (script <code>scripts/docs/enrichment_figures.py</code>)."))
     P(method("Most windows have 0 or 1 event per donor; with counts like these the estimated dispersion is below Poisson (alpha ≤ 0) and Poisson with robust errors is used."))
 
     tc = test_c_rows(res)
@@ -448,12 +472,13 @@ Every number in this document is read from those tables.</p>
 <li>Heterogeneity: X² = Σ (O<sub>d</sub> − R·E<sub>d</sub>)² / (R·E<sub>d</sub>), R = pooled O/E, df = donors − 1 (donors with E<sub>d</sub> &lt; 1 left out).</li>
 <li><b>Change from the plan.</b> The plan was a mixed logistic model with a donor random effect; with 5 donors that variance is not estimable, so per-donor ratios and a heterogeneity test are reported instead.</li></ul>""")
     P(table(tc, list(tc.columns), num=["cells", "breakends", "obs.", "exp.", "heterogeneity p"]))
+    P(method("<b>Source:</b> <code>results/enrichment/pilot/main/test_c.tsv</code> (script <code>scripts/06_enrichment/test_c_per_donor.py</code>)."))
     P(fig("fig_c_donors", "<b>What is shown.</b> Breakend-level O/E (E2–E4 losses) per donor (colour) and pooled (black), with cell-bootstrap 95% CI. "
-          "<b>Limitation.</b> Donors with few breakends have very wide CIs or CIs collapsed at 0."))
+          "<b>Limitation.</b> Donors with few breakends have very wide CIs or CIs collapsed at 0. <b>Source:</b> <code>results/enrichment/pilot/main/test_c.tsv</code> (script <code>scripts/docs/enrichment_figures.py</code>)."))
 
     P('<h2 id="regions">9 · Regional views</h2>')
     P(fig("fig_regions", "<b>What is shown.</b> [lo, hi] intervals of E2–E4 loss breakends (each line is a breakend of one main-set cell, coloured by donor) at 500 kb in three regions, "
-          "with HS68 and U2OS+HeLa MiDAS domains (Macheret 2020), HumCFS bands, genes &gt; 300 kb and replication timing per bin (green, up = early)."))
+          "with HS68 and U2OS+HeLa MiDAS domains (Macheret 2020), HumCFS bands, genes &gt; 300 kb and replication timing per bin (green, up = early). <b>Source:</b> <code>results/enrichment/pilot/main/breakends_500kb.tsv</code>, <code>results/enrichment/pilot/main/usable_bins_rt_500kb.tsv</code>, <code>data/features/cfs/cfs_catalogs_hg19.tsv</code>, <code>data/features/genes/large_genes_300kb.tsv</code> (script <code>scripts/docs/enrichment_figures.py</code>)."))
 
     P("""<h2 id="limitations">10 · Method limitations</h2><ul>
 <li>5-donor pilot; event counts range from tens to hundreds depending on the subset.</li>

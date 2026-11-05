@@ -4,9 +4,9 @@
   fig_a_forest      test A fold (95% bootstrap CI) per feature set, interstitial events,
                     main stratum (E2-E4), losses and gains, three bins; grey bar = 2.5-97.5%
                     range of the fold over RT-matched shuffles of that set (losses / all)
-  fig_a_strata      test A fold per deviation stratum (E1-E4), losses and all, selected sets
-  fig_a_sensitivity test A fold for losses (main) in the main set, without cuts, and leaving
-                    out each donor
+  fig_a_strata      test A fold (95% bootstrap CI) per deviation stratum (E1-E4), losses and all
+  fig_a_sensitivity test A fold (95% bootstrap CI) for losses (main): main set, no cuts, same
+                    cells, and leaving out each donor
   fig_b_irr         test B IRR (95% CI), unadjusted vs adjusted, losses (main)
   fig_c_donors      test C ratio (95% cell bootstrap CI) per donor, losses (main)
   fig_regions       loss breakend intervals (cells of the main set, 500 kb) around FHIT,
@@ -69,15 +69,17 @@ def fig_a_strata(res):
     for i, d in enumerate(("loss", "all")):
         for k, b in enumerate((200, 500, 1000)):
             ax = axes[i, k]
-            for name in sel:
+            for k, name in enumerate(sel):
                 r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & t.stratum.isin(["E1", "E2", "E3", "E4"])]
                 r = r.set_index("stratum").reindex(["E1", "E2", "E3", "E4"])
-                ax.plot(range(4), r.fold, "o-", ms=3, label=name)
+                x = np.arange(4) + (k - 1.5) * 0.12  # dodge the sets so the CIs do not overlap
+                ax.errorbar(x, r.fold, yerr=[r.fold - r.fold_lo, r.fold_hi - r.fold], fmt="o-", ms=3, lw=.8,
+                            capsize=2, elinewidth=.8, label=name)
             ax.axhline(1, color="#666666", lw=.7, ls=":")
-            ax.set_xticks(range(4), ["E1\n0,2–0,3", "E2\n0,3–0,4", "E3\n0,4–0,6", "E4\n≥0,6"])
+            ax.set_xticks(range(4), ["E1\n0.2–0.3", "E2\n0.3–0.4", "E3\n0.4–0.6", "E4\n≥0.6"])
             ax.set_title(f"{b} kb · {'losses' if d == 'loss' else 'all directions'}")
-            ax.set_ylim(0, 5)
-    axes[0, 0].set_ylabel("fold"); axes[1, 0].set_ylabel("fold")
+            ax.set_ylim(0, 8)
+    axes[0, 0].set_ylabel("fold (95% CI)"); axes[1, 0].set_ylabel("fold (95% CI)")
     axes[0, 0].legend(fontsize=6)
     fig.tight_layout()
     return fig
@@ -88,7 +90,7 @@ def fig_a_sensitivity(res):
             ("same cells", f"{res}/samecells/test_a.tsv")] + \
            [(f"without {d}", f"{res}/main/test_a_without_{d}.tsv") for d in ("P07", "P08", "P18", "P20", "P36")]
     sel = ["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all", "genes_1mb"]
-    fig, axes = plt.subplots(1, 3, figsize=(11, 3.4), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4.6), sharey=True)
     for ax, b in zip(axes, (200, 500, 1000)):
         for j, name in enumerate(sel):
             for i, (lab, f) in enumerate(runs):
@@ -96,10 +98,12 @@ def fig_a_sensitivity(res):
                 r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == "loss") & (t.stratum == "main")]
                 if r.empty:
                     continue
-                y = len(sel) - j + (i - 3) * 0.1
-                ax.scatter(r.fold.iloc[0], y, s=10, color=plt.cm.tab10(i), label=lab if j == 0 else None)
+                y = len(sel) - j + (i - 3.5) * 0.1
+                r = r.iloc[0]
+                ax.plot([r.fold_lo, r.fold_hi], [y, y], color=plt.cm.tab10(i), lw=.8)
+                ax.scatter(r.fold, y, s=10, color=plt.cm.tab10(i), label=lab if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":")
-        ax.set_title(f"{b} kb · losses (E2–E4)"); ax.set_xlabel("fold"); ax.set_xlim(0, 5)
+        ax.set_title(f"{b} kb · losses (E2–E4)"); ax.set_xlabel("fold (95% CI)"); ax.set_xlim(0, 8)
     axes[0].set_yticks(range(len(sel), 0, -1), sel)
     axes[2].legend(fontsize=6, loc="lower right")
     fig.tight_layout()
