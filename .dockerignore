@@ -1,0 +1,10 @@
+data/
+work/
+results/
+enrichment_script/
+docs/
+.git/
+**/.git
+external/*/images/
+external/scDNAseq/
+external/CopyNumberFittingShiny/

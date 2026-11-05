@@ -1,0 +1,31 @@
+--- pureSamples_absCN.R
++++ pureSamples_absCN_safe.R
+@@ -121,8 +121,9 @@
+ 
+ ##################################################################################
+ ## ESTIMATE ABSOLUTE COPY NUMBER FITS FOR ALL SAMPLES
+-all_abscn<-foreach(sample=samples,.combine=Biobase::combine)%dopar%
+-    {
++# CNV_cfs patch: a failing cell is recorded in failed_cells.tsv instead of aborting the loop
++all_abscn<-foreach(sample=samples)%dopar%
++    { tryCatch({
+         ploidies<-seq(1.4,8,0.1)
+         purities<-seq(0.9,1,0.01)
+         clonality<-c()
+@@ -423,6 +424,15 @@
+         pData(abscn)$purity<-fpurity
+         pData(abscn)$ploidy<-fploidy
+         abscn
+-    }
++    }, error=function(e) structure(list(sample=sample, error=conditionMessage(e)), class="failed_cell")) }
+ 
++# CNV_cfs patch: keep fitted cells; list failed cells and cells skipped by --total.reads
++failed<-Filter(function(x) inherits(x,"failed_cell"), all_abscn)
++skipped<-setdiff(row.names(rds.pdata), samples)
++write.table(rbind(data.frame(sampleID=vapply(failed, `[[`, "", "sample"), reason=rep("error", length(failed)),
++                            detail=vapply(failed, `[[`, "", "error"), stringsAsFactors=FALSE),
++                 data.frame(sampleID=skipped, reason=rep("total_reads_below_threshold", length(skipped)),
++                            detail=as.character(rds.pdata[skipped,"total.reads"]), stringsAsFactors=FALSE)),
++            paste0(OUTDIR,"/failed_cells.tsv"), sep="\t", quote=FALSE, row.names=FALSE)
++all_abscn<-Reduce(Biobase::combine, Filter(function(x) !inherits(x,"failed_cell"), all_abscn))
+ saveRDS(all_abscn,paste0(OUTDIR,"/absoluteCN.rds"))

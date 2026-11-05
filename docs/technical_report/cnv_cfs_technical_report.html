@@ -1,0 +1,775 @@
+<title>CNV_cfs technical report</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: technical report; one reading column (~70ch) with a sticky contents rail on wide screens.
+   Palette: cool slate neutrals biased to the accent; a karyotype-stain teal accent; semantic chips for state. */
+:root {
+  --bg: #f7f8f9;
+  --surface: #ffffff;
+  --fg: #1b232b;
+  --muted: #56636f;
+  --rule: #d6dde3;
+  --accent: #0f6e73;
+  --accent-soft: #e2f0f0;
+  --done: #2f6b3a;     --done-bg: #e3f1e5;
+  --todo: #8a5a00;     --todo-bg: #fbefd6;
+  --block: #9b2c2c;    --block-bg: #f8e1e1;
+  --code-bg: #eef1f4;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body: "Public Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161b; --surface: #171e24; --fg: #e3e8ec; --muted: #9aa7b2; --rule: #2c3640;
+    --accent: #5cc3c7; --accent-soft: #173336;
+    --done: #8fd19c; --done-bg: #1b3121; --todo: #f0c26b; --todo-bg: #3a2c10;
+    --block: #f2a0a0; --block-bg: #3d1d1d; --code-bg: #1d262e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161b; --surface: #171e24; --fg: #e3e8ec; --muted: #9aa7b2; --rule: #2c3640;
+  --accent: #5cc3c7; --accent-soft: #173336;
+  --done: #8fd19c; --done-bg: #1b3121; --todo: #f0c26b; --todo-bg: #3a2c10;
+  --block: #f2a0a0; --block-bg: #3d1d1d; --code-bg: #1d262e; color-scheme: dark;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.65 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 96px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+@media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 24px; } nav.toc { position: static !important; } }
+nav.toc { position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); align-self: start; font-size: .86rem; }
+nav.toc p { font: 600 .72rem/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+nav.toc a { color: var(--muted); text-decoration: none; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); }
+main { min-width: 0; max-width: 74ch; }
+header.top { display: grid; gap: 10px; margin-bottom: 8px; }
+.eyebrow { font: 600 .74rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.2; }
+h1 { font-size: clamp(2rem, 4vw, 2.6rem); margin: 0; }
+h2 { font-size: 1.65rem; margin: 3.2rem 0 .6rem; padding-top: .4rem; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.22rem; margin: 2rem 0 .4rem; }
+h4 { font: 600 .78rem/1.2 var(--font-body); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin: 1.6rem 0 .4rem; }
+p, ul, ol { margin: .6rem 0; }
+li + li { margin-top: .25rem; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font: .86em var(--font-mono); background: var(--code-bg); padding: .1em .35em; border-radius: 4px; }
+.meta { color: var(--muted); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.lede { font-size: 1.08rem; }
+.chip { display: inline-block; font: 600 .72rem/1.5 var(--font-mono); padding: 0 .5em; border-radius: 3px; white-space: nowrap; }
+.chip.done { color: var(--done); background: var(--done-bg); }
+.chip.todo { color: var(--todo); background: var(--todo-bg); }
+.chip.block { color: var(--block); background: var(--block-bg); }
+.tablebox { overflow-x: auto; margin: 1rem 0 .4rem; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+thead th { font-weight: 600; background: var(--code-bg); white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; }
+td.low { color: var(--block); font-weight: 600; }
+.method { font-size: .84rem; color: var(--muted); border-left: 2px solid var(--rule); padding: .2rem 0 .2rem .8rem; margin: .4rem 0 1.4rem; }
+.method b { color: var(--fg); font-weight: 600; }
+.calc { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: .8rem 1rem; margin: 1rem 0; font-size: .92rem; }
+.calc > p:first-child { margin-top: 0; font: 600 .74rem/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.calc ol, .calc ul { padding-left: 1.2rem; }
+.calc .eq { font: .86rem/1.6 var(--font-mono); background: var(--code-bg); border-radius: 4px; padding: .5rem .7rem; overflow-x: auto; white-space: pre; margin: .5rem 0; }
+.calc .so { border-top: 1px dashed var(--rule); padding-top: .5rem; margin-bottom: 0; }
+.decision { background: var(--accent-soft); border-radius: 6px; padding: .8rem 1rem; margin: 1rem 0; }
+.decision > p:first-child { margin-top: 0; }
+.decision > p:last-child { margin-bottom: 0; }
+.decision strong:first-child { font: 600 .74rem/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .4rem; }
+.flow { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 12px; margin: 1rem 0; }
+.flow svg { display: block; min-width: 640px; width: 100%; height: auto; }
+.flow text { font-family: var(--font-body); font-size: 12px; fill: var(--fg); }
+.flow .lbl { font-size: 10.5px; fill: var(--muted); }
+.flow rect.box { fill: var(--surface); stroke: var(--rule); stroke-width: 1.2; }
+.flow rect.done { fill: var(--done-bg); stroke: var(--done); }
+.flow rect.todo { fill: var(--todo-bg); stroke: var(--todo); }
+.flow rect.block { fill: var(--block-bg); stroke: var(--block); }
+.flow path { stroke: var(--muted); stroke-width: 1.3; fill: none; }
+.flow .arrow { fill: var(--muted); }
+footer { margin-top: 4rem; color: var(--muted); font-size: .85rem; }
+</style>
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#resumen">Summary</a></li>
+    <li><a href="#parte1">Part I · Work done</a></li>
+    <li><a href="#datos">A · Data and selection</a></li>
+    <li><a href="#infra">B · Infrastructure</a></li>
+    <li><a href="#lecturas">C · Reads and alignment</a></li>
+    <li><a href="#cnrel">D · Relative CN</a></li>
+    <li><a href="#cnabs">E · Absolute CN</a></li>
+    <li><a href="#qc2">F · Profile QC</a></li>
+    <li><a href="#llamada">G · Breakend calling</a></li>
+    <li><a href="#robustez">H · Pipeline robustness</a></li>
+    <li><a href="#parte2">Part II · Results and steps</a></li>
+    <li><a href="#decisiones">Later decisions</a></li>
+    <li><a href="#estado">Pilot status</a></li>
+    <li><a href="#calibracion">1 · Calibration on P18</a></li>
+    <li><a href="#breakends">2 · Breakends, audit and report</a></li>
+    <li><a href="#enriquecimiento">3 · CFS enrichment</a></li>
+    <li><a href="#escalado">4 · Scale-up to the full dataset</a></li>
+    <li><a href="#riesgos">Open threads and risks</a></li>
+    <li><a href="#repro">Reproducibility</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <span class="eyebrow">CNV_cfs · PRJNA1003661 · hg19</span>
+  <h1>Copy-number breakends in CFS: full methodology and next steps</h1>
+  <div class="meta"><span>3 November 2026</span><span>Pilot: 5 donors, 9,181 cells</span><span>Status: pilot CN complete, thresholds not calibrated</span></div>
+</header>
+
+<section id="resumen">
+<p class="lede">Project question: do copy-number (CN) breakends of normal breast epithelial cells fall in common fragile sites (CFS) more often than expected? This report has two parts. Part I walks through the methodology applied since the start, from public data to breakends, with the reasoning and the alternatives discarded at each step. Part II summarises the pilot results and details the four pending steps.</p>
+<ul>
+  <li><b>Done.</b> Alignment and relative/absolute CN of the 5 pilot donors at 200 kb, 500 kb and 1 Mb; QC metrics and uncalibrated breakends; harmonised CFS catalogue (4 sources, hg19).</li>
+  <li><b>Next.</b> Calibrate on P18 the thresholds for noise, S phase, ratio and minimum segment. Everything downstream depends on this.</li>
+  <li><b>Finding that shapes the design.</b> The ~1,000 breakends per bin reduce to ~230–380 independent events when clones are collapsed; a single P08 clone (6q gain) contributes 42% of the breakends at 500 kb.</li>
+  <li><b>Power.</b> With ~300 events, the large catalogues (MiDAS U2OS/HeLa, HumCFS) detect folds of 1.5; those from normal or epithelial cell types (HS68, HBE, MCF10A) detect only large effects or none.</li>
+  <li><b>Main risk.</b> Confounding with late replication timing and with large genes, and clonal selection of positions. The design (tests A + B + C) addresses this.</li>
+</ul>
+</section>
+
+<section id="parte1">
+<p class="eyebrow" style="margin-top:3.6rem">Part I</p>
+<h2 style="margin-top:.4rem">Methodology applied so far</h2>
+<p>Each step is judged by the same question: can it create false breakends or lose real ones, and do so in a way correlated with CFS (late replication, repetitive regions, large genes)? An artefact distributed at random only costs power; one correlated with CFS creates a false enrichment.</p>
+</section>
+
+<section id="datos">
+<h3>A · Data, inventory and pilot selection</h3>
+<p><b>Source.</b> Lin et al. 2024, <i>Nature</i> 636:663 ("Normal breast tissues harbour rare populations of aneuploid epithelial cells"): scDNA-seq by direct tagmentation (ACT) in ICELL8 nanowells of normal breast tissue, BioProject PRJNA1003661.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Data type</th><th>Accession</th><th class="num">Runs</th><th class="num">Donors</th><th>Use</th></tr></thead>
+<tbody>
+<tr><td>scDNA-seq, DNA-only wells</td><td>PRJNA1003661</td><td class="num">54,073</td><td class="num">29</td><td>Yes</td></tr>
+<tr><td>scDNA-seq, DNA part of the DNA-ATAC co-assay</td><td>PRJNA1003661</td><td class="num">44,707</td><td class="num">27</td><td>Yes (DNA library only)</td></tr>
+<tr><td>Co-assay scATAC-seq</td><td>GSE272504 / PRJNA1136981</td><td class="num">19</td><td class="num">19</td><td>No; the barcodes allow recovering lineage</td></tr>
+<tr><td>Visium</td><td>PRJNA1003661</td><td class="num">6</td><td class="num">6</td><td>Deferred</td></tr>
+</tbody></table></div>
+<div class="method"><b>What is counted.</b> ENA runs per data type (<code>scripts/00_metadata/build_data_inventory.py</code> → <code>data/metadata/data_inventory_*.tsv</code>). <b>Limitations.</b> There is no published inventory: the classification comes from the authors' naming, which is undocumented. Nine donors labelled co-assay have no ATAC, and P21 has ATAC but its DNA wells are labelled DNA-only. There is no scRNA-seq in the study.</div>
+<ul>
+  <li><b>A cell is a well, not a run.</b> About 7,354 cells were sequenced twice (same library, another instrument). The runs of a cell are grouped by donor, chip, well and assay, and concatenated, so that no cell is counted twice.</li>
+  <li><b>Full dataset.</b> 98,780 WGS runs from 91,374 wells and 49 donors, on NextSeq 2000, NovaSeq 6000 and HiSeq 4000, mixing single-end (46–50 bp) and paired-end (50–60 bp) depending on batch. 88,866 cells have imaging quality <code>Good</code>, a single cell and a non-control well.</li>
+  <li><b>No per-cell annotation.</b> The authors' CopyKit object is not public, so there is no per-cell aneuploid/diploid status: CN is called from scratch. Per-donor fractions (Suppl. Table 2) and per-donor arm events from the authors' repository serve as validation.</li>
+</ul>
+<p><b>Pilot.</b> Five donors chosen to span the range of aneuploidy and depth: P08, P07 and P36 are the most aneuploid in the paper (20.9%, 14.3%, 8.2%), P20 is deep (4.8%, with Visium) and P18 is the deepest and near diploid (1.0%), chosen as the noise reference. In total, 9,181 cells and 12,542 runs.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Pilot alternative</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>Chosen: extreme donors plus a deep control</td><td>Tests the method where there is signal and where there should be none</td><td>Does not represent the typical donor distribution</td></tr>
+<tr><td>Random sample of cells from all donors</td><td>Representative of the dataset</td><td>Few events and no clean control to calibrate noise</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="infra">
+<h3>B · Infrastructure: AWS HealthOmics</h3>
+<ul>
+  <li><b>Account and region.</b> Work account <AWS_ACCOUNT_ID>, region eu-west-1 (an organisation policy blocks HealthOmics in us-east-1). Project data in <code>s3://<PROJECT_BUCKET>/cnv_cfs/</code>.</li>
+  <li><b>Staging.</b> The <code>.sra</code> files are in the public bucket <code>sra-pub-run-odp</code> (us-east-1), readable only unsigned with this account. A temporary EC2 instance copied them to eu-west-1: 12,542 pilot runs, 152.5 GB, with a sha256 manifest per file. The manual procedure is in <code>docs/AWS_RUNBOOK.md</code>.</li>
+  <li><b>Containers.</b> Two images in ECR (<code>cnv-cfs/align</code> and <code>cnv-cfs/copynumber</code>) with the same tool versions as the group pipelines, which are git submodules pinned to a commit. CRAN packages come from a fixed-date snapshot.</li>
+  <li><b>Workflows.</b> Nextflow on HealthOmics: bwa index, alignment and copy number. Each workflow was tested on 20 cells (4 per donor) before the pilot.</li>
+</ul>
+<div class="tablebox"><table>
+<thead><tr><th>Alternative</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>Chosen: HealthOmics with own containers</td><td>Scales to ~100,000 runs; pinned versions; per-run traceability</td><td>Slow start per task; harder debugging; the AWS login expires during long runs</td></tr>
+<tr><td>CNIO HPC</td><td>No per-use cost; known environment</td><td>~1.2 TB of SRA to move; shared queues</td></tr>
+<tr><td>Images from other group projects</td><td>Already exist</td><td>Rejected by the user: this project does not use <other project> or <other project> images</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="lecturas">
+<h3>C · Reads and alignment (level-1 QC)</h3>
+<p>Level 1 decides whether each cell's library is valid and how many <b>usable reads</b> it has: primary, mapped, MAPQ ≥ 37 and non-duplicate, which are exactly the reads QDNAseq counts.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Step</th><th>What is done</th><th>Why</th><th>Con</th></tr></thead>
+<tbody>
+<tr><td>R1 only</td><td><code>fasterq-dump --split-3</code>; from paired-end runs <code>_1.fastq</code> is used</td><td>QDNAseq counts reads, not fragments: with both mates, each fragment would count twice in the same bin, the threshold of 15 reads per bin and copy would admit cells with ~7.5 fragments, and the variance would no longer be Poisson. It also makes single-end and paired-end runs comparable.</td><td>Half of the bases of paired-end runs are discarded</td></tr>
+<tr><td>Concatenate runs</td><td>The runs of a cell are joined before trimming and aligning</td><td>One cell = one observation; PCR duplicates across runs are detected together</td><td>Depends on grouping runs correctly by well</td></tr>
+<tr><td>Trimming</td><td>No 5' hard trim; <code>cutadapt -a CTGTCTCTTATACACATCT -m 20</code> (Tn5 mosaic end)</td><td>ACT libraries have no pre-amplification adapter: no initial 14-mer exceeds 0.2% of reads (they are genomic repeats). The mosaic end appears in 0.01–2.8% depending on the run. Removing 14 bp would leave 32 bp reads and lower mappability precisely in repetitive regions.</td><td>Departs from the group's default configuration</td></tr>
+<tr><td>Alignment</td><td><code>bwa mem</code> 0.7.17 single-end against hg19 (chr1–22, X, Y, M; no alternates), <code>samtools markdup -s</code></td><td>The whole downstream chain (QDNAseq bins, RT, enrichment script) is in hg19</td><td>hg19 instead of GRCh38</td></tr>
+<tr><td>MAPQ ≥ 37</td><td>QDNAseq ignores reads with lower MAPQ when counting</td><td>With 46–58 bp, only then does a read have a unique position</td><td>Loses mostly repetitive regions, where many CFS lie. It reduces the ability to see breakends there but does not create false ones; the null must use only usable bins.</td></tr>
+<tr><td>Duplicates</td><td>Marked and not counted; they do not exclude cells</td><td>A PCR duplicate is not a new observation and mimics focal gains</td><td>No UMIs; in paired-end, deduplicating on R1 adds ~0.02% collisions</td></tr>
+</tbody></table></div>
+<div class="calc"><p>Worked example · why R1 only</p>
+<p>Cell P18_chip1_dna_r55c17 (NovaSeq, paired-end 50 bp): 603,136 usable fragments, at 200 kb (12,017 usable bins).</p>
+<div class="eq">fragments per bin       λ = 603,136 / 12,017      = 50.2
+per copy (diploid)        50.2 / 2                  = 25.1   → passes the threshold of 15
+
+if both mates are counted:
+reads per bin                 2 × 50.2              = 100.4
+real SD of the count       2 × √50.2                 = 14.2   (each fragment adds 2)
+SD assumed by Poisson          √100.4                = 10.0
+noise_excess of a perfect cell        14.2 / 10.0    = 1.41</div>
+<p>And at low depth: a cell with 200,000 fragments has 200,000 / 12,017 / 2 = 8.3 fragments per bin and copy, and does not pass. Counting both mates it would show 16.6 and pass with half the information the threshold requires.</p>
+<p class="so"><b>Conclusion.</b> With R1, a cell with no extra noise gives <code>noise_excess</code> ≈ 1 and the threshold of 15 means 15 independent fragments. With both mates, both metrics shift differently in single-end and paired-end runs, which creates a batch effect.</p></div>
+
+<div class="calc"><p>Worked example · concatenating runs</p>
+<p>P08_chip1_co_r0c11 has two runs of the same library: SRR25851362 (NextSeq single-end 46 bp, 65,159 reads) and SRR30469041 (NextSeq paired-end 58 bp, 217,096 fragments).</p>
+<div class="eq">as two cells:      65,159 reads      → after duplicates and MAPQ it does not even reach 1 Mb (64,022 usable)
+                   217,096 reads     → the same cell counted again
+concatenated:      65,159 + 217,096 = 282,255  → one cell; matches ENA exactly</div>
+<p class="so">One run per cell would duplicate the cell in the analysis and split its depth.</p></div>
+
+<div class="calc"><p>Worked example · trimming and duplicates</p>
+<ul>
+  <li><b>14 bp hard trim:</b> a 46 bp NextSeq read would become 32 bp (−30% of sequence). With 32 bp there are more repeated positions in the genome and fewer reads reach MAPQ ≥ 37, especially in repeats, where many CFS lie. The adapter that would justify the trim does not exist: the most common initial 14-mer is ATTCCATTCCATTC (satellite), with 90 of 65,159 reads (0.14%).</li>
+  <li><b>Tn5 mosaic end:</b> 7 / 65,159 reads (0.01%) in SRR25851362 vs 15,948 / 574,816 (2.77%) in SRR30471038. That variation between runs is a batch effect, which is why it is trimmed.</li>
+  <li><b>Collisions when deduplicating on R1 only:</b> two different fragments starting at the same position and strand are marked as duplicates. With N reads over ~2 × 2.8 × 10⁹ stranded positions, the collision fraction is ≈ N / 5.6 × 10⁹. With N = 1,000,000, that gives 0.018%, vs the 10–46% duplicates observed: they are real duplicates.</li>
+</ul></div>
+
+<div class="calc"><p>Worked example · from sequenced to usable reads</p>
+<div class="eq">P18_chip1_dna_r55c17          reads         %
+total (R1)                     915,799    100
+unmapped                        13,655    1.5
+duplicates                     114,519   12.5
+MAPQ &lt; 37 (non-duplicate)     184,489   20.1
+usable                         603,136   65.9</div>
+<p>The <code>fitting_absCN</code> threshold assumes that 91% of sequenced reads are usable (calibrated on bulk). Here, the usable fraction ranges from 39 to 69%. To reach the 396k usable reads a diploid cell needs at 200 kb:</p>
+<div class="eq">with the 0.91 constant:   396,165 / 0.91 ≈ 435k sequenced
+with 0.659 (this cell):   396,165 / 0.659 ≈ 601k
+with 0.39  (typical P36): 396,165 / 0.39  ≈ 1.02 M</div>
+<p class="so">That is why ENA-based counts overestimated the cells passing. The final filter uses the real usable reads counted by QDNAseq, not ENA.</p></div>
+
+<p><b>Pilot checks.</b> Input reads match ENA exactly in all 9,181 cells; one cell maps below 90%. Usable reads are 39–69% of those sequenced.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Donor · assay</th><th class="num">Duplicates (ours)</th><th class="num">Paper</th></tr></thead>
+<tbody>
+<tr><td>P18</td><td class="num">11.9%</td><td class="num">12.7%</td></tr>
+<tr><td>P07 · DNA-only</td><td class="num">14.9%</td><td class="num">15.2%</td></tr>
+<tr><td>P07 · co-assay</td><td class="num">40%</td><td class="num">—</td></tr>
+<tr><td>P08</td><td class="num">24%</td><td class="num">—</td></tr>
+<tr><td>P36</td><td class="num">38%</td><td class="num">38%</td></tr>
+<tr><td>P20 · DNA-only / co-assay</td><td class="num low">46% / 34%</td><td class="num">16%</td></tr>
+</tbody></table></div>
+<div class="method"><b>What is counted.</b> Reads marked as duplicates over mapped R1 reads, aggregated per donor (<code>scripts/02_align/summarize_align_qc.py</code> → <code>data/pilot/align_qc_pilot.tsv</code>). Paper: Suppl. Table 2, where available for comparison. <b>Limitation.</b> We do not know how the paper computes its rate (per pair, per run or per cell), which may explain the P20 discrepancy, still unresolved.</div>
+<p><b>Depth threshold.</b> <code>fitting_absCN</code> requires 15 reads per bin and copy (nrpbpcc) to consider a fit reliable. With λ = 15 per copy, the step between CN 2 and CN 3 (15 reads) is ~2.7 times the standard deviation at CN 2. For a diploid cell, the threshold is 15 × 2 × usable bins / 0.91: 396k reads at 200 kb (12,017 bins), 145k at 500 kb (4,407) and 64k at 1 Mb (1,942). This diploid threshold is the one used in <code>depth_ok</code>, independent of the fitted ploidy (see E).</p>
+<div class="calc"><p>Worked example · the threshold of 15 reads per bin and copy</p>
+<p><b>Why 15.</b> With λ reads per copy and Poisson counts, a bin at CN 2 has mean 2λ and SD √(2λ); at CN 3, mean 3λ.</p>
+<div class="eq">λ = 15:  CN2 = 30 ± 5.5   CN3 = 45   separation = 15 / 5.5 = 2.7 SD
+λ = 8:   CN2 = 16 ± 4.0   CN3 = 24   separation =  8 / 4.0 = 2.0 SD
+λ = 4:   CN2 =  8 ± 2.8   CN3 = 12   separation =  4 / 2.8 = 1.4 SD</div>
+<p><b>Usable reads needed for a diploid cell:</b></p>
+<div class="eq">200 kb:  15 × 2 × 12,017 / 0.91 = 396,165
+500 kb:  15 × 2 ×  4,407 / 0.91 = 145,286
+1 Mb:    15 × 2 ×  1,942 / 0.91 =  64,022</div>
+<p class="so"><b>Consequence for the pilot.</b> The P36 median is 81k usable reads, below the 396k of 200 kb (3% of its cells pass) and the 145k of 500 kb (22%), but above the 64k of 1 Mb (62%). The bin decides which donors get in.</p></div>
+</section>
+
+<section id="cnrel">
+<h3>D · Relative CN (QDNAseq)</h3>
+<p><code>sWGS_relativeCN</code> (QDNAseq 1.26 + QDNAseqmod) unmodified, with the upstream parameters <code>--undo.SD 1 --cnaware NO --mappability YES --reptiming NO</code>, in all three bins.</p>
+<ol>
+  <li><b>Bins.</b> 200 kb with the <code>sWGS_relativeCN</code> annotation; 500 kb and 1 Mb with <code>QDNAseq.hg19</code>. Each bin carries GC, mappability (50 bp reads), blacklist and residual in controls.</li>
+  <li><b>Counting</b> of usable reads per bin.</li>
+  <li><b>Filters</b> (<code>applyFilters(residual = TRUE, blacklist = TRUE)</code>): blacklisted bins and bins with anomalous residuals in control genomes are removed.</li>
+  <li><b>Correction:</b> two-dimensional loess against GC and mappability, per cell.</li>
+  <li><b>Segmentation:</b> CBS (DNAcopy) on the square root of the count, which stabilises the Poisson variance; contiguous segments that differ by less than 1 SD are merged.</li>
+</ol>
+<div class="tablebox"><table>
+<thead><tr><th>Parameter</th><th>Why</th><th>Risk</th></tr></thead>
+<tbody>
+<tr><td><code>--mappability YES</code></td><td>Corrects the loss of reads in low-mappability bins, frequent near CFS</td><td>Over-correcting bins of very low mappability</td></tr>
+<tr><td><code>--cnaware NO</code></td><td>Designed for tumours; here most cells are diploid</td><td>In highly aneuploid cells, the global loess may absorb part of a real change</td></tr>
+<tr><td><code>--reptiming NO</code></td><td>Upstream only applies it at 30 and 50 kb</td><td>The S-phase signature remains uncorrected and is handled as QC (F)</td></tr>
+<tr><td><code>--undo.SD 1</code></td><td>Upstream value</td><td>At low depth spurious segments appear; noise and minimum segment guard against this</td></tr>
+</tbody></table></div>
+<div class="method"><b>Limitation.</b> The correction and filters were calibrated on bulk with 50 bp reads. In single cells, GC waves may remain that the segmenter turns into segments, and 46 bp reads have somewhat lower mappability than the annotation assumes (possible batch bias in repetitive bins).</div>
+</section>
+
+<section id="cnabs">
+<h3>E · Absolute CN: from analysis basis to flag</h3>
+<p><code>pureSamples_absCN.R</code> scans a grid of ploidy (1.4–8, steps of 0.1) and purity (0.90–1.00) and picks the combination whose segments lie closest to integers (lowest "clonality": mean of (CN − round(CN))²). With <code>--filters powered</code> it keeps the best among the ploidies that reach 15 nrpbpcc.</p>
+<p><b>Flaw found.</b> The depth threshold falls with ploidy (15 × ploidy), so a cell short of reads only passes the filter at low ploidies, and the filter imposes a false ploidy on it. Example: P36_chip1_co_r51c33 at 200 kb receives ploidy 1.6 (clonality 0.18) when the best fit is 2.0 (0.0049); it has 319k reads vs the 396k needed.</p>
+<div class="calc"><p>Worked example · how the powered filter forces a false ploidy</p>
+<p>P36_chip1_co_r51c33 at 200 kb: 318,618 usable reads, 12,017 bins. With purity 1, the reads required by <code>powered</code> grow with ploidy P:</p>
+<div class="eq">reads needed(P) = 15 × P × 12,017 / 0.91 = 198,082 × P
+
+ P     needed       318,618 enough?     clonality (best purity)
+1.6     316,932     yes → powered        0.1825
+1.7     336,740     no                   0.1112
+1.8     356,548     no                   0.0564
+1.9     376,357     no                   0.0210
+2.0     396,165     no                   0.0049   ← best fit
+2.1     415,973     no                   0.0082
+3.0     594,247     no                   0.0110</div>
+<p>With <code>--filters powered</code>, the script can only choose among the ploidies that pass: it keeps 1.6, with a clonality 37 times worse than that of 2.0. The 1.4 and 1.5 rows do not pass because their best purity is 0.90 and, with purity &lt; 1, the upstream formula requires more reads.</p>
+<p><b>What happens to breakends.</b> Absolute CN is relative CN multiplied by the ploidy. With 1.6 instead of 2.0:</p>
+<div class="eq">true segment    ratio   CN with P=2.0  CN with P=1.6  rounding with P=1.6
+CN 2 (neutral)  1.00       2.0            1.6               2   ✓
+CN 3 (gain)     1.50       3.0            2.4               2   ✗ the gain disappears
+CN 1 (loss)     0.50       1.0            0.8               1   ✓</div>
+<p class="so">With the ratio threshold, the gain (1.50 &gt; 1.3) is detected whatever the fitted ploidy. The cell is judged with the diploid threshold: 318,618 &lt; 396,165, so it does not pass at 200 kb, but it does at 500 kb (145,286) and at 1 Mb.</p></div>
+
+<div class="calc"><p>Worked example · ratio threshold vs rounding to integers</p>
+<p>In a well-fitted diploid cell, ratio and integer CN are equivalent except in where they place the cut:</p>
+<div class="eq">segment CN        ratio (CN/2)   rounding          ratio threshold 1.3 / 0.7
+2.45              1.225          2  neutral         neutral
+2.55              1.275          3  gain            neutral
+2.65              1.325          3  gain            gain
+1.45              0.725          1  loss            neutral
+1.35              0.675          1  loss            loss</div>
+<p class="so">Rounding places the cut at 2.5 / 1.5, exactly halfway between states, where the noise of a single cell's segment decides the result. The ratio threshold places it at 2.6 / 1.4, with a margin that is calibrated on P18 and does not depend on having fitted the ploidy correctly. Neither avoids the "cliff": what changes is where it is and whether it can be calibrated.</p></div>
+
+<div class="decision"><strong>Decision of 29 October (option A)</strong>
+<p>Breakends come from the <b>relative CN</b>. The unfiltered absolute fit is used only as a flag: <code>ploidy_flag</code> (best ploidy ≥ 2.6) and <code>fit_disagree</code> (filtered and unfiltered fits disagree). Depth is judged with the diploid threshold. Manual curation becomes an audit of ~100 cells.</p></div>
+<div class="tablebox"><table>
+<thead><tr><th>Option</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>Chosen (A): breakends from relative CN with a ratio threshold</td><td>Conversion to absolute only rescales segments and does not move change points; in a near-diploid population, a ratio step is equivalent to a one-copy step; avoids rounding errors (a segment at CN 2.55 creates or removes breakpoints depending on rounding)</td><td>Loses ploidy information in the few polyploid cells, which are flagged and reviewed</td></tr>
+<tr><td>Integer CN with the filtered fit</td><td>Same as the group workflow</td><td>False ploidies in cells short of depth (the flaw above)</td></tr>
+<tr><td>Integer CN with manual curation of all cells</td><td>Best quality per cell</td><td>Infeasible with ~90,000 cells</td></tr>
+</tbody></table></div>
+<p><b>Curation.</b> For the audit, the group's curation app was integrated (Shiny for Python; code only). It starts from the unfiltered optimum, warns when the filtered one differs, shows a per-cell QC panel and works blind (random codes; the key is outside the folder the app opens). The grid is recomputed with the exact upstream formulas: 6e-15 difference in clonality and 0 <code>powered</code> mismatches over 1,340 cell × ploidy pairs.</p>
+</section>
+
+<section id="qc2">
+<h3>F · Profile QC (level 2)</h3>
+<p><code>scripts/03_cn_qc/cn_qc_metrics.R</code> computes, per cell and bin, the metrics that decide whether a profile is reliable as a source of breakends. The cuts are pending calibration (Part II, step 1).</p>
+<div class="tablebox"><table>
+<thead><tr><th>Metric</th><th>Definition</th><th>What it detects</th><th>Decided</th></tr></thead>
+<tbody>
+<tr><td><code>depth_ok</code></td><td>Usable reads ≥ 15 × 2 × bins / 0.91</td><td>Cells without the depth to distinguish one copy</td><td>Diploid threshold, independent of the fitted ploidy</td></tr>
+<tr><td><code>noise_excess</code></td><td>Deviation between neighbouring bins of the relative CN, divided by that expected under Poisson for the cell's depth</td><td>Irregular amplification, GC waves: noise beyond sampling noise</td><td>k calibrated on P18 diploid cells, plus an absolute cap</td></tr>
+<tr><td><code>rt_rho</code></td><td>Spearman between each bin's relative CN and replication timing</td><td>S-phase cells (more copies in early regions)</td><td>Exclude; repeat in sensitivity; also an RT-stratified null</td></tr>
+<tr><td><code>ploidy_flag</code>, <code>fit_disagree</code></td><td>From the unfiltered absolute fit</td><td>Polyploidy; unstable fits</td><td>Flags for review, not automatic exclusion</td></tr>
+<tr><td><code>breakpoints</code>, <code>frac_nondiploid</code></td><td>Segment changes and fraction of the genome away from CN 2</td><td>Fragmented profiles</td><td>Descriptive</td></tr>
+</tbody></table></div>
+<h4>F.1 · Replication timing and <code>rt_rho</code></h4>
+<p><b>What it is.</b> During S phase, the genome is not copied all at once. Each region has a typical replication time, stable within a cell type. GC-rich, open regions with active genes replicate early; GC-poor, heterochromatic regions with very large genes replicate late. It is measured with Repli-seq (BrdU in early and late S-phase fractions) or by comparing the copy number of S-phase cells with that of G1 cells.</p>
+<p><b>The file we use.</b> <code>bins_with_replicationTime_50kb.tsv</code> comes from the <code>sWGS_relativeCN</code> pipeline: 49,697 windows of 50 kb, each with its GC, mappability and a <code>replicationTime</code> column.</p>
+<ul>
+  <li>It ranges from 11.6 to 82.2 (median 48.3). High values are early: it correlates with GC (Spearman 0.69), and known regions fall where expected (figure B).</li>
+  <li><b>Undocumented provenance.</b> The pipeline README only describes the annotations made with 1000 Genomes. Its scale suggests Repli-seq from an ENCODE line; this is not verified, and it is almost certainly not breast epithelium.</li>
+  <li>Each of our bins (200 kb, 500 kb or 1 Mb) receives the mean of the 50 kb windows it contains.</li>
+</ul>
+<figure><img src="fig_rt_regions.png" alt="RT along chr3 50–70 Mb with late FHIT, and mean RT of GAPDH, TP53, FHIT, WWOX and PARK2" style="width:100%;border-radius:6px;background:#fff">
+<figcaption class="method"><b>What is shown.</b> A: mean RT per 500 kb bin on chr3:50–70 Mb; ochre = above the genomic median (early), blue = below (late); grey = FHIT (FRA3B). B: mean RT of the 50 kb windows within each region. <b>Limitation.</b> RT from an unidentified cell type, not breast epithelium.</figcaption></figure>
+
+<p><b>Why it matters.</b> An S-phase cell has more copies of what is already replicated. Mid S phase, if the early part is copied (4 copies) and the late part is not (2 copies):</p>
+<div class="calc"><p>Worked example · diploid cell in mid S phase</p>
+<div class="eq">copies:   early 4, late 2                → cell mean ≈ 3
+ratio:    early 4/3 = 1.33  &gt; 1.3         → "gain"
+          late  2/3 = 0.67  &lt; 0.7         → "loss"</div>
+<p class="so">On chr3, that cell would have a "gain" at 57–58.5 Mb (early) and a "loss" at 59–61 Mb (FHIT, late): a false breakend right at the edge of FRA3B. Since CFS are late and usually sit next to early regions, S phase manufactures breakends at CFS edges. It is the most dangerous confounder for our question.</p></div>
+<figure><img src="fig_sphase.png" alt="Theoretical S-phase cell vs a real P07 cell on chr3, ratio vs RT, and mean ratio per RT decile in three cells" style="width:100%;border-radius:6px;background:#fff">
+<figcaption class="method"><b>What is shown.</b> A: in black, the theoretical cell (bin with RT above the genomic median = 4 copies, below = 2; ratio relative to the mean of 3); in red, the per-bin ratio of P07_chip1_co_r65c30 (500 kb, <code>rt_rho</code> = 0.26). B: the same stretch as ratio vs RT. C: mean ratio per RT decile across the genome in three cells: P07 co-assay (steep slope, S-phase signature), P20 (weak slope, batch bias), P18 (flat, G1). <b>Reading.</b> The real cell has a softer signature than the theoretical one (~0.94 → 1.10 across deciles): it would be at the start or end of S phase. It does not cross 1.3 / 0.7 wholesale, but it adds steps that the segmenter can turn into breakends. <b>Limitation.</b> The theoretical model is binary; in reality replication progresses gradually.</figcaption></figure>
+<p><b><code>rt_rho</code></b> is the Spearman correlation, across all usable autosomal bins, between the bin's relative CN (corrected count / cell median, unsegmented) and its RT. In G1 it is ≈ 0: the P18 p99 is 0.02–0.07 depending on the bin. In S phase it is positive. Because RT and GC are so correlated, residual GC bias also gives ρ &gt; 0 without S phase: this is what happens to all of P20 (median 0.03–0.04). The decile shape (figure C) distinguishes the two cases: a steep slope in S phase, a weak uniform one in batch bias.</p>
+
+<h4>F.2 · <code>noise_excess</code>: origin and computation</h4>
+<p><b>Origin.</b> It is a metric of this project (<code>scripts/03_cn_qc/cn_qc_metrics.R</code>); it does not come from the paper or the group pipeline. It combines two common ideas in scDNA-seq:</p>
+<ul>
+  <li><b>Comparing neighbouring bins</b>, like MAPD (the median of absolute differences between adjacent bins, used in Ginkgo and 10x CNV). Subtracting neighbours removes the CN level: a whole-arm gain does not count as noise.</li>
+  <li><b>Measuring overdispersion relative to Poisson:</b> how much more the count varies than read sampling explains.</li>
+</ul>
+<p>What it adds is normalisation by each bin's depth, so that it means the same in a cell with 100,000 reads as in one with 1 million.</p>
+<div class="calc"><p>Definition and why it equals 1 with pure noise</p>
+<p>With x = corrected count of the bin and s = mean of the segment it belongs to, for each pair of neighbours on the same chromosome:</p>
+<div class="eq">d_i = (x[i+1] − x[i]) / √(s[i+1] + s[i])
+noise_excess = 1.4826 × MAD(d)          (robust SD)</div>
+<p>If each bin is Poisson with mean s, Var(x[i+1] − x[i]) = s[i+1] + s[i], so d has variance 1 at any depth. With overdispersion (Var = φ·s), noise_excess ≈ √φ. MAD is used rather than SD because the few pairs crossing a real breakend or an outlier bin give a huge d, which MAD ignores.</p>
+<div class="eq">λ = 50, pure Poisson
+x:          47    55    44    52    49
+diff:         +8   −11    +8    −3
+÷ √100:      0.8  −1.1   0.8  −0.3          → SD ≈ 1    → noise_excess ≈ 1
+
+λ = 50, variance 2.25 λ (irregular amplification)
+x:          41    61    38    58    46
+diff:        +20   −23   +20   −12
+÷ √100:      2.0  −2.3   2.0  −1.2          → SD ≈ 1.5  → noise_excess ≈ 1.5</div></div>
+<figure><img src="fig_noise_toy.png" alt="Simulation of Poisson and overdispersed bins and distribution of the standardised differences" style="width:100%;border-radius:6px;background:#fff">
+<figcaption class="method"><b>What is shown.</b> Simulation of 2,000 bins with λ = 200 reads: A, Poisson; B, negative binomial with variance 2.25 λ; C, distribution of d with the standard normal as reference. <b>Limitation.</b> With small integer counts the MAD is imprecise (with λ = 50, pure Poisson gives 0.89). That is why the simulation uses λ = 200. It does not happen in the real data, because corrected counts are continuous.</figcaption></figure>
+<figure><img src="fig_noise_depth.png" alt="Raw neighbour SD and noise_excess vs depth in P18" style="width:100%;border-radius:6px;background:#fff">
+<figcaption class="method"><b>What is shown.</b> All P18 cells at 200 kb with more than 20,000 reads. A: raw neighbour SD in ratio units, approximated as √(2/λ) × noise_excess, with λ = reads / usable bins; the line is pure Poisson. B: noise_excess. <b>Reading.</b> Raw SD falls with depth: a cut on it would exclude shallow cells, i.e. batches. noise_excess stays close to 1 across the range. It rises somewhat in the deepest cells, where systematic noise (GC waves, RT) weighs more against an already small Poisson noise. <b>Limitation.</b> In A the raw SD is derived from noise_excess, not measured separately.</figcaption></figure>
+<p><b>How to read it: effective reads.</b> Noise k times Poisson is equivalent to a variance k² times larger, as if the cell had k² times fewer reads: <code>effective reads ≈ usable reads / noise_excess²</code>.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Cell (500 kb)</th><th class="num">Reads</th><th class="num">noise_excess</th><th class="num">Effective</th><th>Against the thresholds</th></tr></thead>
+<tbody>
+<tr><td>P18_chip1_dna_r13c3</td><td class="num">256k</td><td class="num">1.03</td><td class="num">242k</td><td>Passes 500 kb (145k) with margin</td></tr>
+<tr><td>P07_chip1_co_r65c30</td><td class="num">360k</td><td class="num">1.57</td><td class="num">145k</td><td>Right at the 500 kb threshold</td></tr>
+<tr><td>P07_chip1_co_r30c35</td><td class="num">600k</td><td class="num">3.76</td><td class="num low">43k</td><td>Does not even reach the 1 Mb threshold (64k)</td></tr>
+</tbody></table></div>
+<figure><img src="fig_effective_reads.png" alt="Usable reads vs effective reads in cells with depth_ok at 500 kb" style="width:100%;border-radius:6px;background:#fff">
+<figcaption class="method"><b>What is shown.</b> Each point is a cell with <code>depth_ok</code> at 500 kb; diagonal = no extra noise; lines = diploid thresholds of 500 kb and 1 Mb applied to effective reads. <b>Reading.</b> <code>depth_ok</code> measures the quantity of reads; <code>noise_excess</code>, which part of that quantity is useful information. Cells falling below the lines pass depth but have the resolution of a much shallower cell. Almost all are from P07 and P08. <b>Limitation.</b> The equivalence assumes the extra noise is independent between bins; it does not capture slow waves.</figcaption></figure>
+<p><b>What it does not measure.</b> A slow wave spanning many bins barely changes between neighbours, so <code>noise_excess</code> does not see it. That is what <code>rt_rho</code> and the number of segments are for. The two metrics are complementary: <code>noise_excess</code> measures fast variation (amplification, library), and <code>rt_rho</code> the slow one, organised by replication domains. The latter follows the same geography as CFS.</p>
+
+<p><b>Why noise as excess over Poisson.</b> The raw deviation between bins falls with depth, so a fixed cut would mix quality with depth, and depth depends on batch. Dividing by the Poisson expectation leaves a metric that equals 1 in an ideal cell, whatever its depth. In P18, the median is 1.01–1.05 and the p99 1.2–1.4.</p>
+<div class="calc"><p>Worked example · raw noise vs excess over Poisson</p>
+<p><b>Definition.</b> With x = corrected count per bin and s = mean of the segment the bin belongs to, the robust SD (MAD) is taken of:</p>
+<div class="eq">(x[i+1] − x[i]) / √(s[i+1] + s[i])      (neighbours on the same chromosome)</div>
+<p>If counts are Poisson, Var(x[i+1] − x[i]) = s[i+1] + s[i], so the ratio has SD 1. With overdispersion (Var = φ·λ), it equals √φ.</p>
+<p>Two real P18 cells at 200 kb. Raw SD is in relative CN units (median = 1):</p>
+<div class="eq">cell                    reads      λ/bin   expected raw SD     noise_excess   observed raw SD
+                                             √(2/λ)                             ≈ √(2/λ) × noise_excess
+P18_chip1_dna_r0c50     128,290    10.7        0.432             1.003              0.43
+P18_chip1_dna_r36c10    928,966    77.3        0.161             1.176              0.19</div>
+<p class="so">With the raw SD, the shallow cell looks 2.3 times noisier, although its noise is pure sampling. With <code>noise_excess</code>, the deep one is the one with 18% extra noise. Since depth depends on batch, a cut on raw SD would be a cut by batch.</p></div>
+
+<div class="calc"><p>Worked example · P07 noise follows the batch</p>
+<div class="eq">P07 at 200 kb, median noise_excess per batch
+DNA-only, HiSeq 4000, 50 bp       1.000
+co-assay, NextSeq 2000, 46 bp     1.119</div>
+<p class="so">NextSeq co-assay cells have ~12% more noise than DNA-only cells from the same donor. That points to the library or the instrument, not biology: it is why the noise cut could be calibrated per batch (Part II, step 1). It remains to be checked in other donors with both assay types.</p></div>
+
+<div class="calc"><p>Worked example · size of the S-phase signature</p>
+<div class="eq">rt_rho p99 in P18:   0.023 (200 kb)   0.042 (500 kb)   0.067 (1 Mb)
+P07_chip1_co_r30c35: rt_rho 0.157 and noise_excess 2.27 at 200 kb</div>
+<p class="so">A cell in mid S phase has duplicated the early regions and not the late ones, so its relative CN rises with RT. A ρ of 0.16 is 7 times the P18 p99: that cell is probably replicating, and its steps would fall at replication transitions, near late CFS.</p></div>
+<p><b>Why S phase matters for CFS.</b> CFS replicate late. An S-phase cell has steps that follow replication timing, and its "breakends" would fall preferentially at replication transitions, near many CFS. That is why those cells are excluded and, separately, the null is stratified by RT.</p>
+</section>
+
+<section id="llamada">
+<h3>G · Breakend calling</h3>
+<p><code>scripts/03_cn_qc/call_breakends.R</code>, per cell, on autosomes and usable bins:</p>
+<ol>
+  <li>Ratio of each segment = segment value / median of the cell's segmented values (robust to aneuploid segments).</li>
+  <li>State: gain if ratio &gt; 1.3, loss if &lt; 0.7, neutral otherwise (the paper's thresholds; a one-copy step in a diploid cell is 1.5 / 0.5).</li>
+  <li>Segments shorter than 1 Mb are discarded, so that an isolated short segment does not add two breakends.</li>
+  <li>Breakend = boundary between two consecutive retained segments of the same chromosome with different states. Its interval runs from the last bin of the left segment to the first bin of the right one, plus any gap of filtered or discarded bins.</li>
+</ol>
+<div class="calc"><p>Worked example · the 6q gain of P08_chip1_co_r71c48</p>
+<div class="eq">bin      chr6 segment              bins   ratio    state
+200 kb   0.4 – 68.0 Mb              283    0.980    neutral
+         68.0 – 95.2 Mb             127    1.438    gain       (1.438 &gt; 1.3)
+         95.2 – 170.8 Mb            355    0.979    neutral
+500 kb   0.5 – 67.5 Mb              101    0.984    neutral
+         68.0 – 95.0 Mb              48    1.441    gain
+1 Mb     68.0 – 95.0 Mb              22    1.441    gain</div>
+<p>Interval of the first breakend, [lo, hi] = [start of the last bin of the left segment, end of the first bin of the right one]:</p>
+<div class="eq">200 kb:  [67.8 ; 68.2] Mb   width 0.4 Mb
+500 kb:  [67.0 ; 68.5] Mb   width 1.5 Mb   (bin 67.5–68.0 is filtered: the gap is added)
+1 Mb:    [66.0 ; 69.0] Mb   width 3.0 Mb   (same, bin 67–68)</div>
+<p>A ratio of 1.44 instead of 1.50 is expected: the cell median includes the gained segment itself, and the loess correction slightly compresses changes.</p>
+<p class="so"><b>Minimum segment.</b> 1 Mb is 5 bins at 200 kb, 2 at 500 kb and 1 at 1 Mb. The 6q gain (27 Mb) passes easily in all three bins, but a 1 Mb segment would be required with 5 observations at 200 kb and with only one at 1 Mb. This is the asymmetry reviewed in calibration.</p></div>
+
+<p>Outputs per bin: segments, breakends (with state and ratio on each side) and a per-cell summary. It was validated on the 20 test cells, and in the pilot it found the chr6q gain (68–95 Mb, CN 3) of P08 in all three bins.</p>
+<p><b>Bin choice.</b> The initial plan was 200 kb as the primary bin (comparable to the paper's 220 kb CopyKit bins). With the pilot data, only 29% of cells pass depth at 200 kb. Decision of 3 November: analyse 200 kb, 500 kb and 1 Mb in parallel and compare, with no primary bin.</p>
+</section>
+
+<section id="robustez">
+<h3>H · Pipeline robustness and operational lessons</h3>
+<ul>
+  <li><b>One cell brought down a whole donor.</b> <code>pureSamples_absCN.R</code> fits all cells of a donor in a single parallel loop. P07_chip1_co_r45c65 (1,968 reads, all-zero profile) made <code>getSegTable</code> fail, and HealthOmics cancelled run 9081280 after hours. Decision "B + A": a per-cell <code>tryCatch</code> (applied as a patch when building the image, without modifying the submodule) and <code>--total.reads 20000</code>. Excluded cells and their reason are recorded in <code>failed_cells.tsv</code>.</li>
+  <li><b>Why 20,000 reads.</b> The failing cell had 1,968 reads: at 1 Mb that is 1,968 / 1,942 ≈ 1 read per bin, the profile median is 0 and so is the "relative ploidy", hence the error. With 20,000 reads a cell has ~10 reads per bin at 1 Mb. The lowest <code>depth_ok</code> threshold (64,022 at 1 Mb) is 3.2 times higher, so no analysable cell is lost by this cut: it only prevents a useless cell from bringing down the task. Excluded: 61 from P07 and 386 from P20.</li>
+  <li><b>Resuming.</b> The workflow accepts the relative CN of a previous run (<code>--relcn_prefix</code>, <code>--reuse_relcn</code>), so only what was missing was repeated (runs 8785941 and 3745359).</li>
+  <li><b>Time.</b> The slowest step is the absolute fit, dominated by one PNG per cell. It is the first candidate to trim when scaling up (Part II, step 4).</li>
+  <li><b>Operations.</b> The temporary AWS login expires within a few hours; the run monitor must detect the credentials error instead of silencing it. Long downloads fail if the laptop sleeps; <code>aws s3 sync</code> allows retrying without repeating what was already downloaded.</li>
+</ul>
+</section>
+
+<section id="parte2">
+<p class="eyebrow" style="margin-top:3.6rem">Part II</p>
+<h2 style="margin-top:.4rem">Pilot results and pending steps</h2>
+</section>
+
+<section id="decisiones">
+<h2>Decisions taken after this report (up to 4 November 2026)</h2>
+<p>The following sections describe the options as they were laid out. These are the decisions taken afterwards; details are in <code>WORKLOG.md</code> and <code>README.md</code>.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Topic</th><th>Decision</th></tr></thead>
+<tbody>
+<tr><td>Bins</td><td>200 kb, 500 kb and 1 Mb in parallel, no primary bin</td></tr>
+<tr><td>Noise cut</td><td><code>noise_excess</code> ≤ 1.5 in all bins (the paper's criterion, &gt; 15 breakpoints, excludes almost nothing with this segmentation)</td></tr>
+<tr><td>S-phase cut</td><td><code>rt_rho</code> ≤ 0.10 in all bins</td></tr>
+<tr><td>Breakend definition</td><td>Ratio 1.3 / 0.7 only (as in the paper); the absolute fit remains a flag. Measured: 97.5% of the pilot's altered cells have a diploid fit that is stable across bins</td></tr>
+<tr><td>Deviation strata</td><td>E1 0.2–0.3 (exploratory), E2 0.3–0.4, E3 0.4–0.6, E4 ≥ 0.6; main definition E2–E4</td></tr>
+<tr><td>Primary hypothesis</td><td>None: all tests are exploratory, with BH within each site set</td></tr>
+<tr><td>CFS catalogues</td><td>All in parallel: Macheret 2020, Ji 2020, HumCFS (common) and Le Tallec 2013 Table S4</td></tr>
+<tr><td>Test C</td><td>Per-donor O/E ratios with a heterogeneity test, instead of the mixed logistic model (with 5 donors the random-effect variance is not estimable)</td></tr>
+</tbody></table></div>
+<p>Methodology and results of the enrichment analysis on the pilot: <code>docs/enrichment/enrichment_pilot.html</code> (<a href="https://claude.ai/artifact/2MJ7GZFfJtoTGmEx7pHh1R">published version</a>).</p>
+</section>
+
+<section id="estado">
+<h2>Pilot status</h2>
+<div class="flow" role="img" aria-label="Project flow: alignment, CN and QC done; calibration, final breakends, audit, enrichment and scale-up pending; CFS catalogue done">
+<svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="arrow" d="M0,0 L8,4 L0,8 z"/></marker></defs>
+  <rect class="box done" x="10" y="20" width="130" height="54" rx="5"/><text x="75" y="44" text-anchor="middle">Alignment</text><text class="lbl" x="75" y="61" text-anchor="middle">run 1145880</text>
+  <rect class="box done" x="170" y="20" width="130" height="54" rx="5"/><text x="235" y="44" text-anchor="middle">CN rel. + abs.</text><text class="lbl" x="235" y="61" text-anchor="middle">3 bins · 5 donors</text>
+  <rect class="box done" x="330" y="20" width="130" height="54" rx="5"/><text x="395" y="44" text-anchor="middle">QC + breakends</text><text class="lbl" x="395" y="61" text-anchor="middle">uncalibrated</text>
+  <rect class="box todo" x="490" y="20" width="130" height="54" rx="5"/><text x="555" y="44" text-anchor="middle">1 · Calibration</text><text class="lbl" x="555" y="61" text-anchor="middle">P18, per bin</text>
+  <rect class="box todo" x="650" y="20" width="130" height="54" rx="5"/><text x="715" y="44" text-anchor="middle">2 · Final breakends</text><text class="lbl" x="715" y="61" text-anchor="middle">audit · report</text>
+  <rect class="box done" x="490" y="140" width="130" height="54" rx="5"/><text x="555" y="164" text-anchor="middle">CFS catalogue</text><text class="lbl" x="555" y="181" text-anchor="middle">4 sources · hg19</text>
+  <rect class="box todo" x="650" y="140" width="130" height="54" rx="5"/><text x="715" y="164" text-anchor="middle">3 · Enrichment</text><text class="lbl" x="715" y="181" text-anchor="middle">tests A · B · C</text>
+  <rect class="box todo" x="170" y="140" width="130" height="54" rx="5"/><text x="235" y="164" text-anchor="middle">4 · Scale-up</text><text class="lbl" x="235" y="181" text-anchor="middle">98,780 WGS runs</text>
+  <path d="M140,47 H168" marker-end="url(#ah)"/><path d="M300,47 H328" marker-end="url(#ah)"/><path d="M460,47 H488" marker-end="url(#ah)"/><path d="M620,47 H648" marker-end="url(#ah)"/>
+  <path d="M715,74 V138" marker-end="url(#ah)"/><path d="M620,167 H648" marker-end="url(#ah)"/>
+  <path d="M555,74 V100 H235 V138" marker-end="url(#ah)"/>
+  <rect class="box done" x="810" y="20" width="12" height="12"/><text class="lbl" x="828" y="30">done</text>
+  <rect class="box todo" x="810" y="40" width="12" height="12"/><text class="lbl" x="828" y="50">pending</text>
+</svg>
+</div>
+
+<p>The pilot includes five donors chosen to span the paper's aneuploidy range: P18 (near diploid, the deepest), P20 (4.8%), P36, P07 and P08 (the most altered). 12,542 runs from 9,181 cells were processed. After excluding cells with fewer than 20,000 usable reads, 8,734 cells remain fitted at 200/500 kb and 8,795 at 1 Mb.</p>
+
+<div class="tablebox"><table>
+<thead><tr><th>Donor</th><th class="num">Fitted cells</th><th class="num">Reads (median)</th><th class="num">Paper aneuploid</th><th class="num">200 kb</th><th class="num">500 kb</th><th class="num">1 Mb</th></tr></thead>
+<tbody>
+<tr><td>P18</td><td class="num">1,356</td><td class="num">457k</td><td class="num">1.0%</td><td class="num">69 → 2.4</td><td class="num">95 → 1.7</td><td class="num">98 → 1.4</td></tr>
+<tr><td>P20</td><td class="num">2,606</td><td class="num">290k</td><td class="num">4.8%</td><td class="num low">24 → 7.6</td><td class="num">77 → 5.5</td><td class="num">86 → 5.2</td></tr>
+<tr><td>P36</td><td class="num">1,568</td><td class="num">81k</td><td class="num">8.2%</td><td class="num low">3 → 9.8</td><td class="num low">22 → 7.3</td><td class="num">62 → 6.8</td></tr>
+<tr><td>P07</td><td class="num">1,975</td><td class="num">131k</td><td class="num">14.3%</td><td class="num low">7 → 13.5</td><td class="num">44 → 9.6</td><td class="num">78 → 9.4</td></tr>
+<tr><td>P08</td><td class="num">1,229</td><td class="num">467k</td><td class="num">20.9%</td><td class="num">63 → 33.4</td><td class="num">97 → 23.8</td><td class="num">99 → 20.1</td></tr>
+</tbody></table></div>
+<div class="method"><b>What is counted.</b> Format "A → B". A is the % of fitted cells passing depth (<code>depth_ok</code>: usable reads ≥ 15 × 2 × usable bins / 0.91, the threshold of a diploid cell). B is the % of those cells with at least one non-neutral segment (ratio relative to the cell median &gt; 1.3 or &lt; 0.7, segments ≥ 1 Mb). <b>Denominator.</b> The cells fitted by <code>pureSamples_absCN</code>; P07 at 1 Mb includes 61 more cells because it was processed before the 20,000-read cut existed. <b>Limitations.</b> Thresholds are not calibrated. When A is low (in red), B rests on a read-rich subset of cells that may not represent the donor. The paper column is a reference, not a target: its depth filter and its aneuploidy definition differ.</div>
+
+<p>Three readings of the table:</p>
+<ul>
+  <li>At 500 kb and 1 Mb, the altered fractions follow the paper's order and approach its values, except P07 (9.5% vs 14.3%).</li>
+  <li>At 200 kb only 29% of cells pass depth, biased towards deep donors, and P08 comes out inflated. By the decision of 3 November, the three bins are analysed in parallel and compared; none is primary.</li>
+  <li>The number of breakends in cells passing depth barely changes with the bin (944, 1,019 and 959). Coarser bins add cells but widen each breakend's interval (median 0.4, 1 and 2 Mb).</li>
+</ul>
+</section>
+
+<section id="calibracion">
+<h2>1 · Calibration on P18 <span class="chip todo">next</span></h2>
+<p><b>What is calibrated.</b> Four parameters that decide which cells get in and what counts as a breakend. They are calibrated separately in each bin.</p>
+<p><b>Why P18.</b> It is the deepest donor, the paper attributes 1.0% aneuploid cells to it, and it has no co-assay cells, so it is a near-negative control: any excess of noise or calls in P18 is mostly technical error.</p>
+<h4>Arguments against calibrating on P18 only</h4>
+<ul>
+  <li><b>It is not a true zero.</b> Its real ~1% of aneuploid cells inflates the tails used as thresholds. This is mitigated by calibrating on P18 cells without altered segments.</li>
+  <li><b>Batches.</b> P18 is a single sequencing batch (one instrument and one read length). A P18 noise threshold may not transfer to other batches; P07 shows this (below).</li>
+  <li><b>Circularity.</b> If thresholds are tuned to reproduce the paper's fractions, the independent comparison with it is lost. Thresholds are set on technical criteria in P18, and the comparison with the paper is used only to validate afterwards.</li>
+  <li><b>Order.</b> Thresholds are set before looking at any CFS catalogue, so the choice does not depend on the result.</li>
+</ul>
+
+<div class="tablebox"><table>
+<thead><tr><th>Parameter</th><th>What it controls</th><th>Now</th><th>P18 data (cells with depth_ok)</th></tr></thead>
+<tbody>
+<tr><td><code>noise_excess</code> k</td><td>Excludes cells whose between-bin noise exceeds the Poisson expectation</td><td>No cut</td><td>p99 1.20 / 1.32 / 1.39 (200 kb / 500 kb / 1 Mb); maximum 1.30 / 1.66 / 1.67</td></tr>
+<tr><td><code>rt_rho</code></td><td>Excludes S-phase cells: their profile correlates with replication timing</td><td>No cut</td><td>p95 0.014 / 0.025 / 0.042; p99 0.023 / 0.042 / 0.067</td></tr>
+<tr><td>Ratio threshold</td><td>When a segment is a gain or a loss</td><td>1.3 / 0.7 (paper)</td><td>With 1.3 / 0.7, 2.4 / 1.7 / 1.4% of P18 comes out altered</td></tr>
+<tr><td>Minimum segment</td><td>Discards short segments before calling breakends</td><td>1 Mb</td><td>1 Mb is 5 bins at 200 kb, 2 at 500 kb and <b>1 bin at 1 Mb</b></td></tr>
+</tbody></table></div>
+<div class="method"><b>How it was computed.</b> <code>noise_excess</code> is the deviation between consecutive bins of the relative CN, divided by that expected under Poisson for the cell's depth (1 = pure sampling noise). <code>rt_rho</code> is the Spearman correlation between each bin's relative CN and replication timing (from <code>bins_with_replicationTime_50kb.tsv</code>). <b>Limitation.</b> The RT is not from breast epithelium.</div>
+
+<h3>1.1 Noise (<code>noise_excess</code>)</h3>
+<p>If the cut were the P18 p99, these fractions of cells with depth_ok would be excluded:</p>
+<div class="tablebox"><table>
+<thead><tr><th>Bin</th><th class="num">P18</th><th class="num">P20</th><th class="num">P36</th><th class="num">P08</th><th class="num">P07</th></tr></thead>
+<tbody>
+<tr><td>200 kb</td><td class="num">1.1%</td><td class="num">0.2%</td><td class="num">0.0%</td><td class="num">8.8%</td><td class="num low">41.1%</td></tr>
+<tr><td>500 kb</td><td class="num">1.0%</td><td class="num">0.3%</td><td class="num">0.3%</td><td class="num">5.0%</td><td class="num low">12.8%</td></tr>
+<tr><td>1 Mb</td><td class="num">1.1%</td><td class="num">0.4%</td><td class="num">0.3%</td><td class="num">5.6%</td><td class="num">8.2%</td></tr>
+</tbody></table></div>
+<div class="method"><b>What is counted.</b> % of each donor's depth_ok cells whose <code>noise_excess</code> exceeds the P18 p99 in that bin. <b>Limitation.</b> This is a scenario, not a decision. P08 having more excess may be because its aneuploid cells have more real variance; P07 having much more points to a batch or library effect, but this is not verified.</div>
+<p>P07 is the warning sign. Within P07, the median <code>noise_excess</code> is 1.00 in DNA-only cells (HiSeq) and 1.12 in co-assay cells (NextSeq), which points to a batch effect (see F). If its noise is technical, the cut should exclude those cells. If it were biological (for example, more fragmented profiles), a cut calibrated on P18 would remove exactly the signal we are looking for. Before setting k, P07 profiles above and below the cut should be inspected, broken down by chip, instrument and assay type.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Option</th><th>Pros</th><th>Cons</th><th>When it fits</th></tr></thead>
+<tbody>
+<tr><td>k = P18 p99 per bin, plus an absolute cap (e.g. 2)</td><td>Simple, defensible, set before seeing CFS</td><td>Inherits P18's batch; removes 41% of P07 at 200 kb</td><td>If P07's noise turns out to be technical</td></tr>
+<tr><td>k calibrated per batch (instrument × read length) using each batch's neutral cells</td><td>Corrects batch differences without depending on P18</td><td>Requires enough neutral cells per batch; more parameters</td><td>If the excess noise follows the batch and not the donor</td></tr>
+<tr><td>No hard cut: <code>noise_excess</code> as covariate or in sensitivity</td><td>Loses no cells</td><td>Noisy cells generate false breakends that dilute the enrichment</td><td>As a sensitivity analysis, not as the main one</td></tr>
+</tbody></table></div>
+
+<h3>1.2 S phase (<code>rt_rho</code>)</h3>
+<p>An S-phase cell has more copies in early-replicating regions, which draws steps that look like gains and losses. The decision is to exclude cells with an S-phase signature, repeat the analysis with them as sensitivity, and also stratify the permutation null by RT.</p>
+<p>In P18, the <code>rt_rho</code> p99 is 0.02–0.07; P07 has a tail up to 0.16–0.18 (p99). Options for the cut:</p>
+<ul>
+  <li><b>P18 p99 per bin.</b> Consistent with noise, but very strict at 200 kb (0.023), where it would exclude cells for small fluctuations.</li>
+  <li><b>Fixed cut (e.g. 0.10) in all bins.</b> More robust and easy to interpret; does not adapt to the bin.</li>
+  <li><b>Mixture model</b> on the distribution across all donors. Separates an S-phase population if there is one; with short tails it may not converge.</li>
+</ul>
+<p>Recommendation: look at the full distribution of the 5 donors and at the profiles of cells in the P07 tail before choosing.</p>
+
+<h3>1.3 Ratio threshold and minimum segment</h3>
+<p>In a diploid cell, gaining or losing one copy gives a ratio of 1.5 or 0.5; the paper uses 1.3 / 0.7, a safety margin against noise. The 1 Mb minimum segment has a problem: at 1 Mb it equals a single bin, so it allows one-bin segments, while at 200 kb it requires five. The same threshold in Mb gives a different statistical requirement in each bin.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Option</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>Keep 1.3 / 0.7 and ≥ 1 Mb</td><td>Comparable with the paper</td><td>Unequal requirement across bins</td></tr>
+<tr><td>1.3 / 0.7 and a minimum in bins (e.g. ≥ 3 bins and ≥ 1 Mb)</td><td>Same statistical support in all bins</td><td>At 1 Mb it requires 3 Mb and focal events are lost</td></tr>
+<tr><td>Threshold adapted to each cell's noise (e.g. k·σ)</td><td>More sensitive in clean cells, stricter in noisy ones</td><td>Departs from the paper; the threshold varies between cells</td></tr>
+</tbody></table></div>
+<p><b>Selection criterion.</b> In P18 (the near-negative control), choose the combination with the lowest fraction of altered cells that does not lose the known P08 clone (6q gain, 68–95 Mb). That is, specificity is measured in P18 and sensitivity on a real event.</p>
+</section>
+
+<section id="breakends">
+<h2>2 · Final breakends, audit and report</h2>
+<p>With the thresholds fixed, breakends are called again in all three bins (<code>call_breakends.R</code>). Each breakend is the boundary between two retained segments with different states on the same chromosome; its interval [lo, hi] spans one bin on each side plus any gap of filtered bins.</p>
+
+<h3>2.1 Manual audit of ~100 cells</h3>
+<p>Breakends come from the relative CN, not the absolute fit. The audit checks that choice: in ~100 cells the integer solution is curated by hand in the curation app and the breakends of both routes are compared. If they disagree beyond a margin agreed in advance, absolute CN is brought back as an annotation layer.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Selection</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>Random, stratified by donor</td><td>Estimates the overall disagreement rate without bias</td><td>With ~10% altered cells, most will be flat profiles that test nothing</td></tr>
+<tr><td>Enriched in hard cases: altered, <code>fit_disagree</code>, <code>ploidy_flag</code>, near the noise and <code>rt_rho</code> cuts, plus 30% random</td><td>Tests the method where it can fail; the random part allows estimating the overall rate with weights</td><td>Reweighting is needed to estimate the overall rate</td></tr>
+</tbody></table></div>
+<p>Recommendation: the enriched selection, at 500 kb, also reviewing the same cells at 200 kb and 1 Mb when they have the depth. Curating 100 cells in each bin (300 in total) does not add proportionally more.</p>
+
+<h3>2.2 Pilot results page</h3>
+<p>With calibrated breakends, an HTML page is published with the table per donor and bin, the QC distributions with their cuts, example profiles of altered and non-altered cells per donor, and the breakend map per chromosome. It is done after calibration to avoid redoing it.</p>
+</section>
+
+<section id="enriquecimiento">
+<h2>3 · Breakend enrichment in CFS</h2>
+<p><b>Question.</b> Do interstitial breakends fall in CFS more than expected by chance, once what is explained by replication timing, large genes and genome structure is accounted for? It is answered in each bin, for gains and losses separately.</p>
+
+<h3>3.1 Unit of analysis: events, not breakends</h3>
+<p>A clonal expansion repeats the same breakend in many cells. Counting each cell inflates n and lets a single clone dominate the test.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Bin</th><th class="num">Breakends (cells with depth_ok)</th><th class="num">Independent events</th><th class="num">Events in ≥ 2 cells</th><th class="num">On chr6</th><th class="num">Within 3 Mb of a centromere</th></tr></thead>
+<tbody>
+<tr><td>500 kb</td><td class="num">1,019</td><td class="num">377</td><td class="num">76</td><td class="num">428</td><td class="num">13%</td></tr>
+<tr><td>1 Mb</td><td class="num">959</td><td class="num">230</td><td class="num">50</td><td class="num">438</td><td class="num">20%</td></tr>
+</tbody></table></div>
+<div class="calc"><p>Worked example · the P08 6q clone at 500 kb</p>
+<div class="eq">P08 cells with depth_ok                              1,187
+cells with the 6q gain (68–95 Mb)                      211   (18%)
+P08 breakends on chr6                                  422   (211 × 2)
+  grouped within ≤ 2 Mb within the donor:  67–69 Mb  → 1 event
+                                           94–96 Mb  → 1 event
+events contributed by the clone                          2</div>
+<p class="so">Without collapsing, the clone would contribute 422 of 1,019 breakends (41%): the test would mostly say whether 68 and 95 Mb on chr6 are in a CFS. Collapsed, it contributes 2 of 377 events. The chr6 centromere is at ~61 Mb, 7 Mb from the first breakend, so this event is interstitial and enters the main test.</p></div>
+
+<div class="method"><b>How it was computed.</b> Uncalibrated breakends of cells with depth_ok. Within each donor and chromosome, breakends within ≤ 2 Mb of the previous one are grouped into an event. Centromere: breakend interval less than 3 Mb from the approximate hg19 centromere midpoint. <b>Limitation.</b> An exploratory check done by hand; it will become a script and be recomputed with the calibrated thresholds. The 2 Mb window may merge two distinct nearby events.</div>
+<div class="tablebox"><table>
+<thead><tr><th>How to count</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>One event per group within each donor (decided for test A)</td><td>Approximate independence; a clone counts once</td><td>Two independent breaks at the same locus count as one</td></tr>
+<tr><td>Each breakend weighted 1/(cells in the group)</td><td>Keeps all the information, weighted</td><td>Weights complicate the null</td></tr>
+<tr><td>Per cell, with a donor random effect (test C)</td><td>Separates heterogeneity between donors</td><td>Cells of a clone are not independent</td></tr>
+</tbody></table></div>
+
+<h3>3.2 Centromeric breakends handled separately <span class="chip done">decided</span></h3>
+<p>Whole-arm changes (for example, 1q gain or 16q loss) break at the centromere, by a mechanism different from CFS and in regions poorly covered by bins. They are excluded from the main test and analysed separately.</p>
+
+<h3>3.3 CFS catalogues <span class="chip done">built</span></h3>
+<p>CFS depend on cell type: Le Tallec 2013 reports that epithelial and erythroid lines share only ~14% of their sites. No catalogue is from normal breast epithelium, except 3 MCF10A sites. By the decision of 3 November, all are analysed in parallel.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Catalogue</th><th>Method</th><th>Cell type</th><th class="num">Sites</th><th class="num">Median size</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Macheret 2020</td><td>MiDAS-seq (hg19, 10 kb bins)</td><td>U2OS / HeLa / HS68</td><td class="num">293 / 206 / 36</td><td class="num">0.6 Mb</td><td>Covers the 73 known CFS; only HS68 is normal</td></tr>
+<tr><td>Ji 2020</td><td>MiDAS-seq (hg38 → hg19)</td><td>U2OS / HeLa / HBE</td><td class="num">273 / 85 / 27</td><td class="num">0.2–0.4 Mb</td><td>HBE is normal bronchial epithelium</td></tr>
+<tr><td>HumCFS</td><td>Cytogenetic bands (hg38 → hg19)</td><td>Mostly lymphocytes</td><td class="num">67</td><td class="num">5.1 Mb</td><td>Common aphidicolin-induced only; 4 errors removed; FRA16D does not cover WWOX</td></tr>
+<tr><td>Le Tallec 2013</td><td>FISH with BACs (hg19)</td><td>12 lines, including MCF10A</td><td class="num">67 (49 CFS)</td><td class="num">~3 Mb</td><td>MCF10A: FRA2I, FRA13H, FRA20B; CAL51: FRA4D</td></tr>
+</tbody></table></div>
+<div class="method"><b>What is counted.</b> Sites per catalogue and cell type after harmonising to hg19 (<code>data/features/cfs/cfs_catalogs_hg19.tsv</code>). <b>How.</b> hg38 coordinates are converted end by end with the UCSC chain; an interval is discarded if it changes chromosome or its length changes by more than 20%. <b>Limitations.</b> The MiDAS catalogues include "CFS-like" sites that are not cytogenetic CFS, and mostly come from tumour lines. HumCFS has band resolution. Le Tallec only includes CFS mapped at the molecular level.</div>
+
+<h3>3.4 Expected power</h3>
+<div class="tablebox"><table>
+<thead><tr><th>Catalogue · cells</th><th class="num">Sites</th><th class="num">Genome covered</th><th class="num">500 kb: fold 1.5 / 2</th><th class="num">1 Mb: fold 1.5 / 2</th></tr></thead>
+<tbody>
+<tr><td>Macheret · U2OS</td><td class="num">267</td><td class="num">6.8%</td><td class="num">0.98 / 1.00</td><td class="num">0.98 / 1.00</td></tr>
+<tr><td>Macheret · HeLa</td><td class="num">184</td><td class="num">3.9%</td><td class="num">0.89 / 1.00</td><td class="num">0.91 / 1.00</td></tr>
+<tr><td>Macheret · HS68</td><td class="num">35</td><td class="num">0.9%</td><td class="num">0.33 / 0.74</td><td class="num">0.34 / 0.74</td></tr>
+<tr><td>Ji · U2OS</td><td class="num">256</td><td class="num">4.2%</td><td class="num">0.95 / 1.00</td><td class="num">0.96 / 1.00</td></tr>
+<tr><td>Ji · HeLa</td><td class="num">76</td><td class="num">1.1%</td><td class="num">0.47 / 0.91</td><td class="num">0.51 / 0.94</td></tr>
+<tr><td>Ji · HBE</td><td class="num">26</td><td class="num">0.2%</td><td class="num low">0.18 / 0.46</td><td class="num low">0.23 / 0.54</td></tr>
+<tr><td>HumCFS · common</td><td class="num">64</td><td class="num">12.4%</td><td class="num">0.98 / 1.00</td><td class="num">0.93 / 1.00</td></tr>
+<tr><td>Le Tallec · all</td><td class="num">59</td><td class="num">7.1%</td><td class="num">0.83 / 1.00</td><td class="num">0.71 / 0.99</td></tr>
+<tr><td>Le Tallec · epithelial</td><td class="num">21</td><td class="num">2.4%</td><td class="num">0.40 / 0.85</td><td class="num">0.31 / 0.73</td></tr>
+<tr><td>Le Tallec · MCF10A</td><td class="num">3</td><td class="num">0.5%</td><td class="num low">0.13 / 0.30</td><td class="num low">0.10 / 0.22</td></tr>
+</tbody></table></div>
+<div class="method"><b>What is counted.</b> Power to detect a fold of 1.5 or 2 in the number of events overlapping the sites, with a one-sided binomial test (α = 0.05). <b>How.</b> Autosomal sites, merged and extended on each side by half the median breakend interval (0.5 Mb at 500 kb, 1 Mb at 1 Mb); the null probability is the fraction of the genome (2,881 Mb) covered. n = 380 events at 500 kb and 230 at 1 Mb (pilot). "Genome covered" is without extension. <b>Limitations.</b> It assumes independent, uniform events (no RT stratification or bin mask), a single test without multiple-testing correction and the pilot's uncalibrated counts. It gives the order of magnitude, not the real power. With the full dataset (~8 times more cells) counts will grow, though less than proportionally, because of clones. Script: <code>scripts/05_features/cfs_power.py</code>.</div>
+<div class="calc"><p>Worked example · power for Macheret HS68 at 500 kb</p>
+<div class="eq">fraction of the genome covered (sites ± 0.5 Mb)     p0 = 2.1%
+independent events                                   n  = 380
+overlaps expected by chance                          380 × 0.021 = 8.0
+one-sided cut α = 0.05 (binomial)                    reject if X ≥ 14   (P = 3.2% under H0)
+fold 1.5 → p = 3.15%, expected 12.0                  P(X ≥ 14) ≈ 0.31
+fold 2   → p = 4.2%,  expected 16.0                  P(X ≥ 14) ≈ 0.73</div>
+<p class="so">A 1.5-fold enrichment in normal fibroblasts would be detected in less than a third of cases. With a catalogue covering 15% of the genome (extended Macheret U2OS), 58 overlaps are expected, and a fold of 1.5 (87) is detected almost always.</p></div>
+
+<p>Practical conclusion: in the pilot, only the large catalogues (MiDAS from tumour lines, HumCFS, full Le Tallec) have power; those from normal or epithelial cell types need the full dataset. A null result in HBE or MCF10A with the pilot says nothing.</p>
+
+<h3>3.5 Tests <span class="chip done">decided: A + B + C</span></h3>
+<div class="tablebox"><table>
+<thead><tr><th>Test</th><th>How it works</th><th>Answers</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td><b>A</b> · Positional permutation (primary)</td><td>Collapsed events are re-placed at random on usable bins, keeping their interval width and chromosome, within their RT stratum. Statistic: events overlapping a CFS (± window).</td><td>Is there more overlap than expected?</td><td>Transparent; the main figure follows directly</td><td>Controls covariates one at a time (by strata)</td></tr>
+<tr><td><b>B</b> · Per-bin regression (adjustment)</td><td>Events per bin ~ CFS + RT + gene length + GC/mappability + chromosome, negative binomial with donor as a covariate</td><td>Does the CFS effect survive the confounders?</td><td>Adjusts for everything at once; gives an effect with its interval</td><td>With ~300 events, most bins have 0: unstable at 200 kb</td></tr>
+<tr><td><b>C</b> · Per cell (heterogeneity)</td><td>In altered cells: does it have a breakend in a CFS? vs what is expected given its number of breakends; donor random effect</td><td>Is it the same in all donors?</td><td>Shows whether one donor concentrates the signal</td><td>Less power; cells of a clone are not independent</td></tr>
+</tbody></table></div>
+<p><b>Why the original script's null is not used.</b> <code>cn_feature_association.R</code> resamples the dataset's own segment boundaries. It worked in RPE1, where altered breakends are a subset of those boundaries. Here almost every boundary is a breakend, so the fold would tend to 1 by construction.</p>
+
+<h3>3.6 Confounders and controls</h3>
+<ul>
+  <li><b>Replication timing.</b> CFS replicate late. Without stratification, anything linked to late replication would look enriched in CFS. Test A (strata) and test B (covariate) cover this.</li>
+  <li><b>Large genes.</b> Most CFS host transcribed genes longer than 300 kb (Le Tallec 2013, Wilson 2015). Test B separates the CFS effect from the large-gene effect. An effect explained by large transcribed genes is itself a result.</li>
+  <li><b>Selection.</b> The observed breakends are those that survived. If some events are selected, their position reflects the affected gene, not fragility. Sensitivity: repeat with events seen in a single cell, the least exposed to selection.</li>
+  <li><b>Batch and depth.</b> Depth depends on the instrument, and the detectability of a breakend depends on depth. Results are reported by donor and batch, and test C absorbs this in part.</li>
+  <li><b>Controls.</b> Large genes as positive control; early RT as negative control; P18 as a donor with almost no events.</li>
+</ul>
+
+<h3>3.7 Multiple testing</h3>
+<p>3 bins × 2 directions × 3 tests × ~10 CFS sets give ~180 tests. With BH over all of them power is lost; without correction, some will come out significant by chance.</p>
+<div class="tablebox"><table>
+<thead><tr><th>Option</th><th>Pros</th><th>Cons</th></tr></thead>
+<tbody>
+<tr><td>BH per family (each catalogue × test), reporting everything</td><td>Balanced; transparent</td><td>Families are defined by hand</td></tr>
+<tr><td>Pre-registered primary hypothesis (e.g. test A, merged MiDAS, losses) and the rest exploratory</td><td>Maximum power for the main question</td><td>It must be chosen before seeing the data</td></tr>
+<tr><td>Look for consistency: same sign across bins and catalogues</td><td>Robust to isolated false positives</td><td>Does not give a single p-value</td></tr>
+</tbody></table></div>
+<p>Recommendation: pre-register the primary hypothesis in the WORKLOG before running the tests, and use BH per family for the rest. It is the most important pending decision of this step.</p>
+</section>
+
+<section id="escalado">
+<h2>4 · Scale-up to the full dataset</h2>
+<p>The dataset has 98,780 WGS runs (54,073 DNA-only and 44,707 co-assay), about 8 times the pilot. The pilot runs showed where the time goes.</p>
+<ul>
+  <li>Pilot alignment: 3 h 41 min, no failures.</li>
+  <li>CN: run 9081280 failed after hours because of a nearly empty P07 cell. Now each cell runs in its own <code>tryCatch</code>, cells with fewer than 20,000 reads are excluded with their reason, and the workflow can resume from the already computed relative CN.</li>
+  <li>The slowest step is the absolute fit: ~5.5 h for P20 at 500 kb and 1 Mb, dominated by generating one PNG per cell.</li>
+</ul>
+<div class="tablebox"><table>
+<thead><tr><th>Option</th><th>Pros</th><th>Cons</th><th>When it fits</th></tr></thead>
+<tbody>
+<tr><td>Drop the per-cell PNGs</td><td>Cuts most of the time and cost of the absolute fit</td><td>No images for visual review</td><td>Always; audit and report profiles are generated separately</td></tr>
+<tr><td>Drop <code>ABS_FITS</code> and compute the flags with the own grid (<code>build_curation_batch.py</code> reproduces the formulas to 6e-15)</td><td>The expensive step disappears; the flags (<code>ploidy_flag</code>, <code>fit_disagree</code>) remain</td><td>Departs from the group workflow; the own grid is not validated on the full dataset</td><td>If the absolute fit is only used as a flag, as decided</td></tr>
+<tr><td>Keep everything</td><td>Identical to the pilot</td><td>Cost and time ~8 times the pilot's</td><td>If the audit brings absolute CN back as a layer</td></tr>
+</tbody></table></div>
+<p>Before launching: check the real pilot cost in Cost Explorer and confirm the budget. The logical order is to calibrate and audit on the pilot, decide on <code>ABS_FITS</code> according to the audit, and scale up afterwards.</p>
+</section>
+
+<section id="riesgos">
+<h2>Open threads and risks</h2>
+<div class="tablebox"><table>
+<thead><tr><th>Topic</th><th>Status</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td>High P07 noise (41% above the P18 p99 at 200 kb)</td><td><span class="chip todo">investigate</span></td><td>Decides the noise cut; may be batch or biology</td></tr>
+<tr><td>Low P07 altered fraction (9.5% vs 14.3%)</td><td><span class="chip todo">investigate</span></td><td>Possible loss of sensitivity in shallow batches</td></tr>
+<tr><td>P20 duplicates (46% vs the paper's 16%)</td><td><span class="chip todo">investigate</span></td><td>386 P20 cells (13%) do not reach 20,000 reads</td></tr>
+<tr><td>Full MCF10A CFS list (another Le Tallec supplement)</td><td><span class="chip todo">optional</span></td><td>More breast-epithelium sites, at band resolution</td></tr>
+<tr><td>Breast-epithelium RT</td><td><span class="chip todo">search</span></td><td>The current RT is not from the tissue; it affects the S-phase signature and the stratification</td></tr>
+<tr><td>Primary enrichment hypothesis</td><td><span class="chip block">decide before the tests</span></td><td>Controls multiple testing</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="repro">
+<h2>Reproducibility</h2>
+<div class="tablebox"><table>
+<thead><tr><th>Step</th><th>Code</th><th>Output</th></tr></thead>
+<tbody>
+<tr><td>Relative and absolute CN</td><td><code>workflows/copynumber/main.nf</code>, image <code>cnv-cfs/copynumber:0.1.0-6cac8da</code></td><td><code>cnv_cfs/runs/&lt;run&gt;/pubdir/{relCN,absCN}/</code></td></tr>
+<tr><td>QC metrics</td><td><code>scripts/03_cn_qc/cn_qc_metrics.R</code></td><td><code>results/pilot_cn/qc/cn_qc_&lt;bin&gt;kb.tsv</code></td></tr>
+<tr><td>Breakends</td><td><code>scripts/03_cn_qc/call_breakends.R</code></td><td><code>results/pilot_cn/qc/breakends_&lt;bin&gt;kb_*</code></td></tr>
+<tr><td>Audit</td><td><code>scripts/04_curation/</code>, <code>curation/</code></td><td><code>results/curation/</code></td></tr>
+<tr><td>CFS catalogues</td><td><code>scripts/05_features/build_cfs_catalogs.py</code></td><td><code>data/features/cfs/cfs_catalogs_hg19.tsv</code></td></tr>
+<tr><td>Power</td><td><code>scripts/05_features/cfs_power.py</code></td><td><code>data/features/cfs/cfs_power.tsv</code></td></tr>
+</tbody></table></div>
+<p>The chronological record of decisions is in <code>WORKLOG.md</code>, and the current status in <code>README.md</code>.</p>
+</section>
+
+<footer>Sources: Lin et al. 2024, <i>Nature</i> 636:663; Macheret et al. 2020, <i>Cell Res</i> 30:997; Ji et al. 2020, <i>Cell Res</i> 30:1009; Kumar et al. 2019, <i>BMC Genomics</i> (HumCFS); Le Tallec et al. 2013, <i>Cell Rep</i> 4:420; Wilson et al. 2015, <i>Genome Res</i> 25:189.</footer>
+</main>
+</div>

@@ -1,0 +1,5 @@
+data_type	repository	accession	library_strategy	runs	donors	cells	cells_good_single_noncontrol	reads	layouts	instruments	note
+scDNA-seq (DNA-only wells)	SRA	PRJNA1003661	WGS	54073	29	49951	49204	20763270679	PAIRED;SINGLE	Illumina HiSeq 4000;Illumina NovaSeq 6000;NextSeq 2000	one SRA run per well; some wells have 2 runs (top-up)
+scDNA-seq (DNA part of DNA-ATAC co-assay)	SRA	PRJNA1003661	WGS	44707	27	41423	39662	10942675027	PAIRED;SINGLE	Illumina NovaSeq 6000;NextSeq 2000	one SRA run per well; ATAC barcode links the cell to its ATAC profile
+scATAC-seq (ATAC part of DNA-ATAC co-assay)	GEO/SRA	GSE272504 / PRJNA1136981	ATAC-seq	19	19			768967851	PAIRED	NextSeq 2000	one pooled run per donor; demultiplex by cell barcode; paper: 31,176 epithelial cells, 19 donors
+Visium spatial transcriptomics	SRA	PRJNA1003661	RNA-Seq	6	6			2544146240	PAIRED;SINGLE	Illumina NovaSeq 6000	one run per section; H&E/tissue images are not in SRA

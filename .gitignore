@@ -1,0 +1,50 @@
+.DS_Store
+data/*
+!data/metadata/
+data/metadata/*
+!data/metadata/donors.tsv
+!data/metadata/usable_bins.tsv
+!data/metadata/data_inventory_*.tsv
+!data/features/
+data/features/*
+!data/features/cfs/
+data/features/cfs/*
+!data/features/cfs/*.tsv
+!data/features/genes/
+data/features/genes/*
+!data/features/genes/large_genes_*.tsv
+!data/pilot/
+data/pilot/*
+!data/pilot/cells_*.tsv
+!data/pilot/pilot_summary.tsv
+!data/pilot/samplesheet_*.tsv
+!data/pilot/align_qc_*.tsv
+work/
+.nextflow*
+results/
+*.bam
+*.bai
+*.fastq.gz
+*.fq.gz
+*.sra
+!data/pilot/dup_check/
+data/pilot/dup_check/*
+!data/pilot/dup_check/*.tsv
+!data/pilot/staging_logs/
+data/pilot/staging_logs/*
+!data/pilot/staging_logs/*.manifest.tsv
+!data/pilot/staging_logs/*.download.tsv
+
+# Curation app as delivered (contains another project's data); only code is vendored under curation/
+<curation-app delivery>/
+curation/.venv/
+curation/data/
+curation/staging/
+__pycache__/
+*.pyc
+
+# generated hub of all reports (scripts/docs/build_hub.py)
+docs/hub/
+
+# chronological log: kept locally, not published (decision 2026-11-05)
+WORKLOG.md

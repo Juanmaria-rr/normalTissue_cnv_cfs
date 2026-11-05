@@ -1,0 +1,15 @@
+{
+  "samplesheet": {"description": "S3 URI of a TSV with header cell_id<TAB>...; donor is the cell_id prefix before '_'", "optional": false},
+  "bam_prefix": {"description": "S3 prefix (trailing /) holding <cell_id>.bam and <cell_id>.bam.bai (align workflow output bam/)", "optional": false},
+  "container_copynumber": {"description": "ECR URI of the cnv-cfs/copynumber image", "optional": false},
+  "bin_sizes": {"description": "Comma-separated bin sizes in kb; default 200,500,1000", "optional": true},
+  "undo_sd": {"description": "segmentBins undo.SD; default 1", "optional": true},
+  "cnaware": {"description": "CN-aware GC/mappability correction YES/NO; default NO", "optional": true},
+  "mappability": {"description": "Correct by mappability YES/NO; default YES", "optional": true},
+  "reptiming": {"description": "Replication-timing correction YES/NO (upstream applies it only at 30/50 kb); default NO", "optional": true},
+  "downsampling": {"description": "nrpbpcc threshold for the powered flag; default 15", "optional": true},
+  "filters": {"description": "fitting_absCN --filters; default powered", "optional": true},
+  "total_reads": {"description": "fitting_absCN --total.reads; cells at or below are not fitted and are listed in failed_cells.tsv; default 20000", "optional": true},
+  "relcn_prefix": {"description": "S3 prefix (trailing /) of a previous run's relCN/ folder, for reuse_relcn", "optional": true},
+  "reuse_relcn": {"description": "Comma-separated donor_bin tags (e.g. P07_200) whose relative CN is reused from relcn_prefix", "optional": true}
+}

@@ -1,0 +1,1322 @@
+catalog	cell_type	site_id	name	chrom	start	end	source_build	known_cfs	note
+brison2019	JEFF lymphoblastoid	SDR_33	METT5D1	chr11	28150000	28450000	hg19	FRA11E	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_34	DISC1FP1	chr11	90100000	90250000	hg19	FRA11F	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_35	ARHGAP42	chr11	100700000	100850000	hg19	FRA11O	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_36	GRIA4	chr11	105600000	105700000	hg19	FRA11O	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_37	TMTC2	chr12	83200000	83400000	hg19	FRA12B	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_38	ACTR6	chr12	100450000	100650000	hg19	FRA12L	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_39	NBEA	chr13	35650000	36050000	hg19	FRA13A	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_40	DIAPH3	chr13	60400000	60550000	hg19	FRA13C	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_41	PIBF1	chr13	73400000	73500000	hg19	FRA13E	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_42	KLF12	chr13	74350000	74550000	hg19	FRA13E	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_43	GPC5	chr13	92200000	92300000	hg19	FRA13H	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_44	x	chr14	28950000	29050000	hg19	FRA14E	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_45	C14orf145	chr14	81100000	81200000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_46	ZFHX3	chr16	72700000	72900000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_47	WWOX	chr16	78300000	79100000	hg19	FRA16D	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_49	x	chr18	28300000	28400000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_50	CD226	chr18	67550000	67700000	hg19	FRA18C	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_51	ZNF407	chr18	72500000	72650000	hg19	FRA18C	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_1	NBAS	chr2	15400000	15500000	hg19	FRA2Ctel	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_2	x	chr2	18850000	19100000	hg19	FRA2Ccen	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_3	MBD5	chr2	148750000	149000000	hg19	FRA2S	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_4	x	chr2	187000000	187200000	hg19	FRA2H	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_52	LARGE	chr22	33850000	34150000	hg19	FRA22B	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_5	FHIT	chr3	60000000	61000000	hg19	FRA3B	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_6	SUCLG2	chr3	67450000	67550000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_7	x	chr3	73750000	73850000	hg19	FRA3I	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_8	x	chr3	143850000	144000000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_9	RSRC1	chr3	158000000	158100000	hg19	FRA3D	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_10	EGFEM1P	chr3	168200000	168450000	hg19	FRA3O	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_11	x	chr4	13150000	13350000	hg19	FRA4D	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_12	C4orf37	chr4	98750000	98850000	hg19	FRA4F	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_13	ARL15	chr5	53300000	53450000	hg19	FRA5I	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_14	XRCC4	chr5	82400000	82550000	hg19	FRA5L	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_15	MCTP1	chr5	94050000	94200000	hg19	FRA5D	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_16	GMDS	chr6	1850000	2200000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_17	FARS2	chr6	5500000	5600000	hg19	FRA6B	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_18	SUPT3H	chr6	45000000	45100000	hg19	FRA6H	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_19	IMPG1	chr6	76700000	76800000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_20	BCKDHB	chr6	80950000	81100000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_21	UBE2CBP	chr6	83650000	83750000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_22	x	chr6	98300000	98400000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_23	C6orf170	chr6	121400000	121550000	hg19	FRA6K	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_48	RP11-497D6.4	chr6	147450000	147600000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_24	THSD7A	chr7	11550000	11650000	hg19	FRA7B	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_25	IMMP2L	chr7	110450000	111000000	hg19	FRA7K	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_26	FOXP2	chr7	113900000	114150000	hg19	FRA7K	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_27	KCND2	chr7	120050000	120200000	hg19	FRA7G	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_28	EXOC4	chr7	133200000	133600000	hg19	FRA7H	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_29	EXT1	chr8	118900000	119000000	hg19	FRA8C	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_30	RFX3	chr9	3350000	3500000	hg19	FRA9H	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_31	CNTLN	chr9	17350000	17450000	hg19	FRA9G	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_32	x	chr9	75950000	76050000	hg19	FRA9K	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_53	HDHD1	chrX	6800000	7200000	hg19	FRAXB	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_54	MIR 651	chrX	8050000	8200000	hg19	FRAXB	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_55	MID1	chrX	10850000	11050000	hg19	FRAXB	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_56	DIAPH2	chrX	96100000	96700000	hg19	FRAXL	aphidicolin significantly delayed region (Repli-seq)
+brison2019	JEFF lymphoblastoid	SDR_57	ATP11C	chrX	138800000	138900000	hg19	x	aphidicolin significantly delayed region (Repli-seq)
+humcfs	cytogenetic (mostly lymphocytes)	Fra10G	Fra10G	chr10	42795448	54659760	hg38	Fra10G	aphidicolin;common;band=10q11.2
+humcfs	cytogenetic (mostly lymphocytes)	Fra10E	Fra10E	chr10	114747098	114896695	hg38	Fra10E	aphidicolin;common;band=10q25.2
+humcfs	cytogenetic (mostly lymphocytes)	Fra10F	Fra10F	chr10	120859512	129298264	hg38	Fra10F	aphidicolin;common;band=10q26.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA11I	FRA11I	chr11	16121546	21621546	hg38	FRA11I	Aphidicolin;Common;band=11p15.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA11C	FRA11C	chr11	16221546	21721546	hg38	FRA11C	Aphidicolin;Common;band=11p15.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA11D	FRA11D	chr11	26121547	27221547	hg38	FRA11D	Aphidicolin;Common;band=11p14.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA11E	FRA11E	chr11	31021547	36421550	hg38	FRA11E	Aphidicolin;Common;band=11p13
+humcfs	cytogenetic (mostly lymphocytes)	FRA11EH	FRA11EH	chr11	63167472	76811046	hg38	FRA11EH	Aphidicolin;Common;band=11q13
+humcfs	cytogenetic (mostly lymphocytes)	FRA11F	FRA11F	chr11	85311044	88033168	hg38	FRA11F	Aphidicolin;Common;band=11q14.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA11G	FRA11G	chr11	112980367	117543629	hg38	FRA11G	Aphidicolin;Common;band=11q23.3
+humcfs	cytogenetic (mostly lymphocytes)	FRA13A	FRA13A	chr13	34574137	36074137	hg38	FRA13A	Aphidicolin;Common;band=13q13.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA13C	FRA13C	chr13	58174134	61074134	hg38	FRA13C	Aphidicolin;Common;band=13q21.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA13E	FRA13E	chr13	73874137	79574135	hg38	FRA13E	Aphidicolin;Common;band=13q22
+humcfs	cytogenetic (mostly lymphocytes)	FRA13D	FRA13D	chr13	95652254	102352350	hg38	FRA13D	Aphidicolin;Common;band=13q32
+humcfs	cytogenetic (mostly lymphocytes)	FRA14B	FRA14B	chr14	58566718	68366717	hg38	FRA14B	Aphidicolin;Common;band=14q23
+humcfs	cytogenetic (mostly lymphocytes)	FRA14C	FRA14C	chr14	68366717	70666717	hg38	FRA14C	Aphidicolin;Common;band=14q24.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA15A	FRA15A	chr15	59392199	67792338	hg38	FRA15A	Aphidicolin;Common;band=15q22
+humcfs	cytogenetic (mostly lymphocytes)	FRA16C	FRA16C	chr16	63951406	63968869	hg38	FRA16C	Aphidicolin;common;band=16q22.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA16D	FRA16D	chr16	79233897	81733605	hg38	FRA16D	Aphidicolin;common;band=16p23.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA17B	FRA17B	chr17	55677361	56377361	hg38	FRA17B	Aphidicolin;common;band=17q23.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA18A	FRA18A	chr18	30279963	34779963	hg38	FRA18A	Aphidicolin;common;band=18q12.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA18B	FRA18B	chr18	51326370	59267233	hg38	FRA18B	Aphidicolin;common;band=118q21.3
+humcfs	cytogenetic (mostly lymphocytes)	FRA18C	FRA18C	chr18	64467237	66367237	hg38	FRA18C	Aphidicolin;common;band=118q22.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA2C	FRA2C	chr2	16881267	19399761	hg38	FRA2C	Aphidicolin;Common;band=2p24.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA2D	FRA2D	chr2	53127138	55227136	hg38	FRA2D	Aphidicolin;Common;band=2p16.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA2E	FRA2E	chr2	68827132	75227127	hg38	FRA2E	Aphidicolin;Common;band=2p13
+humcfs	cytogenetic (mostly lymphocytes)	FRA2F	FRA2F	chr2	135857570	137557570	hg38	FRA2F	Aphidicolin;Common;band=2p21.3
+humcfs	cytogenetic (mostly lymphocytes)	FRA2G	FRA2G	chr2	170556510	183864728	hg38	FRA2G	Aphidicolin;Common;band=2p31
+humcfs	cytogenetic (mostly lymphocytes)	FRA2H	FRA2H	chr2	183864728	190264726	hg38	FRA2H	Aphidicolin;Common;band=2q32.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA2I	FRA2I	chr2	198264724	209864724	hg38	FRA2I	Aphidicolin;Common;band=2q33
+humcfs	cytogenetic (mostly lymphocytes)	FRA21A	FRA21A	chr21	15672320	17772320	hg38	FRA21A	Aphidicolin;common;band=21q11.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA22B	FRA22B	chr22	29995989	32595987	hg38	FRA22B	Aphidicolin;common;band=22q12.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA3A	FRA3A	chr3	23941491	26441491	hg38	FRA3A	Aphidicolin;Common;band=3p24.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA3B	FRA3B	chr3	58585727	63685676	hg38	FRA3B	Aphidicolin;Common;band=3p14.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA3D	FRA3D	chr3	148617787	160417788	hg38	FRA3D	Aphidicolin;Common;band=3p25
+humcfs	cytogenetic (mostly lymphocytes)	FRA3C	FRA3C	chr3	182417788	187617788	hg38	FRA3C	Aphidicolin;Common;band=3q27
+humcfs	cytogenetic (mostly lymphocytes)	FRA4A	FRA4A	chr4	6001727	11301624	hg38	FRA4A	Aphidicolin;Common;band=4p16.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA4E	FRA4E	chr4	88921152	99721151	hg38	FRA4E	Aphidicolin;Common;band=4p12
+humcfs	cytogenetic (mostly lymphocytes)	FRA4C	FRA4C	chr4	140421154	142421153	hg38	FRA4C	Aphidicolin;Common;band=4q31.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA5E	FRA5E	chr5	18400109	28900107	hg38	FRA5E	Aphidicolin;Common;band=5q14
+humcfs	cytogenetic (mostly lymphocytes)	FRA5D	FRA5D	chr5	91595817	93251933	hg38	FRA5D	Aphidicolin;Common;band=5p15
+humcfs	cytogenetic (mostly lymphocytes)	FRA5F	FRA5F	chr5	97535704	108935701	hg38	FRA5F	Aphidicolin;Common;band=5p21
+humcfs	cytogenetic (mostly lymphocytes)	FRA5C	FRA5C	chr5	129935693	135535688	hg38	FRA5C	Aphidicolin;Common;band=5q31.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA6b	FRA6b	chr6	4200234	7100233	hg38	FRA6b	Aphidicolin;Common;band=6p25.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA6C	FRA6C	chr6	25200228	26967779	hg38	FRA6C	Aphidicolin;Common;band=6p22.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA6H	FRA6H	chr6	30367777	46167737	hg38	FRA6H	Aphidicolin;Common;band=6p15
+humcfs	cytogenetic (mostly lymphocytes)	FRA6G	FRA6G	chr6	88709718	93809718	hg38	FRA6G	Aphidicolin;Common;band=6q21
+humcfs	cytogenetic (mostly lymphocytes)	FRA6F	FRA6F	chr6	105947875	114921164	hg38	FRA6F	Aphidicolin;Common;band=6p25.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA6E	FRA6E	chr6	161421032	164921033	hg38	FRA6E	Aphidicolin;Common;band=6p26
+humcfs	cytogenetic (mostly lymphocytes)	FRA7b	FRA7b	chr7	10000	7339631	hg38	FRA7b	Aphidicolin;Common;band=7p22
+humcfs	cytogenetic (mostly lymphocytes)	FRA7C	FRA7C	chr7	35039612	37239605	hg38	FRA7C	Aphidicolin;Common;band=7p14.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA7D	FRA7D	chr7	43339599	45439599	hg38	FRA7D	Aphidicolin;Common;band=7p13
+humcfs	cytogenetic (mostly lymphocytes)	FRA7J	FRA7J	chr7	61970813	77129317	hg38	FRA7J	Aphidicolin;Common;band=7p11
+humcfs	cytogenetic (mostly lymphocytes)	FRA7E	FRA7E	chr7	90729315	92429314	hg38	FRA7E	Aphidicolin;Common;band=7q21.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA7f	FRA7f	chr7	97629312	107040445	hg38	FRA7f	Aphidicolin;Common;band=7p22
+humcfs	cytogenetic (mostly lymphocytes)	FRA7K	FRA7K	chr7	107040445	114040055	hg38	FRA7K	Aphidicolin;Common;band=7p31.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA7G	FRA7G	chr7	114240055	117040054	hg38	FRA7G	Aphidicolin;Common;band=7p31.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA7H	FRA7H	chr7	130039841	132284759	hg38	FRA7H	Aphidicolin;Common;band=7p32.3
+humcfs	cytogenetic (mostly lymphocytes)	FRA7I	FRA7I	chr7	147597092	158931354	hg38	FRA7I	Aphidicolin;Common;band=7q36
+humcfs	cytogenetic (mostly lymphocytes)	FRA8B	FRA8B	chr8	94312228	100012228	hg38	FRA8B	Aphidicolin;Common;band=8q22.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA8C	FRA8C	chr8	118712239	128312245	hg38	FRA8C	Aphidicolin;Common;band=8q24.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA9G	FRA9G	chr9	16599998	18499998	hg38	FRA9G	aphidicolin;common;band=9p22.2
+humcfs	cytogenetic (mostly lymphocytes)	FRA9D	FRA9D	chr9	93162282	94562282	hg38	FRA9D	aphidicolin;common;band=9q22.1
+humcfs	cytogenetic (mostly lymphocytes)	FRA9E	FRA9E	chr9	111146179	120831607	hg38	FRA9E	aphidicolin;common;band=9q32
+humcfs	cytogenetic (mostly lymphocytes)	FRAXB	FRAXB	chrX	6896184	7476276	hg38	FRAXB	Aphidicolin;common;band=Xp22.31
+humcfs	cytogenetic (mostly lymphocytes)	FRAXC	FRAXC	chrX	29739423	32761909	hg38	FRAXC	Aphidicolin;Common;band=Xq22.1
+humcfs	cytogenetic (mostly lymphocytes)	FRAXD	FRAXD	chrX	139382165	141187786	hg38	FRAXD	Aphidicolin;Common;band=Xq27.2
+ji2020	HBE	HBE_1	NEGR1-IT1	chr1	72165683	72365683	hg38	FRA1L	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_2	NEGR1	chr1	72665683	72865683	hg38	FRA1L	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_15	LRMDA	chr10	77759758	77959758	hg38	FRA10D	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_16	LINC02546	chr11	29221547	29321547	hg38	FRA11E	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_17	GPC6-AS2	chr13	94252253	94752254	hg38	FRA13D	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_18	MIPOL1	chr14	37769205	37869205	hg38		MiDAS-seq site (MDS)
+ji2020	HBE	HBE_19	GPHN	chr14	67066718	67166718	hg38	FRA14B,FRA14C	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_20	LINC01572	chr16	72633899	72733899	hg38	FRA16B	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_21	WWOX	chr16	78333897	78933897	hg38	FRA16D	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_22	LOC101928417	chr16	83033605	83333605	hg38	FRA16D	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_23	PTPRM	chr18	7899998	7999998	hg38		MiDAS-seq site (MDS)
+ji2020	HBE	HBE_24	TPGS2	chr18	34379963	34479963	hg38	FRA18A	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_3	LOC101927967	chr2	78327126	78527126	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_4	NCKAP5-AS2	chr2	133857573	134057572	hg38	FRA2F,FRA2S	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_5	GALNT13	chr2	154656513	154956513	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_6	PARD3B	chr2	205864723	205964724	hg38	FRA2I	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_25	DSCAM-AS1	chr21	41671927	41871927	hg38		MiDAS-seq site (MDS)
+ji2020	HBE	HBE_26	LARGE1	chr22	33895986	34095986	hg38	FRA22B	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_7	MIR548BB	chr3	60185728	60785703	hg38	FRA3B	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_8	PTPRG	chr3	61985674	62085674	hg38	FRA3B	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_9	SUCLG2	chr3	67450424	67650424	hg38		MiDAS-seq site (MDS)
+ji2020	HBE	HBE_10	MIR4796	chr3	114318847	114518847	hg38		MiDAS-seq site (MDS)
+ji2020	HBE	HBE_11	CCSER1	chr4	91421151	92221151	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_12	INPP4B	chr4	143321153	143421153	hg38	FRA4C	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_13	SLCO4C1	chr5	100835704	101235704	hg38	FRA5F	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_14	EXOC4	chr7	133284754	133484753	hg38	FRA7H	MiDAS-seq site (MDS)
+ji2020	HBE	HBE_27	RPA4	chrX	96254999	96354999	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_1	NEGR1-IT1	chr1	71665683	73065683	hg38	FRA1C,FRA1L	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_2	DPYD-AS1	chr1	97865556	97965556	hg38	FRA1M	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_3	RABGAP1L	chr1	174569138	174769138	hg38	FRA1G	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_4	SMYD3	chr1	246063302	246263302	hg38	FRA1I	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_55	PCDH15	chr10	55259760	55459760	hg38	FRA10C,FRA10G	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_56	CCDC179	chr11	22921546	23021546	hg38	FRA11C,FRA11I	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_57	MIR8068	chr11	28421547	28921547	hg38	FRA11D	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_58	DNAJC24	chr11	31421547	31521547	hg38	FRA11E	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_59	LINC01493	chr11	38821550	39021550	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_60	MIR708	chr11	78811045	79511044	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_61	LINC02720	chr11	80511043	80911043	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_62	SYT1	chr12	79593780	79793780	hg38	FRA12B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_63	MIR1827	chr12	99393778	100593778	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_64	IGF1	chr12	102993778	103093778	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_65	PCDH9-AS2	chr13	67074132	67574132	hg38	FRA13B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_66	MIR548AS	chr13	92352254	93352253	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_67	LINC00645	chr14	27669206	27869206	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_68	MIPOL1	chr14	37669205	38269205	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_69	LINC00871	chr14	46669203	46769203	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_70	GPHN	chr14	66866718	67366717	hg38	FRA14B,FRA14C	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_71	LINC01572	chr16	72533899	72833899	hg38	FRA16B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_72	WWOX	chr16	78233897	79133897	hg38	FRA16D	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_73	PTPRM	chr18	7899998	7999998	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_74	MIR924HG	chr18	36879964	37179964	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_5	NBAS	chr2	15040124	15540124	hg38	FRA2C	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_6	NT5C1B	chr2	18881266	19081266	hg38	FRA2C	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_7	WDPCP	chr2	63527135	63727134	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_8	LINC01851	chr2	78027126	78627126	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_9	LINC01815	chr2	81827124	82027124	hg38	FRA2L,FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_10	NCKAP5-AS1	chr2	133557573	133657573	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_11	LRP1B	chr2	141757569	143057569	hg38	FRA2K,FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_12	ORC4	chr2	148757569	148957569	hg38	FRA2K,FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_13	GALNT13	chr2	154456513	155156513	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_14	LINC01473	chr2	186864727	187364727	hg38	FRA2H	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_15	PARD3B	chr2	205664723	206264724	hg38	FRA2I	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_75	PLCB1	chr20	8480647	8580647	hg38	FRA20B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_76	SPTLC3	chr20	13080647	13180647	hg38	FRA20B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_16	LOC100130207	chr3	3541684	4341684	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_17	GRM7-AS3	chr3	6641687	7041687	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_18	TBC1D5	chr3	17341492	17441492	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_19	LOC101927829	chr3	20441492	20541492	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_20	RBMS3	chr3	29541491	29741491	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_21	CACNA2D3	chr3	54234027	54734027	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_22	PTPRG	chr3	61785674	62185674	hg38	FRA3B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_23	MIR4272	chr3	67250424	68349150	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_24	MIR4796	chr3	114318847	114718847	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_25	DIPK2A	chr3	143718842	144118842	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_26		chr3	174517790	174917790	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_27	RAB28	chr4	12801624	13201624	hg38	FRA4A,FRA4D	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_28	SLIT2	chr4	19001623	19801623	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_29	STPG2	chr4	98721151	99121151	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_30	GYPA	chr4	145721152	145921152	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_31	LINC01194	chr5	12200112	12700112	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_32	PDE4D	chr5	58195827	58895826	hg38	FRA5H	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_33	SHLD3	chr5	64895827	65095827	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_34	KIAA0825	chr5	93135706	94035705	hg38	FRA5B,FRA5D	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_35	NUDT12	chr5	103535701	103635701	hg38	FRA5F	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_36	SPOCK1	chr5	136235689	136635689	hg38	FRA5C	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_37	GMDS	chr6	1900234	2100234	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_38	LOC101927950	chr6	5200234	5700233	hg38	FRA6B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_39	LOC100506885	chr6	19500231	19600231	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_40	POU3F2	chr6	99047876	99147876	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_41	ASCC3	chr6	101247876	102347875	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_42	HACE1	chr6	104447875	105047875	hg38	FRA6F	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_43	LUADT1	chr6	147421136	147521136	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_44	AUTS2	chr7	69464986	70064986	hg38	FRA7J	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_45	LRRN3	chr7	110340056	110940056	hg38	FRA7K	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_46	EXOC4	chr7	133184754	133684753	hg38	FRA7H	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_47	AGK	chr7	141199800	141399800	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_48	MIR875	chr8	100412228	100612228	hg38	FRA8B	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_49	LINC02055	chr8	137812243	137912243	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_50	VLDLR-AS1	chr9	2300000	2600000	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_51	RFX3	chr9	3300000	3500000	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_52	ADAMTSL1	chr9	17599998	18099998	hg38	FRA9C,FRA9G	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_53	MIR876	chr9	28199998	28999998	hg38	FRA9C	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_54	LINC01505	chr9	108662281	109062281	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_77	MIR4767	chrX	6718041	7518041	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_78	VCX2	chrX	7968041	8168041	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_79	MID1	chrX	10668040	11018120	hg38		MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_80	KLF8	chrX	55926433	56026433	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_81	LINC01278	chrX	62619880	62819880	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_82	PCDH19	chrX	98754998	99054998	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_83	COL4A5	chrX	107643230	107843230	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_84	MIR3672	chrX	120533854	120733854	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	HeLa	HeLa_85	MAGEC2	chrX	141287786	141687786	hg38	FRAXA,FRAXC,FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_1	PRDM2	chr1	14426495	15126496	hg38	FRA1A,FRA1B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_2	BEND5	chr1	49465672	50265672	hg38	FRA1B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_3	DAB1	chr1	57865672	58565672	hg38	FRA1B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_4	ZRANB2-AS1	chr1	71765683	73065683	hg38	FRA1C,FRA1L	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_5	ADGRL2	chr1	81165685	81365685	hg38	FRA1L	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_6	DPYD-AS1	chr1	97765556	98065556	hg38	FRA1M	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_7	RABGAP1L	chr1	174569138	174769138	hg38	FRA1G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_8	PAPPA2	chr1	176169136	176769136	hg38	FRA1G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_9	PLA2G4A	chr1	187269132	187369132	hg38	FRA1K	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_10	KIF26B	chr1	245963302	246363302	hg38	FRA1I	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_163	GATA3	chr10	9241963	9641963	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_164	TIMM23	chr10	52859760	53859760	hg38	FRA10C,FRA10G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_165	DKK1	chr10	55859760	56259760	hg38	FRA10C,FRA10G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_166	PCDH15	chr10	56959760	57759760	hg38	FRA10C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_167	PCDH15	chr10	59159760	59359760	hg38	FRA10C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_168	EGR2	chr10	66259757	66459757	hg38	FRA10C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_169	ANXA2P3	chr10	68059758	68459758	hg38	FRA10C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_170	ANXA2P3	chr10	68659758	69159758	hg38	FRA10C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_171	ADK	chr10	77559758	78059758	hg38	FRA10D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_172	DYDC1	chr10	83759756	84559756	hg38	FRA10D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_173	GHITM	chr10	87559757	87759757	hg38	FRA10D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_174	SORCS3	chr10	108559758	108759758	hg38	FRA10D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_175	SORCS1	chr10	109459758	110259758	hg38	FRA10D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_176	ADRA2A	chr10	114459759	114859759	hg38	FRA10B,FRA10D,FRA10E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_177	MIR4483	chr10	117259510	117559511	hg38	FRA10B,FRA10D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_178	NELL1	chr11	20921546	21421546	hg38	FRA11C,FRA11I	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_179	METTL15	chr11	28421547	28721547	hg38	FRA11D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_180	METTL15	chr11	29021547	29121547	hg38	FRA11D,FRA11E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_181		chr11	31121547	31621547	hg38	FRA11E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_182	LRRC4C	chr11	38621550	39021550	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_183	MIR708	chr11	78711045	78911045	hg38	FRA11H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_184	TENM4	chr11	79311044	79411044	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_185	DLG2	chr11	83311043	84011043	hg38	FRA11F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_186	DLG2	chr11	84411043	85211044	hg38	FRA11F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_187	RAB38	chr11	87310892	87610892	hg38	FRA11F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_188	TYR	chr11	88733168	88833168	hg38	FRA11F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_189	MIR4490	chr11	90133168	90533168	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_190	GUCY1A2	chr11	106770726	106970726	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_191	BUD13	chr11	116070717	116270717	hg38	FRA11B,FRA11G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_192	NTM	chr11	131669894	131769894	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_193	AEBP2	chr12	19752934	19852934	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_194	SLCO1B1	chr12	20852934	21452934	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_195	SOX5	chr12	23952934	24452934	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_196	E2F7	chr12	78093780	78293780	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_197	ACSS3	chr12	81793779	81893779	hg38	FRA12B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_198	MIR548AL	chr12	86693778	87793777	hg38	FRA12B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_199	IKBIP	chr12	99393778	100493778	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_200	WASHC3	chr12	102693778	103193778	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_201	LINC00457	chr13	35774137	35974137	hg38	FRA13A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_202	PRR20B	chr13	58174134	58374134	hg38	FRA13B,FRA13C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_203	OR7E156P	chr13	64474133	64574133	hg38	FRA13B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_204	PCDH9-AS2	chr13	67074132	67474132	hg38	FRA13B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_205	PCDH9	chr13	68774132	69074132	hg38	FRA13B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_206	SPRY2	chr13	81374135	82074135	hg38	FRA13E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_207	LINC00379	chr13	92352254	93152253	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_208	GPC6	chr13	94252253	94752254	hg38	FRA13D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_209	LINC00443	chr13	107952348	108552348	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_210	MIR4307	chr14	27369206	28269206	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_211	MIR548AI	chr14	30269206	30469206	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_212	NUBPL	chr14	32569206	32969206	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_213	SLC25A21-AS1	chr14	37469205	38269205	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_214	LOC100288846	chr14	40169204	40569204	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_215	LRFN5	chr14	41269205	41969203	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_216	FSCB	chr14	43669203	45069203	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_217	SNORD127	chr14	45269203	46469203	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_218	LINC00871	chr14	46869203	48369203	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_219	LINC00648	chr14	49269203	49369203	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_220	RPS29	chr14	49566718	50266718	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_221	LOC100506321	chr14	65866718	66166718	hg38	FRA14B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_222	GPHN	chr14	66766718	67866717	hg38	FRA14B,FRA14C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_223	VTI1B	chr14	68266717	68966717	hg38	FRA14B,FRA14C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_224	DIO2-AS1	chr14	78966343	81266344	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_225	SEL1L	chr14	82466344	82866344	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_226	SEL1L	chr14	84066344	84166344	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_227	GABRA5	chr15	27345147	27545147	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_228	ANXA2	chr15	60892199	61192199	hg38	FRA15A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_229	RBFOX1	chr16	7750002	8050002	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_231	PHKB	chr16	47433911	47533911	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_232	CDH8	chr16	63233904	63433904	hg38	FRA16C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_233	PMFBP1	chr16	72433899	72833899	hg38	FRA16B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_234	WWOX	chr16	78433897	79133897	hg38	FRA16D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_235	MIR3182	chr16	82933605	83533605	hg38	FRA16D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_236	BCAS3	chr17	56777361	57077361	hg38	FRA17B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_237	BCAS3	chr17	57277361	57377361	hg38	FRA17B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_238	MARCHF10	chr17	58677361	59377361	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_239	DLGAP1-AS4	chr18	3900000	4100000	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_240	PTPRM	chr18	7899998	8099998	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_241	MIR924HG	chr18	34179963	34779963	hg38	FRA18A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_242	PIK3C3	chr18	36679964	37179964	hg38	FRA18A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_243	MIR4529	chr18	50126370	50726370	hg38	FRA18B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_244	LINC01539	chr18	51026370	51426370	hg38	FRA18B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_245	CBLN2	chr18	67267236	67567236	hg38	FRA18C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_11	LRATD1	chr2	13640125	15640124	hg38	FRA2C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_12	NT5C1B	chr2	18981266	19299761	hg38	FRA2C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_13	APOB	chr2	21622872	21922872	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_14	MIR4765	chr2	32825067	33225067	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_15	LOC100132215	chr2	63327135	63927134	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_16	DPP10	chr2	116057576	116457576	hg38	FRA2B,FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_17	DPP10	chr2	117257576	118157576	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_18	RNU4ATAC	chr2	122957576	123257576	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_19	MIR663B	chr2	133457573	134357571	hg38	FRA2F,FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_20	CCNT2-AS1	chr2	136057570	136457570	hg38	FRA2F,FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_21	THSD7B	chr2	137657570	138257570	hg38	FRA2F,FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_22	HNMT	chr2	138957570	139257570	hg38	FRA2F,FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_23	NXPH2	chr2	140157570	140757569	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_24	YY1P2	chr2	141057569	141157569	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_25	YY1P2	chr2	141457569	141657569	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_26	LRP1B	chr2	142257569	142657569	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_27	ACVR2A	chr2	148757569	149057569	hg38	FRA2K,FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_28	ARL6IP6	chr2	154456513	155156513	hg38	FRA2S	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_29	GALNT5	chr2	158656512	159156512	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_30	PKP4	chr2	160256511	160556511	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_31	XIRP2	chr2	168256510	168656510	hg38	FRA2G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_32	FSIP2	chr2	186464727	187364727	hg38	FRA2H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_33	ICOS	chr2	205664723	206264724	hg38	FRA2I	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_34	CPS1-IT1	chr2	212564725	213164725	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_35	SPAG16-DT	chr2	214464724	215364724	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_36	MIR3132	chr2	220964721	221464721	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_246	PLCB1	chr20	8380647	8680647	hg38	FRA20B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_247	ISM1-AS1	chr20	13080647	13280647	hg38	FRA20B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_248	MACROD2-AS1	chr20	14280646	15680645	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_249	NRIP1	chr21	17572320	17672321	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_250	LINC00320	chr21	22472319	22772320	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_251	MIR4759	chr21	28772319	29872321	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_252	GRIK1-AS2	chr21	32272319	32872313	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_253	SPECC1L	chr22	25095967	25195967	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_254	KIAA1671-AS1	chr22	25895967	26295967	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_255	MIR3199-2	chr22	28295988	28995988	hg38	FRA22B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_256	SYN3	chr22	33895986	34095986	hg38	FRA22B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_257	ISX	chr22	35495993	35695993	hg38	FRA22A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_37	CNTN4	chr3	2241684	2941684	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_38	LRRN1	chr3	3641684	4441684	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_39	GRM7	chr3	6841687	7341687	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_40	LMCD1-AS1	chr3	8241687	8741686	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_41	TBC1D5	chr3	17241492	17541492	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_42	SGO1	chr3	20441492	20841492	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_43	RARB	chr3	25241491	25441491	hg38	FRA3A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_44	RBMS3	chr3	29641491	29741491	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_45	ESRG	chr3	54334027	54734027	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_46	MIR3938	chr3	55734028	56134028	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_47	FHIT	chr3	59985726	60985672	hg38	FRA3B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_48	PTPRG	chr3	61785674	62085674	hg38	FRA3B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_49	MIR4272	chr3	67150424	67750424	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_50	ROBO2	chr3	76149151	76649151	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_51	ROBO2	chr3	77149151	77249151	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_52	ROBO1	chr3	78749150	79449150	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_53	CRYBG3	chr3	96618844	97418844	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_54	LINC01205	chr3	109418847	109718847	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_55	ZBTB20	chr3	114318847	114618847	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_56	LSAMP	chr3	115718847	115918847	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_57	TUSC7	chr3	117018847	117418847	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_58	MIR5704	chr3	131018844	131418844	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_59	RARRES1	chr3	158117789	158417789	hg38	FRA3D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_60	NLGN1	chr3	173317790	173817790	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_61	MIR4789	chr3	174517790	175217788	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_62	TPRG1-AS2	chr3	188217788	189017789	hg38	FRA3C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_63	FGF12	chr3	192117789	192317789	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_64	MIR572	chr4	11301624	11401624	hg38	FRA4A,FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_65	RAB28	chr4	12601624	13201624	hg38	FRA4A,FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_66	SLIT2	chr4	19001623	19701623	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_67	KCNIP4	chr4	21301623	21601623	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_68	PCDH7	chr4	32101622	32201622	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_69	ARAP2	chr4	32901622	34601622	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_70	ARAP2	chr4	35901622	36401622	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_71	MIR4801	chr4	36901622	37001622	hg38	FRA4D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_72	ADGRL3	chr4	62165718	62765718	hg38	FRA4B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_73	GPAT3	chr4	85721153	85821153	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_74	WDFY3	chr4	86621153	87021153	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_75	MIR4451	chr4	87321153	87821153	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_76	SPP1	chr4	89721151	89821151	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_77	GRID2	chr4	93521151	94521151	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_78	ATOH1	chr4	95621151	96121151	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_79	STPG2-AS1	chr4	98221151	99121151	hg38	FRA4E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_80	FAM241A	chr4	113821156	114321156	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_81	IL15	chr4	143121153	143521153	hg38	FRA4C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_82	INPP4B	chr4	144621153	144721153	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_83	FREM3	chr4	145521152	145721152	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_84	EDNRA	chr4	149021151	149121151	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_85	DCLK2	chr4	151221152	151521152	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_86		chr4	164621152	165021152	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_87	CTNND2	chr5	11400112	11600112	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_88	LINC01194	chr5	12400112	12700112	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_89	CDH12	chr5	21300109	22400109	hg38	FRA5E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_90	LSP1P3	chr5	28500107	29100107	hg38	FRA5A,FRA5E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_91	PDE4D	chr5	58595826	58895826	hg38	FRA5H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_92	PDE4D	chr5	59095826	59195827	hg38	FRA5H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_93	C5orf64	chr5	59895827	60495827	hg38	FRA5H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_94	HTR1A	chr5	62095827	62295827	hg38	FRA5H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_95	LOC100303749	chr5	64495827	64595827	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_96	MAST4	chr5	64795827	65395828	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_97	SSBP2	chr5	80295819	80595819	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_98	EDIL3	chr5	83395818	83595818	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_99	KIAA0825	chr5	93035706	93435705	hg38	FRA5B,FRA5D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_100	ARSK	chr5	93935705	94335704	hg38	FRA5B,FRA5D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_101	RAB9BP1	chr5	103635701	104535701	hg38	FRA5F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_102	PRR16	chr5	119435695	119935695	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_103	HINT1	chr5	128735693	129735693	hg38	FRA5C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_104	MIR874	chr5	136235689	136735689	hg38	FRA5C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_105	PRELID2	chr5	144579563	144779563	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_106	MIR103B1	chr5	167327005	167527005	hg38	FRA5G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_107	GMDS	chr6	1900234	2100234	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_108	FARS2	chr6	5200234	5700233	hg38	FRA6B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_109	KHDRBS2	chr6	62409905	62909905	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_110	ADGRB3	chr6	69509892	69809892	hg38	FRA6D	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_111	HTR1B	chr6	78709717	78909717	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_112	IBTK	chr6	83609719	83809719	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_113	MIR4643	chr6	92909718	93209718	hg38	FRA6G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_114	MIR2113	chr6	98747876	99047876	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_115	GRIK2	chr6	102147875	102247875	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_116	HACE1	chr6	104347875	104847875	hg38	FRA6F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_117	HS3ST5	chr6	114621164	114921164	hg38	FRA6F	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_118	LOC285762	chr6	120421146	121321146	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_119	MIR5695	chr6	126321146	126921146	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_120	LAMA2	chr6	129521145	129721145	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_121	SAMD5	chr6	148121136	148521136	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_122	PRKN	chr6	162221032	163221032	hg38	FRA6E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_123	SDK1	chr7	3439632	4139632	hg38	FRA7B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_124	THSD7A	chr7	11339627	11739627	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_125	DGKB	chr7	14439625	14639625	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_126	HDAC9	chr7	18439623	18839623	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_127	PPP1R17	chr7	31839614	32039612	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_128	BMPER	chr7	33639612	33839612	hg38	FRA7C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_129	SUGCT	chr7	40339599	40739599	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_130	AUTS2	chr7	69464986	69964986	hg38	FRA7J	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_131	MAGI2-AS3	chr7	77629317	79029316	hg38	FRA7J	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_132	FZD1	chr7	90429315	90829315	hg38	FRA7E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_133	LRRN3	chr7	109540057	111140056	hg38	FRA7K	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_134	GRM8	chr7	126240054	126640054	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_135	LRGUK	chr7	133284754	133584753	hg38	FRA7H	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_136	PTN	chr7	136684747	136984747	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_137	OR9A4	chr7	141199800	141499800	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_138	CSMD1	chr8	2657518	2857522	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_139	DUSP26	chr8	33857518	34057518	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_140	UNC5D	chr8	35357518	35457518	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_141	LINC00293	chr8	48512562	48712561	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_142	SNTG1	chr8	52412560	52612560	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_143	NCOA2	chr8	71912235	72012235	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_144	CNBD1	chr8	89112228	89512229	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_145	MMP16	chr8	89912229	90812228	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_146	KCNS2	chr8	100312228	100612228	hg38	FRA8B	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_147	AZIN1	chr8	104612228	105012228	hg38	FRA8A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_148	LRP12	chr8	106512228	106812228	hg38	FRA8A	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_149	SYBU	chr8	111012229	111612229	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_150	CSMD3	chr8	113412229	113512229	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_151	KHDRBS3	chr8	137712243	138012243	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_152	VLDLR-AS1	chr9	2300000	2600000	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_153	PTPRD	chr9	9400000	10400000	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_154	C9orf92	chr9	15999998	16399998	hg38	FRA9G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_155	SH3GL2	chr9	17499998	17599998	hg38	FRA9G	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_156	LRRC19	chr9	26999998	27099998	hg38	FRA9C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_157	MIR876	chr9	27899998	29399998	hg38	FRA9C	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_158	PCSK5	chr9	81114916	81514916	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_159	TLE1	chr9	86014915	86314915	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_160	CYLC2	chr9	108662281	109062281	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_161	KIF12	chr9	119262279	119862279	hg38	FRA9B,FRA9E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_162	SNORA70C	chr9	122262278	122962278	hg38	FRA9B,FRA9E	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_258	MIR4767	chrX	6918041	7118041	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_259	HCCS	chrX	10918120	11318120	hg38		MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_260	KLF8	chrX	56026433	56326433	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_261	SPIN2B	chrX	57126433	57226433	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_262	VSIG4	chrX	64219880	64619880	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_263	STARD8	chrX	67019842	67219842	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_264	PBDC1	chrX	74519835	74919835	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_265	PCDH11X	chrX	90654999	91554999	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_266	BRDTP1	chrX	93654999	93854999	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_267	DIAPH2	chrX	94854999	95454999	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_268	RPA4	chrX	96154999	97254998	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_269	PCDH19	chrX	98754998	99054998	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_270	GRIA3	chrX	120533854	120933853	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_271	UTP14A	chrX	127433978	128233977	hg38	FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_272	ATP11C	chrX	137882162	137982162	hg38	FRAXC,FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_273	SPANXN3	chrX	141287786	141687786	hg38	FRAXA,FRAXC,FRAXF	MiDAS-seq site (MDS)
+ji2020	U2OS	U2OS_274	IDS	chrX	147581520	147681521	hg38	FRAXA,FRAXD,FRAXE,FRAXF	MiDAS-seq site (MDS)
+letallec2013	CAL51	FRA4D_CAL51	FRA4D	chr4	18267147	21984342	hg19	FRA4D	large_genes=KCNIP4,SLIT2;ref=This study
+letallec2013	GM00847	FRA11E_GM00847	FRA11E	chr11	31965736	34028916	hg19	FRA11E	large_genes=;ref=Bester et al., 2006
+letallec2013	GM00847	FRA7E_GM00847	FRA7E	chr7	79941351	84889264	hg19	FRA7E	large_genes=PCLO;ref=Zlotorynski et al., 2003
+letallec2013	GM00847	FRA7Gcen_GM00847	FRA7Gcen	chr7	111611276	112348135	hg19	FRA7Gcen	large_genes=DOCK4;ref=Hellman et al., 2002
+letallec2013	GM00847	FRA7Gtel_GM00847	FRA7Gtel	chr7	116047190	116593380	hg19	FRA7Gtel	large_genes=;ref=Hellman et al., 2002
+letallec2013	GM00847	FRA7H_GM00847	FRA7H	chr7	129674633	133661222	hg19	FRA7H	large_genes=EXOC4,MKLN1,PLXNA4;ref=Mishmar et al., 1998
+letallec2013	GM12878	FRA4Ccen_GM12878	FRA4Ccen	chr4	130963204	137403713	hg19	FRA4Ccen	large_genes=;ref=This study
+letallec2013	GM12878	FRA4Ctel_GM12878	FRA4Ctel	chr4	139499744	140592371	hg19	FRA4Ctel	large_genes=;ref=This study
+letallec2013	HCT116	FRA16D_HCT116	FRA16D	chr16	77876735	79263361	hg19	FRA16D	large_genes=WWOX;ref=This study
+letallec2013	HCT116	FRA2F_HCT116	FRA2F	chr2	137487451	143079253	hg19	FRA2F	large_genes=LRP1B,THSD7B;ref=This study
+letallec2013	HCT116	FRA2T_HCT116	FRA2T	chr2	154536485	157372104	hg19	FRA2T	large_genes=GALNT13;ref=This study
+letallec2013	HCT116	FRA2I_HCT116	FRA2I	chr2	205181623	209723427	hg19	FRA2I	large_genes=PARD3B;ref=This study
+letallec2013	HCT116	FRA3B_HCT116	FRA3B	chr3	59726288	61483201	hg19	FRA3B	large_genes=FHIT;ref=This study
+letallec2013	HCT116	FRA3O_HCT116	FRA3O	chr3	172850193	175611701	hg19	FRA3O	large_genes=NAALADL2,NLGN1;ref=This study
+letallec2013	HCT116	FRA3P_HCT116	FRA3P	chr3	187852940	192666426	hg19	FRA3P	large_genes=LPP,FGF12;ref=This study
+letallec2013	HCT116	FRA4D_HCT116	FRA4D	chr4	18116069	20693838	hg19	FRA4D	large_genes=SLIT2;ref=This study
+letallec2013	HCT116	FRA4F_HCT116	FRA4F	chr4	88040328	94943194	hg19	FRA4F	large_genes=CCSER1,GRID2,FAM13A;ref=This study
+letallec2013	HCT116	FRA7K_HCT116	FRA7K	chr7	105591980	114528369	hg19	FRA7K	large_genes=IMMP2L,FOXP2,DOCK4,COG5,NRCAM;ref=This study
+letallec2013	HCT116	FRAXB_HCT116	FRAXB	chrX	5787149	12742858	hg19	FRAXB	large_genes=NLGN4X,MID1,ARHGAP6,FRMPD4;ref=This study
+letallec2013	HCT116	FRAXL_HCT116	FRAXL	chrX	95720272	97050706	hg19	FRAXL	large_genes=DIAPH2;ref=This study
+letallec2013	K562	FRA18A_K562	FRA18A	chr18	38482081	41459091	hg19	FRA18A	large_genes=LOC284260,RIT2;ref=This study
+letallec2013	K562	FRA5Etel_K562	FRA5Etel	chr5	16827994	20923583	hg19	FRA5Etel	large_genes=CDH18;ref=This study
+letallec2013	K562	FRA5Ecen_K562	FRA5Ecen	chr5	22894006	31479976	hg19	FRA5Ecen	large_genes=;ref=This study
+letallec2013	LS174T	FRA11E_LS174T	FRA11E	chr11	27911667	33248988	hg19	FRA11E	large_genes=;ref=This study
+letallec2013	LS174T	FRA18A_LS174T	FRA18A	chr18	36561246	37609690	hg19	FRA18A	large_genes=LINC00669;ref=This study
+letallec2013	LS174T	FRA20B_LS174T	FRA20B	chr20	10389727	16138027	hg19	FRA20B	large_genes=MACROD2,KIF16B;ref=This study
+letallec2013	LS174T	FRA4F_LS174T	FRA4F	chr4	87858343	94943194	hg19	FRA4F	large_genes=CCSER1,GRID2,FAM13A;ref=This study
+letallec2013	LS174T	FRA7H_LS174T	FRA7H	chr7	130625062	133965766	hg19	FRA7H	large_genes=EXOC4,MKLN1,PLXNA4;ref=This study
+letallec2013	LS174T	FRAXB_LS174T	FRAXB	chrX	5599069	8211046	hg19	FRAXB	large_genes=NLGN4X;ref=This study
+letallec2013	LS174T	FRAXL_LS174T	FRAXL	chrX	95720272	97050706	hg19	FRAXL	large_genes=DIAPH2;ref=This study
+letallec2013	LoVo	FRA10C_LoVo	FRA10C	chr10	52709907	54128540	hg19	FRA10C	large_genes=PRKG1;ref=This study
+letallec2013	LoVo	FRA4F_LoVo	FRA4F	chr4	90909391	94776975	hg19	FRA4F	large_genes=CCSER1,GRID2;ref=This study
+letallec2013	LoVo	FRAXB_LoVo	FRAXB	chrX	5787149	8211046	hg19	FRAXB	large_genes=NLGN4X;ref=This study
+letallec2013	LoVo	FRAXL_LoVo	FRAXL	chrX	93760661	97050706	hg19	FRAXL	large_genes=DIAPH2;ref=This study
+letallec2013	Lympho.	FRA1E_Lympho	FRA1E	chr1	97749961	98119925	hg19	FRA1E	large_genes=DPYD;ref=Hormozian et al., 2007
+letallec2013	Lympho.	FRA1H_Lympho	FRA1H	chr1	216107178	226571879	hg19	FRA1H	large_genes=USH2A,ESRRG;ref=Curatolo et al., 2007
+letallec2013	Lympho.	FRA11F_Lympho	FRA11F	chr11	84254199	91858150	hg19	FRA11F	large_genes=DLG2;ref=Reshmi et al., 2007
+letallec2013	Lympho.	FRA11G_Lympho	FRA11G	chr11	113604435	118167704	hg19	FRA11G	large_genes=DSCAML1,CADM1;ref=Fechter et al., 2007b
+letallec2013	Lympho.	FRA13A_Lympho	FRA13A	chr13	35556087	36182902	hg19	FRA13A	large_genes=NBEA;ref=Savelyeva et al., 2006
+letallec2013	Lympho.	FRA13E_Lympho	FRA13E	chr13	73285673	76386498	hg19	FRA13E	large_genes=KLF12;ref=Fechter et al., 2007a
+letallec2013	Lympho.	FRA16D_Lympho	FRA16D	chr16	77603721	79124317	hg19	FRA16D	large_genes=WWOX;ref=Krummel et al., 2000 ; Mangelsdorf et al., 2000 ; Paige et al., 2000
+letallec2013	Lympho.	FRA2Ctel_Lympho	FRA2Ctel	chr2	14933888	15682339	hg19	FRA2Ctel	large_genes=NBAS;ref=Blumrich et al., 2011
+letallec2013	Lympho.	FRA2Ccen_Lympho	FRA2Ccen	chr2	18523759	19272388	hg19	FRA2Ccen	large_genes=;ref=Blumrich et al., 2011
+letallec2013	Lympho.	FRA2S_Lympho	FRA2S	chr2	148055008	151844210	hg19	FRA2S	large_genes=MBD5;ref=Pelliccia et al., 2010
+letallec2013	Lympho.	FRA2G_Lympho	FRA2G	chr2	169191351	170472920	hg19	FRA2G	large_genes=CERS6;ref=Limongi et al., 2003 ; Pelliccia et al., 2010
+letallec2013	Lympho.	FRA2H_Lympho	FRA2H	chr2	183246078	190635358	hg19	FRA2H	large_genes=PDE1A,GULP1;ref=Pelliccia et al., 2010 ; Brueckner et al., 2012
+letallec2013	Lympho.	FRA3B_Lympho	FRA3B	chr3	59616360	63887141	hg19	FRA3B	large_genes=FHIT,PTPRG,SYNPR;ref=Becker et al., 2002
+letallec2013	Lympho.	FRA4F_Lympho	FRA4F	chr4	89294553	97312924	hg19	FRA4F	large_genes=CCSER1,GRID2,FAM13A;ref=Rozier et al., 2004
+letallec2013	Lympho.	FRA6H_Lympho	FRA6H	chr6	27804037	37158663	hg19	FRA6H	large_genes=;ref=Fechter et al., 2007a
+letallec2013	Lympho.	FRA6F_Lympho	FRA6F	chr6	111215702	112538960	hg19	FRA6F	large_genes=;ref=Morelli et al., 2002
+letallec2013	Lympho.	FRA6E_Lympho	FRA6E	chr6	160390130	163617814	hg19	FRA6E	large_genes=PARK2;ref=Denison et al., 2003
+letallec2013	Lympho.	FRA7B_Lympho	FRA7B	chr7	10237	12392279	hg19	FRA7B	large_genes=SDK1,MAD1L1,NXPH1,THSD7A;ref=Bosco et al., 2010
+letallec2013	Lympho.	FRA7K_Lympho	FRA7K	chr7	110652158	111104312	hg19	FRA7K	large_genes=IMMP2L;ref=Helmrich et al., 2007
+letallec2013	Lympho.	FRA8C_Lympho	FRA8C	chr8	124167614	128248315	hg19	FRA8C	large_genes=;ref=Ferber et al., 2003
+letallec2013	Lympho.	FRA9G_Lympho	FRA9G	chr9	17148367	17497086	hg19	FRA9G	large_genes=CNTLN;ref=Sawinska et al., 2007
+letallec2013	Lympho.	FRA9E/B_Lympho	FRA9E/B	chr9	109484630	119038472	hg19	FRA9E/B	large_genes=PALM2-AKAP2,PALM2;ref=Callahan et al., 2003
+letallec2013	Lympho.	FRAXB_Lympho	FRAXB	chrX	6968143	7525274	hg19	FRAXB	large_genes=;ref=Arlt et al., 2002
+letallec2013	Lympho./ HT1080	FRA7I_LymphoHT1080	FRA7I	chr7	144197669	146168301	hg19	FRA7I	large_genes=CNTNAP2,TPK1;ref=Ciullo et al., 2002
+letallec2013	MCF10A	FRA13H_MCF10A	FRA13H	chr13	91771619	97492235	hg19	FRA13H	large_genes=GPC5,HS6ST3,GPC6;ref=This study
+letallec2013	MCF10A	FRA2I_MCF10A	FRA2I	chr2	205181623	209723427	hg19	FRA2I	large_genes=PARD3B;ref=This study
+letallec2013	MCF10A	FRA20B_MCF10A	FRA20B	chr20	13918024	17851917	hg19	FRA20B	large_genes=MACROD2;ref=This study
+letallec2013	MRC5	FRA1L_MRC5	FRA1L	chr1	70912950	74368946	hg19	FRA1L	large_genes=NEGR1;ref=Le Tallec et al., 2011
+letallec2013	MRC5	FRA12G_MRC5	FRA12G	chr12	19124566	26565600	hg19	FRA12G	large_genes=SOX5,ITPR2,PDE3A;ref=This study
+letallec2013	MRC5	FRA3R_MRC5	FRA3R	chr3	75820097	80043960	hg19	FRA3R	large_genes=ROBO1,ROBO2;ref=This study
+letallec2013	MRC5	FRA3L_MRC5	FRA3L	chr3	115720946	117618351	hg19	FRA3L	large_genes=LSAMP;ref=Le Tallec et al., 2011
+letallec2013	n/a	FRA5H_na	FRA5H	chr5	58546936	60186044	hg19	FRA5H	large_genes=PDE4D;ref=Hormozian et al., 2006
+macheret2020	HS68	HS68_1	 ONE_GENE:NEGR1;r	chr1	71710000	73270000	hg19		merged-pk
+macheret2020	HS68	HS68_2	 ONE_GENE:RABGAP1L;f	chr1	174400000	174950000	hg19		single-pk
+macheret2020	HS68	HS68_21	 ONE_GENE:PRKG1;f	chr10	52930000	54440000	hg19		merged-pk
+macheret2020	HS68	HS68_22	 ONE_GENE:NRG3;f	chr10	83850000	84540000	hg19		single-pk
+macheret2020	HS68	HS68_23	 INTERGENIC	chr10	109580000	110270000	hg19		single-pk
+macheret2020	HS68	HS68_24	 ONE_GENE:SOX5;r	chr12	23810000	24500000	hg19		single-pk
+macheret2020	HS68	HS68_25	 ONE_GENE:ANKS1B;r	chr12	99670000	100300000	hg19		single-pk
+macheret2020	HS68	HS68_26	 ONE_GENE:GPC6;f	chr13	94050000	94920000	hg19		single-pk
+macheret2020	HS68	HS68_27	 ONE_GENE:FAM155A;r	chr13	107980000	108510000	hg19		single-pk
+macheret2020	HS68	HS68_28	 ONE_GENE:MDGA2;r	chr14	47450000	48160000	hg19		single-pk
+macheret2020	HS68	HS68_29	 ONE_GENE:GPHN;f	chr14	66700000	67510000	hg19		single-pk
+macheret2020	HS68	HS68_30	 ONE_GENE:WWOX;f	chr16	78200000	79210000	hg19		single-pk
+macheret2020	HS68	HS68_31	 ONE_GENE:CDH13;f	chr16	82890000	83540000	hg19		single-pk
+macheret2020	HS68	HS68_32	 ONE_GENE:PTPRM;f	chr18	7710000	8220000	hg19		single-pk
+macheret2020	HS68	HS68_33	 ONE_GENE:FHOD3;f	chr18	33860000	34530000	hg19		single-pk
+macheret2020	HS68	HS68_3	 ONE_GENE:DPP10;f	chr2	116020000	116470000	hg19		single-pk
+macheret2020	HS68	HS68_4	 ONE_GENE:THSD7B;f	chr2	137810000	138160000	hg19		single-pk
+macheret2020	HS68	HS68_5	 ONE_GENE:LRP1B;r	chr2	141260000	142610000	hg19		merged-pk
+macheret2020	HS68	HS68_6	 INTERGENIC	chr2	186680000	187310000	hg19		single-pk
+macheret2020	HS68	HS68_7	 ONE_GENE:PARD3B;f	chr2	205700000	206210000	hg19		single-pk
+macheret2020	HS68	HS68_34	 ONE_GENE:MACROD2;f	chr20	14130000	15690000	hg19		merged-pk
+macheret2020	HS68	HS68_35	 ONE_GENE:LARGE;r	chr22	33790000	34200000	hg19		single-pk
+macheret2020	HS68	HS68_8	 ONE_GENE:FHIT;r	chr3	60250000	60900000	hg19		single-pk
+macheret2020	HS68	HS68_9	 ONE_GENE:PTPRG;f	chr3	61740000	62190000	hg19		single-pk
+macheret2020	HS68	HS68_10	 ONE_GENE:NLGN1;f	chr3	173330000	173750000	hg19		single-pk
+macheret2020	HS68	HS68_11	 ONE_GENE:NAALADL2;f	chr3	174000000	175350000	hg19		merged-pk
+macheret2020	HS68	HS68_12	 INTERGENIC	chr4	19200000	19570000	hg19		single-pk
+macheret2020	HS68	HS68_13	 ONE_GENE:LPHN3;f	chr4	62260000	62810000	hg19		single-pk
+macheret2020	HS68	HS68_14	 INTERGENIC:GRIK2;f	chr6	101460000	102190000	hg19		single-pk
+macheret2020	HS68	HS68_15	 ONE_GENE:AUTS2;f	chr7	69280000	70190000	hg19		single-pk
+macheret2020	HS68	HS68_16	 ONE_GENE:MAGI2;r	chr7	77700000	79010000	hg19		single-pk
+macheret2020	HS68	HS68_17	 ONE_GENE:IMMP2L;r	chr7	110400000	111050000	hg19		single-pk
+macheret2020	HS68	HS68_18	 ONE_GENE:EXOC4;f	chr7	133220000	133610000	hg19		single-pk
+macheret2020	HS68	HS68_19	 TWO_GENES:STK3;r:VPS13B;f	chr8	99430000	100690000	hg19		merged-pk
+macheret2020	HS68	HS68_20	 ONE_GENE:LINGO2;r	chr9	28210000	28850000	hg19		single-pk
+macheret2020	HS68	HS68_36	 ONE_GENE:DIAPH2;f	chrX	96090000	96920000	hg19		merged-pk
+macheret2020	HeLa	HeLa_1	 ONE_GENE:KAZN;f	chr1	14640000	15410000	hg19		single-pk
+macheret2020	HeLa	HeLa_2	 ONE_GENE:AGBL4;r	chr1	49190000	49740000	hg19		single-pk
+macheret2020	HeLa	HeLa_3	 ONE_GENE:FGGY;f	chr1	59810000	60320000	hg19		single-pk
+macheret2020	HeLa	HeLa_4	 ONE_GENE:NEGR1;r	chr1	71640000	73360000	hg19		double-pk
+macheret2020	HeLa	HeLa_5	 ONE_GENE:SLC44A5;r	chr1	75560000	76110000	hg19		single-pk
+macheret2020	HeLa	HeLa_6	 ONE_GENE:DPYD;r	chr1	97590000	98280000	hg19		single-pk
+macheret2020	HeLa	HeLa_7	 INTERGENIC:WARS2;r	chr1	119450000	119920000	hg19		single-pk
+macheret2020	HeLa	HeLa_8	 ONE_GENE:RABGAP1L;f	chr1	174300000	175010000	hg19		single-pk
+macheret2020	HeLa	HeLa_9	 INTERGENIC	chr1	193150000	194230000	hg19		single-pk
+macheret2020	HeLa	HeLa_10	 TWO_GENES:HHAT;f:KCNH1;r	chr1	210660000	211170000	hg19		single-pk
+macheret2020	HeLa	HeLa_11	 TWO_GENES:GPATCH2;r:SPATA17;f	chr1	217580000	218030000	hg19		single-pk
+macheret2020	HeLa	HeLa_12	 TWO_GENES:SDCCAG8;f:AKT3;r	chr1	243320000	243950000	hg19		single-pk
+macheret2020	HeLa	HeLa_13	 ONE_GENE:SMYD3;r	chr1	245830000	246520000	hg19		single-pk
+macheret2020	HeLa	HeLa_124	 ONE_GENE:DIP2C;r	chr10	200000	710000	hg19		single-pk
+macheret2020	HeLa	HeLa_125	 ONE_GENE:PLXDC2;f	chr10	20150000	20660000	hg19		single-pk
+macheret2020	HeLa	HeLa_126	 ONE_GENE:PARD3;r	chr10	34530000	34940000	hg19		single-pk
+macheret2020	HeLa	HeLa_127	 ONE_GENE:PRKG1;f	chr10	52870000	54010000	hg19		merged-pk
+macheret2020	HeLa	HeLa_128	 ONE_GENE:DOCK1;f	chr10	128750000	129240000	hg19		single-pk
+macheret2020	HeLa	HeLa_129	 ONE_GENE:MGMT;f	chr10	131210000	131660000	hg19		single-pk
+macheret2020	HeLa	HeLa_130	 ONE_GENE:SOX6;r	chr11	16170000	16500000	hg19		single-pk
+macheret2020	HeLa	HeLa_131	 ONE_GENE:LUZP2;f	chr11	24610000	25080000	hg19		single-pk
+macheret2020	HeLa	HeLa_132	 INTERGENIC:METTL15;f	chr11	28000000	29190000	hg19		merged-pk
+macheret2020	HeLa	HeLa_133	 TWO_GENES:IMMP1L;r:ELP4;f	chr11	31270000	31780000	hg19		single-pk
+macheret2020	HeLa	HeLa_134	 INTERGENIC	chr12	11040000	11630000	hg19		single-pk
+macheret2020	HeLa	HeLa_135	 INTERGENIC:LMO3;r	chr12	16570000	17020000	hg19		single-pk
+macheret2020	HeLa	HeLa_136	 ONE_GENE:PIK3C2G;f	chr12	18160000	18950000	hg19		single-pk
+macheret2020	HeLa	HeLa_137	 INTERGENIC:SLCO1B3;f:SLCO1B7;f	chr12	20800000	21410000	hg19		single-pk
+macheret2020	HeLa	HeLa_138	 TWO_GENES:OVCH1;r:TMTC1;r	chr12	29400000	29810000	hg19		single-pk
+macheret2020	HeLa	HeLa_139	 INTERGENIC:CPNE8;r	chr12	38730000	39180000	hg19		single-pk
+macheret2020	HeLa	HeLa_140	 ONE_GENE:TMEM117;f	chr12	44230000	44820000	hg19		single-pk
+macheret2020	HeLa	HeLa_141	 INTERGENIC:GRIP1;r	chr12	66920000	67370000	hg19		single-pk
+macheret2020	HeLa	HeLa_142	 ONE_GENE:NAV3;f	chr12	77970000	78540000	hg19		single-pk
+macheret2020	HeLa	HeLa_143	 ONE_GENE:SYT1;f	chr12	79360000	79910000	hg19		single-pk
+macheret2020	HeLa	HeLa_144	 ONE_GENE:TMTC2;f	chr12	83090000	83560000	hg19		single-pk
+macheret2020	HeLa	HeLa_145	 ONE_GENE:ANKS1B;r	chr12	99100000	100730000	hg19		double-pk
+macheret2020	HeLa	HeLa_146	 INTERGENIC:IGF1;r	chr12	102470000	103180000	hg19		single-pk
+macheret2020	HeLa	HeLa_147	 ONE_GENE:TAOK3;r	chr12	118470000	118920000	hg19		single-pk
+macheret2020	HeLa	HeLa_148	 ONE_GENE:NBEA;f	chr13	35700000	36110000	hg19		single-pk
+macheret2020	HeLa	HeLa_149	 INTERGENIC	chr13	55060000	55410000	hg19		single-pk
+macheret2020	HeLa	HeLa_150	 ONE_GENE:GPC5;f	chr13	92810000	93520000	hg19		single-pk
+macheret2020	HeLa	HeLa_151	 ONE_GENE:HS6ST3;f	chr13	96860000	97430000	hg19		single-pk
+macheret2020	HeLa	HeLa_152	 TWO_GENES:PCCA;f:A2LD1;r	chr13	100780000	101350000	hg19		single-pk
+macheret2020	HeLa	HeLa_153	 INTERGENIC	chr13	104100000	104670000	hg19		single-pk
+macheret2020	HeLa	HeLa_154	 ONE_GENE:PRKD1;r	chr14	30060000	30390000	hg19		single-pk
+macheret2020	HeLa	HeLa_155	 ONE_GENE:AKAP6;f	chr14	32840000	33190000	hg19		single-pk
+macheret2020	HeLa	HeLa_156	 INTERGENIC:MIPOL1;f	chr14	37820000	38310000	hg19		single-pk
+macheret2020	HeLa	HeLa_157	 ONE_GENE:GPHN;f	chr14	66650000	67750000	hg19		single-pk
+macheret2020	HeLa	HeLa_158	 ONE_GENE:NRXN3;f	chr14	79890000	80240000	hg19		single-pk
+macheret2020	HeLa	HeLa_159	 ONE_GENE:CEP128;r	chr14	80780000	81270000	hg19		single-pk
+macheret2020	HeLa	HeLa_160	 INTERGENIC:UBE3A;r	chr15	25420000	25870000	hg19		single-pk
+macheret2020	HeLa	HeLa_161	 INTERGENIC	chr15	46670000	47240000	hg19		single-pk
+macheret2020	HeLa	HeLa_162	 ONE_GENE:RORA;r	chr15	60870000	61580000	hg19		single-pk
+macheret2020	HeLa	HeLa_163	 ONE_GENE:THSD4;f	chr15	71590000	72200000	hg19		single-pk
+macheret2020	HeLa	HeLa_164	 ONE_GENE:SLCO3A1;f	chr15	92330000	92800000	hg19		single-pk
+macheret2020	HeLa	HeLa_165	 INTERGENIC	chr16	7650000	8140000	hg19		single-pk
+macheret2020	HeLa	HeLa_166	 ONE_GENE:SNX29;f	chr16	12190000	12700000	hg19		single-pk
+macheret2020	HeLa	HeLa_167	 TWO_GENES:ITFG1;r:PHKB;f	chr16	47240000	47730000	hg19		single-pk
+macheret2020	HeLa	HeLa_168	 INTERGENIC:ZFHX3;r	chr16	72330000	73020000	hg19		single-pk
+macheret2020	HeLa	HeLa_169	 ONE_GENE:WWOX;f	chr16	78070000	79310000	hg19		double-pk
+macheret2020	HeLa	HeLa_170	 ONE_GENE:CDH13;f	chr16	82690000	83760000	hg19		merged-pk
+macheret2020	HeLa	HeLa_171	 INTERGENIC:COX10;f	chr17	13740000	14250000	hg19		single-pk
+macheret2020	HeLa	HeLa_172	 ONE_GENE:ACACA;r	chr17	35570000	35820000	hg19		single-pk
+macheret2020	HeLa	HeLa_173	 INTERGENIC	chr17	50390000	50840000	hg19		single-pk
+macheret2020	HeLa	HeLa_174	 TWO_GENES:TOM1L1;u:STXBP4;f	chr17	52890000	53260000	hg19		single-pk
+macheret2020	HeLa	HeLa_175	 ONE_GENE:BCAS3;f	chr17	58920000	59390000	hg19		single-pk
+macheret2020	HeLa	HeLa_176	 ONE_GENE:PTPRM;f	chr18	7640000	8310000	hg19		single-pk
+macheret2020	HeLa	HeLa_177	 TWO_GENES:TPGS2;r:KIAA1328;f	chr18	34200000	34830000	hg19		single-pk
+macheret2020	HeLa	HeLa_178	 INTERGENIC	chr18	36750000	37260000	hg19		single-pk
+macheret2020	HeLa	HeLa_179	 INTERGENIC:PIK3C3;f	chr18	39490000	40080000	hg19		single-pk
+macheret2020	HeLa	HeLa_180	 ONE_GENE:WDR7;f	chr18	54190000	54660000	hg19		single-pk
+macheret2020	HeLa	HeLa_14	 TWO_GENES:TSSC1;r:TRAPPC12;f	chr2	3030000	3540000	hg19		single-pk
+macheret2020	HeLa	HeLa_15	 ONE_GENE:NBAS;r	chr2	15070000	15840000	hg19		single-pk
+macheret2020	HeLa	HeLa_16	 INTERGENIC	chr2	18810000	19360000	hg19		single-pk
+macheret2020	HeLa	HeLa_17	 TWO_GENES:KLHL29;f:ATAD2B;r	chr2	23660000	24190000	hg19		single-pk
+macheret2020	HeLa	HeLa_18	 INTERGENIC	chr2	58780000	59210000	hg19		single-pk
+macheret2020	HeLa	HeLa_19	 TWO_GENES:EHBP1;f:WDPCP;r	chr2	63090000	63640000	hg19		single-pk
+macheret2020	HeLa	HeLa_20	 INTERGENIC	chr2	81760000	82130000	hg19		single-pk
+macheret2020	HeLa	HeLa_21	 INTERGENIC:MFSD9;r:TMEM182;f	chr2	103220000	103630000	hg19		single-pk
+macheret2020	HeLa	HeLa_22	 TWO_GENES:LYPD1;r:NCKAP5;r	chr2	133230000	133820000	hg19		single-pk
+macheret2020	HeLa	HeLa_23	 INTERGENIC:MGAT5;f	chr2	134830000	135300000	hg19		single-pk
+macheret2020	HeLa	HeLa_24	 ONE_GENE:ZRANB3;r	chr2	136000000	136370000	hg19		single-pk
+macheret2020	HeLa	HeLa_25	 ONE_GENE:LRP1B;r	chr2	141040000	142760000	hg19		double-pk
+macheret2020	HeLa	HeLa_26	 ONE_GENE:MBD5;f	chr2	148750000	149120000	hg19		single-pk
+macheret2020	HeLa	HeLa_27	 ONE_GENE:GALNT13;f	chr2	154380000	155350000	hg19		merged-pk
+macheret2020	HeLa	HeLa_28	 INTERGENIC	chr2	168240000	168650000	hg19		single-pk
+macheret2020	HeLa	HeLa_29	 TWO_GENES:PLEKHA3;f:TTN;r	chr2	179200000	179570000	hg19		single-pk
+macheret2020	HeLa	HeLa_30	 INTERGENIC:FSIP2;f	chr2	186360000	187520000	hg19		double-pk
+macheret2020	HeLa	HeLa_31	 ONE_GENE:PARD3B;f	chr2	205430000	206480000	hg19		double-pk
+macheret2020	HeLa	HeLa_32	 ONE_GENE:ERBB4;r	chr2	212320000	213350000	hg19		double-pk
+macheret2020	HeLa	HeLa_33	 ONE_GENE:SPAG16;f	chr2	214270000	215160000	hg19		double-pk
+macheret2020	HeLa	HeLa_34	 INTERGENIC:BARD1;r:ABCA12;r	chr2	215360000	215990000	hg19		single-pk
+macheret2020	HeLa	HeLa_35	 TWO_GENES:DNER;r:TRIP12;r	chr2	230370000	230780000	hg19		single-pk
+macheret2020	HeLa	HeLa_36	 ONE_GENE:AGAP1;f	chr2	236450000	237260000	hg19		single-pk
+macheret2020	HeLa	HeLa_181	 INTERGENIC:ISM1;f:TASP1;r	chr20	13020000	13510000	hg19		single-pk
+macheret2020	HeLa	HeLa_182	 ONE_GENE:MACROD2;f	chr20	14070000	15990000	hg19		double-pk
+macheret2020	HeLa	HeLa_183	 INTERGENIC	chr20	58760000	59070000	hg19		single-pk
+macheret2020	HeLa	HeLa_184	 ONE_GENE:NCAM2;f	chr21	22510000	22900000	hg19		single-pk
+macheret2020	HeLa	HeLa_37	 INTERGENIC:LRRN1;f	chr3	3680000	4290000	hg19		single-pk
+macheret2020	HeLa	HeLa_38	 ONE_GENE:GRM7;f	chr3	6660000	7210000	hg19		single-pk
+macheret2020	HeLa	HeLa_39	 ONE_GENE:TBC1D5;r	chr3	17120000	17650000	hg19		single-pk
+macheret2020	HeLa	HeLa_40	 ONE_GENE:RBMS3;f	chr3	29510000	29860000	hg19		single-pk
+macheret2020	HeLa	HeLa_41	 ONE_GENE:ULK4;r	chr3	41410000	41780000	hg19		single-pk
+macheret2020	HeLa	HeLa_42	 ONE_GENE:CACNA2D3;f	chr3	54070000	54910000	hg19		merged-pk
+macheret2020	HeLa	HeLa_43	 ONE_GENE:FHIT;r	chr3	59780000	61150000	hg19		double-pk
+macheret2020	HeLa	HeLa_44	 ONE_GENE:PTPRG;f	chr3	61670000	62240000	hg19		single-pk
+macheret2020	HeLa	HeLa_45	 ONE_GENE:MAGI1;r	chr3	65340000	65850000	hg19		single-pk
+macheret2020	HeLa	HeLa_46	 INTERGENIC:SUCLG2;r	chr3	67290000	67900000	hg19		single-pk
+macheret2020	HeLa	HeLa_47	 ONE_GENE:EPHA6;f	chr3	96590000	97580000	hg19		double-pk
+macheret2020	HeLa	HeLa_48	 ONE_GENE:ZBTB20;r	chr3	114120000	114690000	hg19		single-pk
+macheret2020	HeLa	HeLa_49	 ONE_GENE:LSAMP;r	chr3	115650000	116000000	hg19		single-pk
+macheret2020	HeLa	HeLa_50	 ONE_GENE:NEK11;f	chr3	130660000	131090000	hg19		single-pk
+macheret2020	HeLa	HeLa_51	 ONE_GENE:SLC9A9;r	chr3	143170000	143360000	hg19		single-pk
+macheret2020	HeLa	HeLa_52	 INTERGENIC	chr3	143830000	144100000	hg19		single-pk
+macheret2020	HeLa	HeLa_53	 INTERGENIC	chr3	161520000	162090000	hg19		single-pk
+macheret2020	HeLa	HeLa_54	 ONE_GENE:NAALADL2;f	chr3	174350000	175370000	hg19		double-pk
+macheret2020	HeLa	HeLa_55	 ONE_GENE:LPP;f	chr3	188050000	188640000	hg19		single-pk
+macheret2020	HeLa	HeLa_56	 ONE_GENE:FGF12;r	chr3	191970000	192480000	hg19		single-pk
+macheret2020	HeLa	HeLa_57	 INTERGENIC	chr4	12750000	13460000	hg19		single-pk
+macheret2020	HeLa	HeLa_58	 INTERGENIC	chr4	19020000	20000000	hg19		single-pk
+macheret2020	HeLa	HeLa_59	 INTERGENIC:YIPF7;r:GUF1;f	chr4	44530000	44940000	hg19		single-pk
+macheret2020	HeLa	HeLa_60	 ONE_GENE:SCFD2;r	chr4	53690000	54160000	hg19		single-pk
+macheret2020	HeLa	HeLa_61	 ONE_GENE:LPHN3;f	chr4	62210000	62800000	hg19		single-pk
+macheret2020	HeLa	HeLa_62	 ONE_GENE:WDFY3;r	chr4	85500000	85970000	hg19		single-pk
+macheret2020	HeLa	HeLa_63	 ONE_GENE:ARHGAP24;f	chr4	86470000	87060000	hg19		single-pk
+macheret2020	HeLa	HeLa_64	 ONE_GENE:FAM190A;f	chr4	91140000	92460000	hg19		double-pk
+macheret2020	HeLa	HeLa_65	 TWO_GENES:C4orf37;r:RAP1GDS1;f	chr4	98820000	99570000	hg19		single-pk
+macheret2020	HeLa	HeLa_66	 ONE_GENE:PRDM5;r	chr4	121480000	121790000	hg19		single-pk
+macheret2020	HeLa	HeLa_67	 ONE_GENE:INPP4B;r	chr4	143100000	143670000	hg19		single-pk
+macheret2020	HeLa	HeLa_68	 INTERGENIC:ANAPC10;r	chr4	145570000	146100000	hg19		single-pk
+macheret2020	HeLa	HeLa_69	 TWO_GENES:ARHGAP10;f:NR3C2;r	chr4	148830000	149260000	hg19		single-pk
+macheret2020	HeLa	HeLa_70	 ONE_GENE:LRBA;r	chr4	151280000	151730000	hg19		single-pk
+macheret2020	HeLa	HeLa_71	 ONE_GENE:MARCHF1;r	chr4	164490000	165120000	hg19		single-pk
+macheret2020	HeLa	HeLa_72	 ONE_GENE:ODZ3;f	chr4	183260000	183510000	hg19		single-pk
+macheret2020	HeLa	HeLa_73	 INTERGENIC	chr5	23900000	24330000	hg19		single-pk
+macheret2020	HeLa	HeLa_74	 TWO_GENES:NUP155;r:WDR70;f	chr5	37030000	37660000	hg19		single-pk
+macheret2020	HeLa	HeLa_75	 INTERGENIC	chr5	49350000	49700000	hg19		single-pk
+macheret2020	HeLa	HeLa_76	 ONE_GENE:IPO11;f	chr5	61660000	62130000	hg19		single-pk
+macheret2020	HeLa	HeLa_77	 ONE_GENE:EDIL3;r	chr5	83280000	83770000	hg19		single-pk
+macheret2020	HeLa	HeLa_78	 ONE_GENE:FBXL17;r	chr5	107320000	107670000	hg19		single-pk
+macheret2020	HeLa	HeLa_79	 TWO_GENES:COMMD10;f:SEMA6A;r	chr5	115400000	115930000	hg19		single-pk
+macheret2020	HeLa	HeLa_80	 TWO_GENES:ADAMTS19;f:CHSY3;f	chr5	128860000	129550000	hg19		single-pk
+macheret2020	HeLa	HeLa_81	 TWO_GENES:CDC42SE2;f:RAPGEF6;r	chr5	130490000	131100000	hg19		single-pk
+macheret2020	HeLa	HeLa_82	 INTERGENIC	chr5	144410000	145180000	hg19		single-pk
+macheret2020	HeLa	HeLa_83	 ONE_GENE:GMDS;r	chr6	1720000	2230000	hg19		single-pk
+macheret2020	HeLa	HeLa_84	 ONE_GENE:FARS2;f	chr6	5130000	5900000	hg19		single-pk
+macheret2020	HeLa	HeLa_85	 INTERGENIC	chr6	19410000	19800000	hg19		single-pk
+macheret2020	HeLa	HeLa_86	 ONE_GENE:CDKAL1;f	chr6	20580000	21190000	hg19		single-pk
+macheret2020	HeLa	HeLa_87	 ONE_GENE:BTBD9;r	chr6	37970000	38600000	hg19		single-pk
+macheret2020	HeLa	HeLa_88	 INTERGENIC	chr6	78690000	79180000	hg19		single-pk
+macheret2020	HeLa	HeLa_89	 INTERGENIC:UBE3D;r:DOPEY1;f	chr6	83460000	84030000	hg19		single-pk
+macheret2020	HeLa	HeLa_90	 ONE_GENE:GRIK2;f	chr6	101980000	102410000	hg19		single-pk
+macheret2020	HeLa	HeLa_91	 INTERGENIC	chr6	104510000	105320000	hg19		single-pk
+macheret2020	HeLa	HeLa_92	 TWO_GENES:CEP85L;r:MCM9;r	chr6	118800000	119250000	hg19		single-pk
+macheret2020	HeLa	HeLa_93	 INTERGENIC	chr6	120450000	120920000	hg19		single-pk
+macheret2020	HeLa	HeLa_94	 ONE_GENE:NKAIN2;f	chr6	124240000	124790000	hg19		single-pk
+macheret2020	HeLa	HeLa_95	 INTERGENIC	chr6	147910000	148750000	hg19		single-pk
+macheret2020	HeLa	HeLa_96	 ONE_GENE:MAD1L1;r	chr7	1810000	2400000	hg19		single-pk
+macheret2020	HeLa	HeLa_97	 ONE_GENE:SDK1;f	chr7	3450000	4240000	hg19		merged-pk
+macheret2020	HeLa	HeLa_98	 ONE_GENE:C7orf10;f	chr7	40180000	40810000	hg19		single-pk
+macheret2020	HeLa	HeLa_99	 ONE_GENE:AUTS2;f	chr7	69110000	70370000	hg19		double-pk
+macheret2020	HeLa	HeLa_100	 TWO_GENES:RSBN1L;f:PHTF2;f	chr7	77170000	77660000	hg19		single-pk
+macheret2020	HeLa	HeLa_101	 ONE_GENE:MAGI2;r	chr7	78350000	79020000	hg19		single-pk
+macheret2020	HeLa	HeLa_102	 INTERGENIC:ADAM22;f:STEAP4;r	chr7	87580000	88330000	hg19		single-pk
+macheret2020	HeLa	HeLa_103	 ONE_GENE:CDK14;f	chr7	90320000	90910000	hg19		single-pk
+macheret2020	HeLa	HeLa_104	 TWO_GENES:HBP1;f:COG5;r	chr7	106700000	107190000	hg19		single-pk
+macheret2020	HeLa	HeLa_105	 ONE_GENE:IMMP2L;r	chr7	110200000	111190000	hg19		merged-pk
+macheret2020	HeLa	HeLa_106	 ONE_GENE:CADPS2;r	chr7	122020000	122570000	hg19		single-pk
+macheret2020	HeLa	HeLa_107	 ONE_GENE:EXOC4;f	chr7	133050000	133800000	hg19		single-pk
+macheret2020	HeLa	HeLa_108	 ONE_GENE:DGKI;r	chr7	137090000	137620000	hg19		single-pk
+macheret2020	HeLa	HeLa_109	 ONE_GENE:TPK1;r	chr7	144120000	144590000	hg19		single-pk
+macheret2020	HeLa	HeLa_110	 ONE_GENE:MSRA;f	chr8	9810000	10340000	hg19		single-pk
+macheret2020	HeLa	HeLa_111	 INTERGENIC	chr8	33660000	34190000	hg19		single-pk
+macheret2020	HeLa	HeLa_112	 ONE_GENE:KIAA0146;f	chr8	48230000	48840000	hg19		single-pk
+macheret2020	HeLa	HeLa_113	 ONE_GENE:NKAIN3;f	chr8	63220000	63790000	hg19		single-pk
+macheret2020	HeLa	HeLa_114	 ONE_GENE:VPS13B;f	chr8	100170000	100800000	hg19		single-pk
+macheret2020	HeLa	HeLa_115	 INTERGENIC:TRHR;f	chr8	109890000	110380000	hg19		single-pk
+macheret2020	HeLa	HeLa_116	 INTERGENIC:ZFAT;r	chr8	135190000	135800000	hg19		single-pk
+macheret2020	HeLa	HeLa_117	 ONE_GENE:TRAPPC9;r	chr8	140710000	141320000	hg19		single-pk
+macheret2020	HeLa	HeLa_118	 TWO_GENES:CNTLN;f:SH3GL2;f	chr9	17260000	17850000	hg19		single-pk
+macheret2020	HeLa	HeLa_119	 ONE_GENE:LINGO2;r	chr9	28000000	29100000	hg19		double-pk
+macheret2020	HeLa	HeLa_120	 TWO_GENES:FRMD3;r:IDNK;f	chr9	85810000	86380000	hg19		single-pk
+macheret2020	HeLa	HeLa_121	 INTERGENIC:STX17;f:ERP44;r	chr9	102440000	103090000	hg19		single-pk
+macheret2020	HeLa	HeLa_122	 INTERGENIC	chr9	108430000	109260000	hg19		single-pk
+macheret2020	HeLa	HeLa_123	 TWO_GENES:PAPPA;f:ASTN2;r	chr9	119000000	119510000	hg19		single-pk
+macheret2020	HeLa	HeLa_185	 INTERGENIC:HDHD1;r:STS;f	chrX	6430000	7500000	hg19		merged-pk
+macheret2020	HeLa	HeLa_186	 INTERGENIC	chrX	7760000	8370000	hg19		single-pk
+macheret2020	HeLa	HeLa_187	 INTERGENIC:GLRA2;f:FANCB;r	chrX	14460000	15070000	hg19		single-pk
+macheret2020	HeLa	HeLa_188	 TWO_GENES:SH3KBP1;r:MAP7D2;r	chrX	19520000	20270000	hg19		single-pk
+macheret2020	HeLa	HeLa_189	 INTERGENIC	chrX	26880000	27490000	hg19		single-pk
+macheret2020	HeLa	HeLa_190	 INTERGENIC:RRAGB;f	chrX	55560000	56390000	hg19		single-pk
+macheret2020	HeLa	HeLa_191	 INTERGENIC:FAAH2;f	chrX	57010000	57580000	hg19		single-pk
+macheret2020	HeLa	HeLa_192	 INTERGENIC	chrX	62320000	62860000	hg19		single-pk
+macheret2020	HeLa	HeLa_193	 INTERGENIC	chrX	63000000	63550000	hg19		single-pk
+macheret2020	HeLa	HeLa_194	 ONE_GENE:OPHN1;r	chrX	67000000	67670000	hg19		single-pk
+macheret2020	HeLa	HeLa_195	 ONE_GENE:EDA;f	chrX	68750000	69320000	hg19		single-pk
+macheret2020	HeLa	HeLa_196	 INTERGENIC:ABCB7;r:UPRT;u	chrX	74080000	74750000	hg19		single-pk
+macheret2020	HeLa	HeLa_197	 INTERGENIC:HMGN5;r:SH3BGRL;f	chrX	80270000	80820000	hg19		single-pk
+macheret2020	HeLa	HeLa_198	 INTERGENIC:HDX;r	chrX	83310000	83980000	hg19		single-pk
+macheret2020	HeLa	HeLa_199	 INTERGENIC:CHM;r	chrX	84930000	85400000	hg19		single-pk
+macheret2020	HeLa	HeLa_200	 INTERGENIC	chrX	90460000	91030000	hg19		single-pk
+macheret2020	HeLa	HeLa_201	 ONE_GENE:DIAPH2;f	chrX	95900000	96960000	hg19		double-pk
+macheret2020	HeLa	HeLa_202	 INTERGENIC:GPRASP2;f:BHLHB9;f	chrX	101800000	102370000	hg19		single-pk
+macheret2020	HeLa	HeLa_203	 TWO_GENES:COL4A6;r:COL4A5;f	chrX	107380000	107990000	hg19		single-pk
+macheret2020	HeLa	HeLa_204	 ONE_GENE:ODZ1;r	chrX	123550000	124300000	hg19		single-pk
+macheret2020	HeLa	HeLa_205	 INTERGENIC	chrX	141060000	141930000	hg19		single-pk
+macheret2020	HeLa	HeLa_206	 INTERGENIC:TMLHE;r	chrX	154520000	155030000	hg19		single-pk
+macheret2020	U2OS	U2OS_1	 INTERGENIC	chr1	14180000	14710000	hg19		single-pk
+macheret2020	U2OS	U2OS_2	 ONE_GENE:AGBL4;r	chr1	49630000	50580000	hg19		single-pk
+macheret2020	U2OS	U2OS_3	 ONE_GENE:DAB1;r	chr1	57560000	58070000	hg19		single-pk
+macheret2020	U2OS	U2OS_4	 ONE_GENE:NEGR1;r	chr1	71730000	73350000	hg19		double-pk
+macheret2020	U2OS	U2OS_5	 INTERGENIC	chr1	80970000	81600000	hg19		single-pk
+macheret2020	U2OS	U2OS_6	 ONE_GENE:DPYD;r	chr1	97590000	98260000	hg19		single-pk
+macheret2020	U2OS	U2OS_7	 ONE_GENE:RABGAP1L;f	chr1	174290000	174920000	hg19		single-pk
+macheret2020	U2OS	U2OS_8	 ONE_GENE_B:PAPPA2;f	chr1	176290000	177000000	hg19		single-pk
+macheret2020	U2OS	U2OS_9	 INTERGENIC	chr1	187050000	187640000	hg19		single-pk
+macheret2020	U2OS	U2OS_10	 INTERGENIC:RGS21;f	chr1	192180000	192650000	hg19		single-pk
+macheret2020	U2OS	U2OS_11	 INTERGENIC:TROVE2;f:CDC73;f	chr1	192890000	193440000	hg19		single-pk
+macheret2020	U2OS	U2OS_12	 ONE_GENE:RYR2;f	chr1	237400000	237810000	hg19		single-pk
+macheret2020	U2OS	U2OS_13	 ONE_GENE:SMYD3;r	chr1	245860000	246530000	hg19		single-pk
+macheret2020	U2OS	U2OS_184	 INTERGENIC	chr10	9290000	9880000	hg19		single-pk
+macheret2020	U2OS	U2OS_185	 TWO_GENES:CACNB2;f:NSUN6;r	chr10	18470000	18980000	hg19		single-pk
+macheret2020	U2OS	U2OS_186	 ONE_GENE:PLXDC2;f	chr10	20100000	20650000	hg19		single-pk
+macheret2020	U2OS	U2OS_187	 ONE_GENE:PARD3;r	chr10	34550000	34880000	hg19		single-pk
+macheret2020	U2OS	U2OS_188	 ONE_GENE:PRKG1;f	chr10	52700000	54090000	hg19		double-pk
+macheret2020	U2OS	U2OS_189	 INTERGENIC	chr10	57150000	57980000	hg19		single-pk
+macheret2020	U2OS	U2OS_190	 INTERGENIC	chr10	58950000	59580000	hg19		single-pk
+macheret2020	U2OS	U2OS_191	 INTERGENIC	chr10	66120000	66570000	hg19		single-pk
+macheret2020	U2OS	U2OS_192	 ONE_GENE:NRG3;f	chr10	83660000	84740000	hg19		double-pk
+macheret2020	U2OS	U2OS_193	 ONE_GENE:GRID1;r	chr10	87360000	87990000	hg19		single-pk
+macheret2020	U2OS	U2OS_194	 ONE_GENE:SORCS1;r	chr10	108380000	108890000	hg19		single-pk
+macheret2020	U2OS	U2OS_195	 ONE_GENE:VTI1A;f	chr10	114290000	114860000	hg19		single-pk
+macheret2020	U2OS	U2OS_196	 ONE_GENE:DOCK1;f	chr10	128820000	129170000	hg19		single-pk
+macheret2020	U2OS	U2OS_197	 ONE_GENE:SOX6;r	chr11	16130000	16500000	hg19		single-pk
+macheret2020	U2OS	U2OS_198	 ONE_GENE:NELL1;f	chr11	20770000	21560000	hg19		double-pk
+macheret2020	U2OS	U2OS_199	 ONE_GENE:LUZP2;f	chr11	24620000	25030000	hg19		single-pk
+macheret2020	U2OS	U2OS_200	 INTERGENIC:METTL15;f	chr11	28080000	28590000	hg19		single-pk
+macheret2020	U2OS	U2OS_201	 INTERGENIC:DCDC1;r:IMMP1L;r	chr11	30910000	31750000	hg19		double-pk
+macheret2020	U2OS	U2OS_202	 INTERGENIC	chr11	38520000	39190000	hg19		single-pk
+macheret2020	U2OS	U2OS_203	 ONE_GENE:ODZ4;r	chr11	78550000	79060000	hg19		single-pk
+macheret2020	U2OS	U2OS_204	 ONE_GENE:DLG2;r	chr11	83190000	84100000	hg19		single-pk
+macheret2020	U2OS	U2OS_205	 TWO_GENES:GRM5;r:TYR;f	chr11	88280000	89180000	hg19		double-pk
+macheret2020	U2OS	U2OS_206	 INTERGENIC	chr11	89960000	90750000	hg19		single-pk
+macheret2020	U2OS	U2OS_207	 ONE_GENE:FAT3;f	chr11	92060000	92510000	hg19		single-pk
+macheret2020	U2OS	U2OS_208	 ONE_GENE:CNTN5;f	chr11	98980000	99410000	hg19		single-pk
+macheret2020	U2OS	U2OS_209	 ONE_GENE:KIRREL3;r	chr11	126140000	126890000	hg19		single-pk
+macheret2020	U2OS	U2OS_210	 INTERGENIC:SLCO1B3;f:SLCO1B7;f	chr12	20870000	21440000	hg19		single-pk
+macheret2020	U2OS	U2OS_211	 ONE_GENE:SOX5;r	chr12	23790000	24570000	hg19		double-pk
+macheret2020	U2OS	U2OS_212	 ONE_GENE:TMEM117;f	chr12	44250000	44800000	hg19		single-pk
+macheret2020	U2OS	U2OS_213	 INTERGENIC	chr12	60130000	60540000	hg19		single-pk
+macheret2020	U2OS	U2OS_214	 INTERGENIC:GRIP1;r	chr12	66820000	67330000	hg19		single-pk
+macheret2020	U2OS	U2OS_215	 ONE_GENE:NAV3;f	chr12	77940000	78590000	hg19		single-pk
+macheret2020	U2OS	U2OS_216	 ONE_GENE:SYT1;f	chr12	79290000	79880000	hg19		single-pk
+macheret2020	U2OS	U2OS_217	 ONE_GENE:PPFIA2;r	chr12	81580000	82090000	hg19		single-pk
+macheret2020	U2OS	U2OS_218	 ONE_GENE:TMTC2;f	chr12	83090000	83600000	hg19		single-pk
+macheret2020	U2OS	U2OS_219	 ONE_GENE:MGAT4C;r	chr12	86310000	87860000	hg19		double-pk
+macheret2020	U2OS	U2OS_220	 ONE_GENE:ANKS1B;r	chr12	99500000	100730000	hg19		merged-pk
+macheret2020	U2OS	U2OS_221	 INTERGENIC:IGF1;r	chr12	102410000	103430000	hg19		double-pk
+macheret2020	U2OS	U2OS_222	 ONE_GENE:ATP8A2;f	chr13	26110000	26500000	hg19		single-pk
+macheret2020	U2OS	U2OS_223	 ONE_GENE:NBEA;f	chr13	35610000	36140000	hg19		single-pk
+macheret2020	U2OS	U2OS_224	 INTERGENIC	chr13	56760000	57310000	hg19		single-pk
+macheret2020	U2OS	U2OS_225	 INTERGENIC:PCDH17;f	chr13	57850000	58560000	hg19		single-pk
+macheret2020	U2OS	U2OS_226	 INTERGENIC	chr13	58900000	59350000	hg19		single-pk
+macheret2020	U2OS	U2OS_227	 INTERGENIC	chr13	64070000	64970000	hg19		merged-pk
+macheret2020	U2OS	U2OS_228	 ONE_GENE:PCDH9;r	chr13	66830000	67820000	hg19		double-pk
+macheret2020	U2OS	U2OS_229	 INTERGENIC	chr13	68500000	69310000	hg19		single-pk
+macheret2020	U2OS	U2OS_230	 INTERGENIC	chr13	89240000	89770000	hg19		single-pk
+macheret2020	U2OS	U2OS_231	 ONE_GENE:GPC5;f	chr13	92080000	93450000	hg19		double-pk
+macheret2020	U2OS	U2OS_232	 ONE_GENE:GPC6;f	chr13	94000000	95000000	hg19		double-pk
+macheret2020	U2OS	U2OS_233	 ONE_GENE:FAM155A;r	chr13	107830000	108630000	hg19		double-pk
+macheret2020	U2OS	U2OS_234	 INTERGENIC	chr14	27150000	28320000	hg19		double-pk
+macheret2020	U2OS	U2OS_235	 ONE_GENE:AKAP6;f	chr14	32840000	33230000	hg19		single-pk
+macheret2020	U2OS	U2OS_236	 INTERGENIC:MIPOL1;f	chr14	37680000	38410000	hg19		single-pk
+macheret2020	U2OS	U2OS_237	 INTERGENIC	chr14	40990000	41920000	hg19		single-pk
+macheret2020	U2OS	U2OS_238	 INTERGENIC	chr14	43280000	44150000	hg19		single-pk
+macheret2020	U2OS	U2OS_239	 INTERGENIC	chr14	44150000	45260000	hg19		double-pk
+macheret2020	U2OS	U2OS_240	 ONE_GENE:MDGA2;r	chr14	47210000	48480000	hg19		double-pk
+macheret2020	U2OS	U2OS_241	 ONE_GENE:NRXN3;f	chr14	78700000	80320000	hg19		double-pk
+macheret2020	U2OS	U2OS_242	 ONE_GENE:CEP128;r	chr14	80610000	81360000	hg19		single-pk
+macheret2020	U2OS	U2OS_243	 ONE_GENE:GABRG3;f	chr15	27230000	27640000	hg19		single-pk
+macheret2020	U2OS	U2OS_244	 ONE_GENE:RORA;r	chr15	60770000	61500000	hg19		single-pk
+macheret2020	U2OS	U2OS_245	 INTERGENIC	chr15	97590000	98040000	hg19		single-pk
+macheret2020	U2OS	U2OS_246	 INTERGENIC	chr16	7800000	8370000	hg19		single-pk
+macheret2020	U2OS	U2OS_247	 TWO_GENES:ITFG1;r:PHKB;f	chr16	47230000	47780000	hg19		single-pk
+macheret2020	U2OS	U2OS_248	 ONE_GENE:FTO;f	chr16	53750000	54060000	hg19		single-pk
+macheret2020	U2OS	U2OS_249	 INTERGENIC	chr16	63080000	63590000	hg19		single-pk
+macheret2020	U2OS	U2OS_250	 INTERGENIC:ZFHX3;r	chr16	72080000	73160000	hg19		double-pk
+macheret2020	U2OS	U2OS_251	 INTERGENIC:CNTNAP4;f	chr16	76110000	76800000	hg19		single-pk
+macheret2020	U2OS	U2OS_252	 ONE_GENE:WWOX;f	chr16	78040000	78990000	hg19		single-pk
+macheret2020	U2OS	U2OS_253	 ONE_GENE:CDH13;f	chr16	82630000	83860000	hg19		double-pk
+macheret2020	U2OS	U2OS_254	 ONE_GENE:DLGAP1;r	chr18	3820000	4510000	hg19		single-pk
+macheret2020	U2OS	U2OS_255	 ONE_GENE:PTPRM;f	chr18	7470000	8420000	hg19		single-pk
+macheret2020	U2OS	U2OS_256	 INTERGENIC	chr18	36710000	37320000	hg19		single-pk
+macheret2020	U2OS	U2OS_257	 ONE_GENE:DCC;f	chr18	50000000	51670000	hg19		double-pk
+macheret2020	U2OS	U2OS_258	 TWO_GENES:DOK6;f:CD226;r	chr18	67050000	67820000	hg19		single-pk
+macheret2020	U2OS	U2OS_14	 TWO_GENES:TSSC1;r:TRAPPC12;f	chr2	3100000	3570000	hg19		single-pk
+macheret2020	U2OS	U2OS_15	 INTERGENIC	chr2	13490000	14100000	hg19		single-pk
+macheret2020	U2OS	U2OS_16	 INTERGENIC:NBAS;r	chr2	14850000	15840000	hg19		single-pk
+macheret2020	U2OS	U2OS_17	 INTERGENIC	chr2	18820000	19390000	hg19		single-pk
+macheret2020	U2OS	U2OS_18	 INTERGENIC	chr2	21540000	22170000	hg19		single-pk
+macheret2020	U2OS	U2OS_19	 TWO_GENES:GPR75-ASB3;r:PSME4;r	chr2	53970000	54340000	hg19		single-pk
+macheret2020	U2OS	U2OS_20	 TWO_GENES:WDPCP;r:MDH1;f	chr2	63460000	64230000	hg19		single-pk
+macheret2020	U2OS	U2OS_21	 ONE_GENE:CTNNA2;f	chr2	79840000	80350000	hg19		single-pk
+macheret2020	U2OS	U2OS_22	 INTERGENIC	chr2	81680000	82170000	hg19		single-pk
+macheret2020	U2OS	U2OS_23	 ONE_GENE:DPP10;f	chr2	115880000	116610000	hg19		single-pk
+macheret2020	U2OS	U2OS_24	 INTERGENIC	chr2	117640000	118450000	hg19		single-pk
+macheret2020	U2OS	U2OS_25	 INTERGENIC	chr2	122630000	123580000	hg19		single-pk
+macheret2020	U2OS	U2OS_26	 ONE_GENE:NCKAP5;r	chr2	133170000	134630000	hg19		double-pk
+macheret2020	U2OS	U2OS_27	 TWO_GENES:ZRANB3;r:R3HDM1;f	chr2	135940000	136490000	hg19		single-pk
+macheret2020	U2OS	U2OS_28	 ONE_GENE:THSD7B;f	chr2	137480000	138480000	hg19		double-pk
+macheret2020	U2OS	U2OS_29	 INTERGENIC	chr2	138860000	139230000	hg19		single-pk
+macheret2020	U2OS	U2OS_30	 INTERGENIC	chr2	140010000	140760000	hg19		single-pk
+macheret2020	U2OS	U2OS_31	 ONE_GENE:LRP1B;r	chr2	142240000	142810000	hg19		single-pk
+macheret2020	U2OS	U2OS_32	 ONE_GENE:MBD5;f	chr2	148650000	149200000	hg19		single-pk
+macheret2020	U2OS	U2OS_33	 ONE_GENE:GALNT13;f	chr2	154790000	155320000	hg19		single-pk
+macheret2020	U2OS	U2OS_34	 INTERGENIC:B3GALT1;f	chr2	168110000	169050000	hg19		double-pk
+macheret2020	U2OS	U2OS_35	 INTERGENIC	chr2	184110000	184640000	hg19		single-pk
+macheret2020	U2OS	U2OS_36	 INTERGENIC:FSIP2;f	chr2	186310000	187440000	hg19		double-pk
+macheret2020	U2OS	U2OS_37	 ONE_GENE:PARD3B;f	chr2	205490000	206410000	hg19		double-pk
+macheret2020	U2OS	U2OS_38	 ONE_GENE:ERBB4;r	chr2	212710000	213340000	hg19		single-pk
+macheret2020	U2OS	U2OS_39	 ONE_GENE:SPAG16;f	chr2	214320000	214790000	hg19		single-pk
+macheret2020	U2OS	U2OS_40	 INTERGENIC	chr2	221110000	221640000	hg19		single-pk
+macheret2020	U2OS	U2OS_41	 ONE_GENE:AGAP1;f	chr2	236570000	236960000	hg19		single-pk
+macheret2020	U2OS	U2OS_259	 ONE_GENE:PLCB1;f	chr20	8150000	8860000	hg19		single-pk
+macheret2020	U2OS	U2OS_260	 INTERGENIC:SPTLC3;f:ISM1;f	chr20	12920000	13470000	hg19		single-pk
+macheret2020	U2OS	U2OS_261	 ONE_GENE:MACROD2;f	chr20	14270000	15940000	hg19		double-pk
+macheret2020	U2OS	U2OS_262	 ONE_GENE:CDH4;f	chr20	59820000	60530000	hg19		single-pk
+macheret2020	U2OS	U2OS_263	 INTERGENIC	chr21	17340000	17880000	hg19		double-pk
+macheret2020	U2OS	U2OS_264	 ONE_GENE:NCAM2;f	chr21	22360000	22890000	hg19		single-pk
+macheret2020	U2OS	U2OS_265	 INTERGENIC	chr21	28700000	29780000	hg19		double-pk
+macheret2020	U2OS	U2OS_266	 ONE_GENE:TIAM1;r	chr21	32300000	32930000	hg19		single-pk
+macheret2020	U2OS	U2OS_267	 ONE_GENE:LARGE;r	chr22	33660000	34270000	hg19		single-pk
+macheret2020	U2OS	U2OS_42	 ONE_GENE:CNTN4;f	chr3	2040000	3120000	hg19		double-pk
+macheret2020	U2OS	U2OS_43	 INTERGENIC:LRRN1;f	chr3	3310000	4480000	hg19		double-pk
+macheret2020	U2OS	U2OS_44	 ONE_GENE:GRM7;f	chr3	6490000	7730000	hg19		double-pk
+macheret2020	U2OS	U2OS_45	 ONE_GENE:TBC1D5;r	chr3	17080000	17810000	hg19		single-pk
+macheret2020	U2OS	U2OS_46	 ONE_GENE:KCNH8;f	chr3	19130000	19800000	hg19		single-pk
+macheret2020	U2OS	U2OS_47	 INTERGENIC	chr3	20070000	20940000	hg19		single-pk
+macheret2020	U2OS	U2OS_48	 INTERGENIC	chr3	24940000	25650000	hg19		single-pk
+macheret2020	U2OS	U2OS_49	 ONE_GENE:RBMS3;f	chr3	29360000	30050000	hg19		single-pk
+macheret2020	U2OS	U2OS_50	 ONE_GENE:ULK4;r	chr3	41360000	41830000	hg19		single-pk
+macheret2020	U2OS	U2OS_51	 ONE_GENE:CACNA2D3;f	chr3	53920000	55190000	hg19		merged-pk
+macheret2020	U2OS	U2OS_52	 ONE_GENE:ERC2;r	chr3	55380000	56570000	hg19		double-pk
+macheret2020	U2OS	U2OS_53	 ONE_GENE:FHIT;r	chr3	59630000	61370000	hg19		double-pk
+macheret2020	U2OS	U2OS_54	 ONE_GENE:PTPRG;f	chr3	61460000	62430000	hg19		single-pk
+macheret2020	U2OS	U2OS_55	 ONE_GENE:MAGI1;r	chr3	65250000	65960000	hg19		single-pk
+macheret2020	U2OS	U2OS_56	 INTERGENIC:SUCLG2;r	chr3	67090000	67900000	hg19		single-pk
+macheret2020	U2OS	U2OS_57	 ONE_GENE:FOXP1;r	chr3	71080000	71650000	hg19		single-pk
+macheret2020	U2OS	U2OS_58	 ONE_GENE:CNTN3;r	chr3	74220000	74730000	hg19		single-pk
+macheret2020	U2OS	U2OS_59	 INTERGENIC	chr3	75870000	76720000	hg19		single-pk
+macheret2020	U2OS	U2OS_60	 ONE_GENE:ROBO1;r	chr3	78610000	79710000	hg19		double-pk
+macheret2020	U2OS	U2OS_61	 INTERGENIC:GBE1;r	chr3	81230000	81800000	hg19		single-pk
+macheret2020	U2OS	U2OS_62	 ONE_GENE:EPHA6;f	chr3	96440000	97690000	hg19		double-pk
+macheret2020	U2OS	U2OS_63	 INTERGENIC	chr3	103990000	104520000	hg19		single-pk
+macheret2020	U2OS	U2OS_64	 INTERGENIC	chr3	109220000	109850000	hg19		single-pk
+macheret2020	U2OS	U2OS_65	 ONE_GENE:ZBTB20;r	chr3	114110000	114820000	hg19		single-pk
+macheret2020	U2OS	U2OS_66	 ONE_GENE:LSAMP;r	chr3	115540000	116110000	hg19		single-pk
+macheret2020	U2OS	U2OS_67	 ONE_GENE:STXBP5L;f	chr3	120760000	121190000	hg19		single-pk
+macheret2020	U2OS	U2OS_68	 ONE_GENE:NEK11;f	chr3	130660000	131190000	hg19		single-pk
+macheret2020	U2OS	U2OS_69	 TWO_GENES:RSRC1;f:MLF1;f	chr3	157770000	158600000	hg19		single-pk
+macheret2020	U2OS	U2OS_70	 INTERGENIC	chr3	168100000	168510000	hg19		single-pk
+macheret2020	U2OS	U2OS_71	 ONE_GENE:MECOM;r	chr3	168870000	169260000	hg19		single-pk
+macheret2020	U2OS	U2OS_72	 ONE_GENE:NLGN1;f	chr3	173190000	173980000	hg19		single-pk
+macheret2020	U2OS	U2OS_73	 ONE_GENE:NAALADL2;f	chr3	174270000	175440000	hg19		double-pk
+macheret2020	U2OS	U2OS_74	 ONE_GENE:LPP;f	chr3	187970000	188930000	hg19		double-pk
+macheret2020	U2OS	U2OS_75	 ONE_GENE:FGF12;r	chr3	191900000	192510000	hg19		single-pk
+macheret2020	U2OS	U2OS_76	 INTERGENIC	chr4	12700000	13470000	hg19		single-pk
+macheret2020	U2OS	U2OS_77	 INTERGENIC	chr4	18810000	20000000	hg19		double-pk
+macheret2020	U2OS	U2OS_78	 INTERGENIC	chr4	33330000	34370000	hg19		double-pk
+macheret2020	U2OS	U2OS_79	 INTERGENIC:ARAP2;r:DTHD1;u	chr4	35660000	36510000	hg19		double-pk
+macheret2020	U2OS	U2OS_80	 ONE_GENE:LPHN3;f	chr4	62060000	62880000	hg19		double-pk
+macheret2020	U2OS	U2OS_81	 ONE_GENE:GRID2;f	chr4	93360000	94680000	hg19		double-pk
+macheret2020	U2OS	U2OS_82	 TWO_GENES:BMPR1B;f:UNC5C;r	chr4	95460000	96340000	hg19		double-pk
+macheret2020	U2OS	U2OS_83	 INTERGENIC	chr4	98060000	98590000	hg19		single-pk
+macheret2020	U2OS	U2OS_84	 ONE_GENE:ANK2;f	chr4	113740000	114530000	hg19		double-pk
+macheret2020	U2OS	U2OS_85	 ONE_GENE:INPP4B;r	chr4	143010000	143680000	hg19		single-pk
+macheret2020	U2OS	U2OS_86	 INTERGENIC:FREM3;r:GYPE;r	chr4	144370000	144960000	hg19		single-pk
+macheret2020	U2OS	U2OS_87	 INTERGENIC:HHIP;f	chr4	145460000	146030000	hg19		single-pk
+macheret2020	U2OS	U2OS_88	 TWO_GENES:ARHGAP10;f:NR3C2;r	chr4	148790000	149360000	hg19		single-pk
+macheret2020	U2OS	U2OS_89	 ONE_GENE:LRBA;r	chr4	151270000	151780000	hg19		single-pk
+macheret2020	U2OS	U2OS_90	 ONE_GENE:03.01.13;r	chr4	164500000	165210000	hg19		double-pk
+macheret2020	U2OS	U2OS_91	 ONE_GENE:ADCY2;f	chr5	7440000	7930000	hg19		single-pk
+macheret2020	U2OS	U2OS_92	 ONE_GENE:CTNND2;r	chr5	10990000	11940000	hg19		double-pk
+macheret2020	U2OS	U2OS_93	 INTERGENIC	chr5	12050000	12970000	hg19		double-pk
+macheret2020	U2OS	U2OS_94	 ONE_GENE:FBXL7;f	chr5	15520000	15990000	hg19		single-pk
+macheret2020	U2OS	U2OS_95	 ONE_GENE:CDH12;r	chr5	20890000	22640000	hg19		double-pk
+macheret2020	U2OS	U2OS_96	 INTERGENIC	chr5	23860000	24310000	hg19		single-pk
+macheret2020	U2OS	U2OS_97	 INTERGENIC	chr5	28370000	29510000	hg19		merged-pk
+macheret2020	U2OS	U2OS_98	 INTERGENIC	chr5	49340000	49670000	hg19		single-pk
+macheret2020	U2OS	U2OS_99	 ONE_GENE:PDE4D;r	chr5	58440000	58890000	hg19		single-pk
+macheret2020	U2OS	U2OS_100	 TWO_GENES:TMEM167A;r:XRCC4;f	chr5	82220000	82650000	hg19		single-pk
+macheret2020	U2OS	U2OS_101	 ONE_GENE:EDIL3;r	chr5	83230000	83840000	hg19		single-pk
+macheret2020	U2OS	U2OS_102	 ONE_GENE:FAM172A;r	chr5	92760000	93410000	hg19		single-pk
+macheret2020	U2OS	U2OS_103	 TWO_GENES:ANKRD32;f:MCTP1;r	chr5	93790000	94700000	hg19		single-pk
+macheret2020	U2OS	U2OS_104	 INTERGENIC	chr5	103460000	104080000	hg19		single-pk
+macheret2020	U2OS	U2OS_105	 INTERGENIC	chr5	104080000	104700000	hg19		single-pk
+macheret2020	U2OS	U2OS_106	 INTERGENIC:EFNA5;r	chr5	106470000	106880000	hg19		single-pk
+macheret2020	U2OS	U2OS_107	 ONE_GENE:FER;f	chr5	108200000	108590000	hg19		single-pk
+macheret2020	U2OS	U2OS_108	 TWO_GENES:COMMD10;f:SEMA6A;r	chr5	115520000	115910000	hg19		single-pk
+macheret2020	U2OS	U2OS_109	 INTERGENIC:PRR16;f	chr5	119220000	120120000	hg19		double-pk
+macheret2020	U2OS	U2OS_110	 TWO_GENES:ADAMTS19;f:CHSY3;f	chr5	128870000	129520000	hg19		single-pk
+macheret2020	U2OS	U2OS_111	 INTERGENIC	chr5	162120000	162970000	hg19		single-pk
+macheret2020	U2OS	U2OS_112	 ONE_GENE:GMDS;r	chr6	1610000	2320000	hg19		single-pk
+macheret2020	U2OS	U2OS_113	 TWO_GENES:LYRM4;r:FARS2;f	chr6	4830000	5850000	hg19		double-pk
+macheret2020	U2OS	U2OS_114	 ONE_GENE:CDKAL1;f	chr6	20590000	21260000	hg19		single-pk
+macheret2020	U2OS	U2OS_115	 TWO_GENES:ZFAND3;f:BTBD9;r	chr6	37900000	38650000	hg19		single-pk
+macheret2020	U2OS	U2OS_116	 ONE_GENE:KHDRBS2;r	chr6	62300000	63090000	hg19		single-pk
+macheret2020	U2OS	U2OS_117	 ONE_GENE:BAI3;f	chr6	69360000	70030000	hg19		single-pk
+macheret2020	U2OS	U2OS_118	 INTERGENIC	chr6	77490000	78020000	hg19		single-pk
+macheret2020	U2OS	U2OS_119	 INTERGENIC	chr6	78480000	79250000	hg19		single-pk
+macheret2020	U2OS	U2OS_120	 INTERGENIC:UBE3D;r:DOPEY1;f	chr6	83440000	84070000	hg19		single-pk
+macheret2020	U2OS	U2OS_121	 INTERGENIC	chr6	92740000	93390000	hg19		single-pk
+macheret2020	U2OS	U2OS_122	 INTERGENIC	chr6	98840000	99250000	hg19		single-pk
+macheret2020	U2OS	U2OS_123	 ONE_GENE:GRIK2;f	chr6	101890000	102480000	hg19		single-pk
+macheret2020	U2OS	U2OS_124	 INTERGENIC	chr6	104470000	105280000	hg19		single-pk
+macheret2020	U2OS	U2OS_125	 INTERGENIC	chr6	114370000	115250000	hg19		double-pk
+macheret2020	U2OS	U2OS_126	 INTERGENIC	chr6	120330000	121040000	hg19		single-pk
+macheret2020	U2OS	U2OS_127	 INTERGENIC:C6orf170;r	chr6	121040000	121560000	hg19		single-pk
+macheret2020	U2OS	U2OS_128	 INTERGENIC	chr6	126220000	127170000	hg19		single-pk
+macheret2020	U2OS	U2OS_129	 ONE_GENE:PTPRK;r	chr6	128340000	128710000	hg19		single-pk
+macheret2020	U2OS	U2OS_130	 ONE_GENE:LAMA2;f	chr6	129310000	129880000	hg19		single-pk
+macheret2020	U2OS	U2OS_131	 INTERGENIC	chr6	141820000	142230000	hg19		single-pk
+macheret2020	U2OS	U2OS_132	 INTERGENIC	chr6	147990000	148360000	hg19		single-pk
+macheret2020	U2OS	U2OS_133	 ONE_GENE:PARK2;r	chr6	162390000	163200000	hg19		single-pk
+macheret2020	U2OS	U2OS_134	 ONE_GENE:SDK1;f	chr7	3400000	4330000	hg19		double-pk
+macheret2020	U2OS	U2OS_135	 INTERGENIC:RPA3;r:GLCCI1;f	chr7	7590000	8220000	hg19		single-pk
+macheret2020	U2OS	U2OS_136	 INTERGENIC	chr7	13190000	13760000	hg19		single-pk
+macheret2020	U2OS	U2OS_137	 ONE_GENE:DGKB;r	chr7	14250000	14860000	hg19		single-pk
+macheret2020	U2OS	U2OS_138	 ONE_GENE:ISPD;r	chr7	15860000	16410000	hg19		single-pk
+macheret2020	U2OS	U2OS_139	 ONE_GENE:HDAC9;f	chr7	18130000	18960000	hg19		single-pk
+macheret2020	U2OS	U2OS_140	 ONE_GENE:PDE1C;r	chr7	31660000	32290000	hg19		single-pk
+macheret2020	U2OS	U2OS_141	 ONE_GENE:BBS9;f	chr7	33350000	33720000	hg19		single-pk
+macheret2020	U2OS	U2OS_142	 ONE_GENE:ELMO1;r	chr7	36960000	37430000	hg19		single-pk
+macheret2020	U2OS	U2OS_143	 ONE_GENE:C7orf10;f	chr7	40050000	40990000	hg19		double-pk
+macheret2020	U2OS	U2OS_144	 ONE_GENE:AUTS2;f	chr7	69190000	70280000	hg19		double-pk
+macheret2020	U2OS	U2OS_145	 ONE_GENE:MAGI2;r	chr7	77710000	79050000	hg19		double-pk
+macheret2020	U2OS	U2OS_146	 ONE_GENE:CDK14;f	chr7	90240000	91030000	hg19		single-pk
+macheret2020	U2OS	U2OS_147	 ONE_GENE:IMMP2L;r	chr7	110210000	111230000	hg19		double-pk
+macheret2020	U2OS	U2OS_148	 ONE_GENE:DOCK4;r	chr7	111490000	111800000	hg19		single-pk
+macheret2020	U2OS	U2OS_149	 INTERGENIC	chr7	119040000	119530000	hg19		single-pk
+macheret2020	U2OS	U2OS_150	 ONE_GENE:CADPS2;r	chr7	122020000	122470000	hg19		single-pk
+macheret2020	U2OS	U2OS_151	 ONE_GENE:GRM8;r	chr7	126050000	126820000	hg19		single-pk
+macheret2020	U2OS	U2OS_152	 ONE_GENE:EXOC4;f	chr7	133000000	133930000	hg19		double-pk
+macheret2020	U2OS	U2OS_153	 INTERGENIC:CHRM2;f	chr7	136350000	136900000	hg19		single-pk
+macheret2020	U2OS	U2OS_154	 INTERGENIC:CSMD1;r	chr8	2470000	2980000	hg19		single-pk
+macheret2020	U2OS	U2OS_155	 INTERGENIC	chr8	33590000	34260000	hg19		single-pk
+macheret2020	U2OS	U2OS_156	 ONE_GENE:UNC5D;f	chr8	35190000	35560000	hg19		single-pk
+macheret2020	U2OS	U2OS_157	 ONE_GENE:KIAA0146;f	chr8	48280000	48770000	hg19		single-pk
+macheret2020	U2OS	U2OS_158	 ONE_GENE:PXDNL;r	chr8	52260000	52810000	hg19		single-pk
+macheret2020	U2OS	U2OS_159	 ONE_GENE:NKAIN3;f	chr8	63170000	63720000	hg19		single-pk
+macheret2020	U2OS	U2OS_160	 INTERGENIC	chr8	64500000	65090000	hg19		single-pk
+macheret2020	U2OS	U2OS_161	 INTERGENIC	chr8	71570000	72220000	hg19		single-pk
+macheret2020	U2OS	U2OS_162	 INTERGENIC:TRPA1;r	chr8	72820000	73330000	hg19		single-pk
+macheret2020	U2OS	U2OS_163	 INTERGENIC:MMP16;r	chr8	88960000	89670000	hg19		single-pk
+macheret2020	U2OS	U2OS_164	 INTERGENIC	chr8	89890000	90420000	hg19		single-pk
+macheret2020	U2OS	U2OS_165	 INTERGENIC:RIPK2;f	chr8	90420000	91070000	hg19		single-pk
+macheret2020	U2OS	U2OS_166	 ONE_GENE:VPS13B;f	chr8	100030000	100840000	hg19		single-pk
+macheret2020	U2OS	U2OS_167	 ONE_GENE:ZFPM2;f	chr8	106420000	106950000	hg19		single-pk
+macheret2020	U2OS	U2OS_168	 INTERGENIC:TRHR;f	chr8	109880000	110330000	hg19		single-pk
+macheret2020	U2OS	U2OS_169	 INTERGENIC	chr8	110880000	111740000	hg19		double-pk
+macheret2020	U2OS	U2OS_170	 ONE_GENE:CSMD3;r	chr8	113240000	113670000	hg19		single-pk
+macheret2020	U2OS	U2OS_171	 INTERGENIC	chr8	137600000	138170000	hg19		single-pk
+macheret2020	U2OS	U2OS_172	 ONE_GENE:TRAPPC9;r	chr8	140760000	141350000	hg19		single-pk
+macheret2020	U2OS	U2OS_173	 INTERGENIC	chr9	2030000	2800000	hg19		single-pk
+macheret2020	U2OS	U2OS_174	 ONE_GENE:PTPRD;r	chr9	9110000	10660000	hg19		double-pk
+macheret2020	U2OS	U2OS_175	 TWO_GENES:CNTLN;f:SH3GL2;f	chr9	17250000	17800000	hg19		single-pk
+macheret2020	U2OS	U2OS_176	 INTERGENIC:ELAVL2;r	chr9	23120000	24240000	hg19		merged-pk
+macheret2020	U2OS	U2OS_177	 INTERGENIC:LINGO2;r	chr9	27930000	29540000	hg19		double-pk
+macheret2020	U2OS	U2OS_178	 INTERGENIC	chr9	31870000	32480000	hg19		single-pk
+macheret2020	U2OS	U2OS_179	 INTERGENIC	chr9	76170000	76580000	hg19		single-pk
+macheret2020	U2OS	U2OS_180	 INTERGENIC	chr9	80960000	81710000	hg19		double-pk
+macheret2020	U2OS	U2OS_181	 TWO_GENES:FRMD3;r:UBQLN1;r	chr9	85810000	86540000	hg19		single-pk
+macheret2020	U2OS	U2OS_182	 INTERGENIC	chr9	108430000	109500000	hg19		double-pk
+macheret2020	U2OS	U2OS_183	 ONE_GENE:ASTN2;r	chr9	118990000	120110000	hg19		double-pk
+macheret2020	U2OS	U2OS_268	 INTERGENIC:HDHD1;r	chrX	6540000	7290000	hg19		single-pk
+macheret2020	U2OS	U2OS_269	 INTERGENIC:PNPLA4;r	chrX	7620000	8290000	hg19		single-pk
+macheret2020	U2OS	U2OS_270	 ONE_GENE:MID1;r	chrX	10590000	11080000	hg19		single-pk
+macheret2020	U2OS	U2OS_271	 ONE_GENE:ARHGAP6;r	chrX	11080000	11560000	hg19		single-pk
+macheret2020	U2OS	U2OS_272	 INTERGENIC	chrX	26850000	27440000	hg19		single-pk
+macheret2020	U2OS	U2OS_273	 ONE_GENE:IL1RAPL1;f	chrX	28680000	29230000	hg19		single-pk
+macheret2020	U2OS	U2OS_274	 INTERGENIC	chrX	55740000	56430000	hg19		single-pk
+macheret2020	U2OS	U2OS_275	 INTERGENIC:ARHGEF9;r	chrX	62470000	63000000	hg19		single-pk
+macheret2020	U2OS	U2OS_276	 INTERGENIC:ZC4H2;r	chrX	64080000	64710000	hg19		single-pk
+macheret2020	U2OS	U2OS_277	 ONE_GENE:OPHN1;r	chrX	66890000	67640000	hg19		single-pk
+macheret2020	U2OS	U2OS_278	 INTERGENIC:UPRT;u:ZDHHC15;r	chrX	74350000	74980000	hg19		single-pk
+macheret2020	U2OS	U2OS_279	 INTERGENIC:SH3BGRL;f	chrX	80380000	80770000	hg19		single-pk
+macheret2020	U2OS	U2OS_280	 ONE_GENE:DACH2;f	chrX	85490000	86040000	hg19		single-pk
+macheret2020	U2OS	U2OS_281	 ONE_GENE:PCDH11X;f	chrX	90430000	91930000	hg19		double-pk
+macheret2020	U2OS	U2OS_282	 INTERGENIC	chrX	93460000	93990000	hg19		single-pk
+macheret2020	U2OS	U2OS_283	 INTERGENIC	chrX	94710000	95710000	hg19		double-pk
+macheret2020	U2OS	U2OS_284	 ONE_GENE:DIAPH2;f	chrX	95970000	96970000	hg19		double-pk
+macheret2020	U2OS	U2OS_285	 INTERGENIC	chrX	98670000	99200000	hg19		single-pk
+macheret2020	U2OS	U2OS_286	 INTERGENIC	chrX	120250000	121240000	hg19		single-pk
+macheret2020	U2OS	U2OS_287	 ONE_GENE:ODZ1;r	chrX	123650000	124300000	hg19		single-pk
+macheret2020	U2OS	U2OS_288	 INTERGENIC	chrX	124790000	125630000	hg19		double-pk
+macheret2020	U2OS	U2OS_289	 INTERGENIC	chrX	126420000	126930000	hg19		single-pk
+macheret2020	U2OS	U2OS_290	 INTERGENIC	chrX	127840000	128630000	hg19		single-pk
+macheret2020	U2OS	U2OS_291	 ONE_GENE:FGF13;r	chrX	137700000	138190000	hg19		single-pk
+macheret2020	U2OS	U2OS_292	 INTERGENIC	chrX	140990000	141820000	hg19		single-pk
+macheret2020	U2OS	U2OS_293	 ONE_GENE:AFF2;f	chrX	147340000	147990000	hg19		single-pk
+sarni2020	BJ-hTERT fibroblast	RERE	RERE	chr1	8412455	8877524	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	MACF1	MACF1	chr1	39549732	39952849	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FAF1	FAF1	chr1	50902698	51425935	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PDE4B	PDE4B	chr1	66258195	66839961	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	DPYD	DPYD	chr1	97543297	98386579	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	HMCN1	HMCN1	chr1	185703681	186160081	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CDC42BPA	CDC42BPA	chr1	227177564	227506175	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	RGS7	RGS7	chr1	240938813	241520385	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SMYD3	SMYD3	chr1	245912642	246670559	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PARD3	PARD3	chr10	34398487	35104249	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SGMS1	SGMS1	chr10	52065358	52383743	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PRKG1	PRKG1	chr10	52751116	54058110	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ADK	ADK	chr10	75910985	76468233	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	VTI1A	VTI1A	chr10	114207014	114578503	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SBF2	SBF2	chr11	9800212	10315754	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	UVRAG	UVRAG	chr11	75526210	75854239	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	DYNC2H1	DYNC2H1	chr11	102980302	103349981	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ITPR2	ITPR2	chr12	26489446	26986131	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CCDC91	CCDC91	chr12	28343377	28703099	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ANKS1B	ANKS1B	chr12	99129198	100378015	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	NBEA	NBEA	chr13	35516422	36246872	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	KLF12	KLF12	chr13	74260224	74569186	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FARP1	FARP1	chr13	98795503	99107430	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CEP128	CEP128	chr14	80962815	81405884	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	TCF12	TCF12	chr15	57210890	57580706	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	THSD4	THSD4	chr15	71389289	72075722	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SCAPER	SCAPER	chr15	76640243	77197676	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PEAK1	PEAK1	chr15	77392996	77712486	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	IGF1R	IGF1R	chr15	99192198	99507759	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SNX29	SNX29	chr16	12070593	12668146	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ITFG1	ITFG1	chr16	47188296	47495185	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FTO	FTO	chr16	53737873	54155853	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SSH2	SSH2	chr17	27952954	28257170	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	MSI2	MSI2	chr17	55333893	55762046	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	TANC2	TANC2	chr17	61086915	61505060	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CEP112	CEP112	chr17	63631654	64188197	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PRKCA	PRKCA	chr17	64298942	64806861	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PITPNC1	PITPNC1	chr17	65374269	65689129	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SLC39A11	SLC39A11	chr17	70642086	71088832	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	RPTOR	RPTOR	chr17	78519066	78940168	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SETBP1	SETBP1	chr18	42260861	42648475	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	NEDD4L	NEDD4L	chr18	55711608	56063937	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	KLHL29	KLHL29	chr2	23608086	23931476	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SLC8A1	SLC8A1	chr2	40342169	40739501	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PRKCE	PRKCE	chr2	45878911	46415129	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	WDPCP	WDPCP	chr2	63348516	63815933	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	EXOC6B	EXOC6B	chr2	72403111	73053170	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CLASP1	CLASP1	chr2	122095350	122407052	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	GTDC1	GTDC1	chr2	144695633	144993307	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FMNL2	FMNL2	chr2	153191749	153506348	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PARD3B	PARD3B	chr2	205410514	206484886	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	DIS3L2	DIS3L2	chr2	232826291	233201907	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PLCB1	PLCB1	chr20	8112910	8865550	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	TTC28	TTC28	chr22	28374000	29075853	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	TBC1D5	TBC1D5	chr3	17198652	17782399	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	UBE2E2	UBE2E2	chr3	23244509	23631713	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	RBMS3	RBMS3	chr3	29322835	30045567	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PTPRG	PTPRG	chr3	61547583	62283288	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FOXP1	FOXP1	chr3	71003842	71633140	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ROBO1	ROBO1	chr3	78647836	79068165	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CMSS1	CMSS1	chr3	99536676	99900576	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ZBTB20	ZBTB20	chr3	114033346	114866118	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	STAG1	STAG1	chr3	136055073	136471210	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	RSRC1	RSRC1	chr3	157823642	158262311	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FNDC3B	FNDC3B	chr3	171757416	172116561	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	NLGN1	NLGN1	chr3	173116236	174004434	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	LPP	LPP	chr3	187930719	188608460	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	LDB2	LDB2	chr4	16503162	16900432	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SLIT2	SLIT2	chr4	20255185	20622180	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	APBB2	APBB2	chr4	40816622	41216475	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SCFD2	SCFD2	chr4	53739147	54232242	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SLC4A4	SLC4A4	chr4	72052472	72435434	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FAM13A	FAM13A	chr4	89647104	89978323	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SPATA5	SPATA5	chr4	123844227	124240605	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	INPP4B	INPP4B	chr4	142944311	143767443	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	LRBA	LRBA	chr4	151185809	151936649	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SEMA5A	SEMA5A	chr5	9035136	9546187	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ARL15	ARL15	chr5	53180612	53606403	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ADAMTS6	ADAMTS6	chr5	64444561	64777747	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FAM172A	FAM172A	chr5	92953773	93447340	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FBXL17	FBXL17	chr5	107194744	107717799	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	AC008695.1	AC008695.1	chr5	130761582	131132676	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SPOCK1	SPOCK1	chr5	136310985	136835037	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FARS2	FARS2	chr6	5261275	5771662	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ATXN1	ATXN1	chr6	16299341	16761687	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SUPT3H	SUPT3H	chr6	44796467	45345670	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	DST	DST	chr6	56322785	56716714	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	KCNQ5	KCNQ5	chr6	73331807	73908574	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ASCC3	ASCC3	chr6	100956068	101329240	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	GRIK2	GRIK2	chr6	101846662	102517958	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PTPRK	PTPRK	chr6	128289922	128841819	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	LAMA2	LAMA2	chr6	129204340	129837714	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PDE7B	PDE7B	chr6	136172832	136516712	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	UTRN	UTRN	chr6	144612963	145174170	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	UST	UST	chr6	149068462	149398126	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ARID1B	ARID1B	chr6	157099062	157530276	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	JAZF1	JAZF1	chr7	27870190	28220362	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	BBS9	BBS9	chr7	33169150	33645680	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	MAGI2	MAGI2	chr7	77646372	79082890	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CACNA2D1	CACNA2D1	chr7	81575758	82073114	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CDK14	CDK14	chr7	90225809	90839905	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CUX1	CUX1	chr7	101460880	101901513	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	COG5	COG5	chr7	106843007	107204959	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	IMMP2L	IMMP2L	chr7	110303105	111202347	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SND1	SND1	chr7	127292232	127732659	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	EXOC4	EXOC4	chr7	132937827	133750512	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	DLC1	DLC1	chr8	12940868	13372395	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	SPIDR	SPIDR	chr8	48173165	48648868	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	TOX	TOX	chr8	59717975	60031767	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	STAU2	STAU2	chr8	74332602	74650562	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	CPQ	CPQ	chr8	97657453	98155729	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	VPS13B	VPS13B	chr8	100025492	100889808	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ZFPM2	ZFPM2	chr8	106330918	106816760	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	BNC2	BNC2	chr9	16409499	16870704	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	ADAMTSL1	ADAMTSL1	chr9	18473890	18910948	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	PALM2-AKAP2	PALM2-AKAP2	chr9	112542587	112934792	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	DENND1A	DENND1A	chr9	126162376	126692405	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+sarni2020	BJ-hTERT fibroblast	FRMPD4	FRMPD4	chrX	12156583	12742642	hg38		fragility-signature candidate gene (APH RT delay + transcription + TAD)
+simpson2021	PCAWG pan-cancer SV hotspots	NEGR1	NEGR1	chr1	71861625	72748222	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	KIF26B;SMYD3	KIF26B;SMYD3	chr1	245516979	246670614	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	PRKG1	PRKG1	chr10	52750647	54058183	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	CTNNA3	CTNNA3	chr10	67672280	69455953	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	GPC6	GPC6	chr13	93879059	95060274	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	RBFOX1	RBFOX1	chr16	5289802	7763342	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	WWOX	WWOX	chr16	78133326	79246564	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	LRP1B	LRP1B	chr2	140988991	142888585	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	MACROD2	MACROD2	chr20	13976014	16033842	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	FHIT	FHIT	chr3	59733002	61237133	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	LSAMP	LSAMP	chr3	115521209	116858236	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	NAALADL2	NAALADL2	chr3	174156362	175528336	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	CCSER1	CCSER1	chr4	91048685	92523064	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	PDE4D	PDE4D	chr5	58264864	59817947	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	PACRG;PARK2	PACRG;PARK2	chr6	162161876	163736524	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	AUTS2	AUTS2	chr7	69063281	70258492	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	IMMP2L	IMMP2L	chr7	110302699	111202573	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	CSMD1	CSMD1	chr8	2792874	4852494	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	PTPRD	PTPRD	chr9	8314245	10612723	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	DMD	DMD	chrX	31115793	33357558	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+simpson2021	PCAWG pan-cancer SV hotspots	DIAPH2	DIAPH2	chrX	95939661	96859996	hg38		most SV-altered fragile site (Li et al. 2020 ED Fig. 9B via Simpson 2021 Table 1)
+wilson2015	090 fibroblast	090_30	1p36.31	chr1	5682831	5707938	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_35	1p36.23	chr1	8467533	8702753	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_29	1p35.1	chr1	33915750	34151260	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_5	1p31.1	chr1	71870126	72933163	hg19		aphidicolin CNV hotspot (APH CNVs = 6)
+wilson2015	090 fibroblast	090_10	1q25.1	chr1	173615117	175294275	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	090 fibroblast	090_7	1q44	chr1	245413423	246284662	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_4	10q11-21	chr10	52699410	53983384	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	090 fibroblast	090_15	10q26.2	chr10	127737929	128183308	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_22	11q22.1	chr11	98894021	100585889	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_34	12p12.1	chr12	21421342	21425513	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_19	14q21-22	chr14	50087752	50934205	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_33	14q23.3	chr14	65000037	65292670	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_3	16q23.1	chr16	78037130	78877618	hg19		aphidicolin CNV hotspot (APH CNVs = 6)
+wilson2015	090 fibroblast	090_16	16q23.3	chr16	83212397	83993943	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_26	19p13.13	chr19	13919876	13976951	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_28	19q13.12	chr19	37028542	37285393	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_17	2q14.3	chr2	123720745	124382907	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_24	2q32.1	chr2	187397844	187612651	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_14	2q33.3	chr2	205121597	206342082	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_31	2q34	chr2	212642373	212938165	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_21	20p12.1	chr20	14764446	15435564	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	090 fibroblast	090_8	3p12.3	chr3	76299612	77188041	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_1	3q13.31-32	chr3	115594174	118221011	hg19		aphidicolin CNV hotspot (APH CNVs = 11)
+wilson2015	090 fibroblast	090_11	3q26.31	chr3	174018217	175087884	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	090 fibroblast	090_23	4p16.1	chr4	7774351	7904431	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_20	5q11-12	chr5	58535683	59371938	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_32	6p22.2	chr6	26205058	26206299	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_18	6q16.3	chr6	101049107	102037684	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_2	7q11.22	chr7	69064636	71273602	hg19		aphidicolin CNV hotspot (APH CNVs = 6)
+wilson2015	090 fibroblast	090_9	7q21.11	chr7	77911946	78578763	hg19		aphidicolin CNV hotspot (APH CNVs = 3)
+wilson2015	090 fibroblast	090_13	7q31.1	chr7	110746607	110846803	hg19		aphidicolin CNV hotspot (APH CNVs = 3)
+wilson2015	090 fibroblast	090_36	7q33	chr7	132956181	133312142	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_25	8q21.3	chr8	89479672	89903532	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_12	8q24.23-3	chr8	139618753	142414326	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_6	9p21.3	chr9	21503820	23726069	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	090 fibroblast	090_27	Xp21.3	chrX	29120488	29281360	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_17	1p36.33	chr1	1527083	1733219	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_28	1p36.32	chr1	3518415	3522561	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_26	1p36.22-23	chr1	8961863	9556061	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_2	1p31.1	chr1	72088017	72637154	hg19		aphidicolin CNV hotspot (APH CNVs = 4)
+wilson2015	HF1 fibroblast	HF1_12	1p21.3	chr1	98035253	98160717	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_5	1q44	chr1	245742124	246118050	hg19		aphidicolin CNV hotspot (APH CNVs = 3)
+wilson2015	HF1 fibroblast	HF1_16	10p13	chr10	13715421	13744567	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_1	10q21.1	chr10	53223446	53914073	hg19		aphidicolin CNV hotspot (APH CNVs = 8)
+wilson2015	HF1 fibroblast	HF1_31	11p15.5	chr11	1075747	1083946	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_10	12p13.33	chr12	1067895	1684076	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_19	12q12	chr12	44573740	44743021	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_6	12q23.1	chr12	99765812	100262533	hg19		aphidicolin CNV hotspot (APH CNVs = 3)
+wilson2015	HF1 fibroblast	HF1_23	13q12.11	chr13	21563311	21575612	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_35	13q22.1	chr13	73373325	73390447	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_30	15q15.2	chr15	42895210	42941759	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_3	15q22.2	chr15	60972325	61130639	hg19		aphidicolin CNV hotspot (APH CNVs = 3)
+wilson2015	HF1 fibroblast	HF1_36	15q23	chr15	71908678	72038676	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_24	16p13.3	chr16	2257374	2262987	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_34	16q22.2	chr16	72598884	72696237	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_27	16q23.1	chr16	78604831	78689352	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_7	16q23.3	chr16	83041537	83261615	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_9	18p11.23	chr18	7859159	8116625	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_32	18q12.2	chr18	34345684	34992205	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_18	2q22.2	chr2	142374952	142405801	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_33	2q23.1	chr2	149055476	149161514	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_21	2q33.3	chr2	206256232	206301132	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_25	20p12.1	chr20	14568758	14702440	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_15	22q12.3	chr22	33922837	33994118	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_20	3q26.1	chr3	165940003	166065099	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_8	3q26.31	chr3	173689779	174831994	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_13	4q21.23-3	chr4	86874894	87460112	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_29	6p12.1	chr6	56436335	56643026	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_22	6q14.3	chr6	86295429	86523508	hg19		aphidicolin CNV hotspot (APH CNVs = 1)
+wilson2015	HF1 fibroblast	HF1_14	7q21.11	chr7	78231922	78575481	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_11	7q31.1	chr7	110656251	110707029	hg19		aphidicolin CNV hotspot (APH CNVs = 2)
+wilson2015	HF1 fibroblast	HF1_4	Xq21.33	chrX	95963620	96793675	hg19		aphidicolin CNV hotspot (APH CNVs = 3)

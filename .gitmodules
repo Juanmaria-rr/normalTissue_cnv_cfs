@@ -1,0 +1,12 @@
+[submodule "external/scDNAseq"]
+	path = external/scDNAseq
+	url = https://github.com/macintyrelab/scDNAseq.git
+[submodule "external/sWGS_relativeCN"]
+	path = external/sWGS_relativeCN
+	url = https://github.com/macintyrelab/sWGS_relativeCN.git
+[submodule "external/fitting_absCN"]
+	path = external/fitting_absCN
+	url = https://github.com/macintyrelab/fitting_absCN.git
+[submodule "external/CopyNumberFittingShiny"]
+	path = external/CopyNumberFittingShiny
+	url = https://github.com/macintyrelab/CopyNumberFittingShiny.git

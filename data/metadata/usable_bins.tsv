@@ -1,0 +1,4 @@
+bin_kb	total_bins	autosomal_bins	usable_bins	reads_needed_diploid
+200	15489	14415	12017	396165
+500	6206	5776	4407	145286
+1000	3113	2897	1942	64022

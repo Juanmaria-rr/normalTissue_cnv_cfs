@@ -1,0 +1,4 @@
+{
+  "fasta": {"description": "S3 URI of the hg19 genome.fa to index", "optional": false},
+  "container_align": {"description": "ECR URI of the cnv-cfs/align image", "optional": false}
+}

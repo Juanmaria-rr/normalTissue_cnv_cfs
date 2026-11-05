@@ -1,0 +1,9 @@
+{
+  "samplesheet": {"description": "S3 URI of a TSV with header cell_id<TAB>runs (comma-separated SRR accessions)", "optional": false},
+  "sra_prefix": {"description": "S3 prefix (trailing /) holding staged runs as <SRR>/<SRR>", "optional": false},
+  "ref": {"description": "S3 URI of hg19 genome.fa; .fai and bwa index files must sit alongside", "optional": false},
+  "container_align": {"description": "ECR URI of the cnv-cfs/align image", "optional": false},
+  "chunk_size": {"description": "Cells per task (each task stages the bwa index once); default 50", "optional": true},
+  "min_length": {"description": "cutadapt minimum read length after trimming; default 20", "optional": true},
+  "adapter": {"description": "3' adapter for cutadapt; default Tn5 mosaic end CTGTCTCTTATACACATCT", "optional": true}
+}

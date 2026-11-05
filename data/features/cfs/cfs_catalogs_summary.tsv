@@ -1,0 +1,25 @@
+catalog	cell_type	n	total_mb	median_mb	max_mb
+brison2019	JEFF lymphoblastoid	57	11.85	0.15	1.0
+humcfs	cytogenetic (mostly lymphocytes)	67	367.34	5.1	15.8
+ji2020	HBE	27	6.5	0.2	0.8
+ji2020	HeLa	85	34.65	0.35	1.4
+ji2020	U2OS	273	127.72	0.4	2.3
+letallec2013	CAL51	1	3.72	3.72	3.72
+letallec2013	GM00847	5	12.28	2.06	4.95
+letallec2013	GM12878	2	7.53	3.77	6.44
+letallec2013	HCT116	12	50.39	3.69	8.94
+letallec2013	K562	3	15.66	4.1	8.59
+letallec2013	LS174T	7	26.5	3.34	7.08
+letallec2013	LoVo	4	11.0	2.86	3.87
+letallec2013	Lympho.	23	95.78	3.23	12.38
+letallec2013	Lympho./ HT1080	1	1.97	1.97	1.97
+letallec2013	MCF10A	3	14.2	4.54	5.72
+letallec2013	MRC5	4	17.02	3.84	7.44
+letallec2013	n/a	1	1.64	1.64	1.64
+macheret2020	HS68	36	27.85	0.66	1.56
+macheret2020	HeLa	206	128.21	0.57	1.92
+macheret2020	U2OS	293	212.96	0.65	1.75
+sarni2020	BJ-hTERT fibroblast	118	60.72	0.46	1.44
+simpson2021	PCAWG pan-cancer SV hotspots	21	32.29	1.47	2.47
+wilson2015	090 fibroblast	36	29.15	0.67	2.8
+wilson2015	HF1 fibroblast	36	9.44	0.15	1.14
