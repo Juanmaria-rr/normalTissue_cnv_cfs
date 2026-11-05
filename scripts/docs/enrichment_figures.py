@@ -2,9 +2,9 @@
 """Figures of the CFS enrichment analysis (pilot), written to --out as PNG.
 
   fig_a_forest      test A fold (95% bootstrap CI) per feature set, interstitial events,
-                    main stratum (E2-E4), losses and gains, three bins; grey bar = 2.5-97.5%
-                    range of the fold over RT-matched shuffles of that set (losses / all)
-  fig_a_strata      test A fold (95% bootstrap CI) per deviation stratum (E1-E4), losses and all
+                    main stratum (E2-E4), losses, gains and all directions, three bins; grey bar =
+                    2.5-97.5% range of the fold over RT-matched shuffles of that set and direction
+  fig_a_strata      test A fold (95% bootstrap CI) per deviation stratum (E1-E4), losses, gains and all directions
   fig_a_sensitivity test A fold (95% bootstrap CI) for losses (main): main set, no cuts, same
                     cells, and leaving out each donor
   fig_b_irr         test B IRR (95% CI), unadjusted vs adjusted, losses (main)
@@ -34,12 +34,15 @@ DCOL = {"P18": "#4c72b0", "P20": "#55a868", "P36": "#8172b2", "P07": "#c44e52", 
 plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.right": False, "font.size": 8,
                      "axes.titlesize": 9, "axes.titlelocation": "left"})
 
+DLAB = {"loss": "losses", "gain": "gains", "all": "all directions"}
+DIRS = ("loss", "gain", "all")
+
 
 def fig_a_forest(res):
     t = pd.read_csv(f"{res}/main/test_a.tsv", sep="\t")
     sh = pd.read_csv(f"{res}/main/test_a_shuffle_controls.tsv", sep="\t")
-    fig, axes = plt.subplots(1, 2, figsize=(11, 11), sharey=True)
-    for ax, d in zip(axes, ("loss", "gain")):
+    fig, axes = plt.subplots(1, 3, figsize=(15, 11), sharey=True)
+    for ax, d in zip(axes, DIRS):
         for j, name in enumerate(SETS):
             y0 = len(SETS) - j
             for k, b in enumerate((200, 500, 1000)):
@@ -48,13 +51,13 @@ def fig_a_forest(res):
                 if r.empty or not np.isfinite(r.fold.iloc[0]):
                     continue
                 r = r.iloc[0]
-                s = sh[(sh.feature_set == name) & (sh.bin_kb == b) & (sh.direction == ("loss" if d == "loss" else "all"))].fold
+                s = sh[(sh.feature_set == name) & (sh.bin_kb == b) & (sh.direction == d)].fold
                 if len(s):
                     ax.plot([s.quantile(.025), s.quantile(.975)], [y, y], color="#d0d0d0", lw=5, solid_capstyle="butt", zorder=0)
                 ax.plot([r.fold_lo, r.fold_hi], [y, y], color=BCOL[b], lw=1)
                 ax.scatter(r.fold, y, s=14, color=BCOL[b], zorder=3, label=f"{b} kb" if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":")
-        ax.set_xlim(0, 6); ax.set_title(f"Interstitial {'losses' if d == 'loss' else 'gains'} (E2–E4)")
+        ax.set_xlim(0, 6); ax.set_title(f"Interstitial {DLAB[d]} (E2–E4)")
         ax.set_xlabel("fold (observed / expected)")
     axes[0].set_yticks(range(len(SETS), 0, -1), SETS)
     axes[0].legend(loc="lower right", fontsize=7)
@@ -65,8 +68,8 @@ def fig_a_forest(res):
 def fig_a_strata(res):
     t = pd.read_csv(f"{res}/main/test_a.tsv", sep="\t")
     sel = ["macheret2020:all", "macheret2020:HS68", "humcfs:all", "genes_1mb"]
-    fig, axes = plt.subplots(2, 3, figsize=(11, 5), sharey=True)
-    for i, d in enumerate(("loss", "all")):
+    fig, axes = plt.subplots(3, 3, figsize=(11, 7.5), sharey=True)
+    for i, d in enumerate(DIRS):
         for k, b in enumerate((200, 500, 1000)):
             ax = axes[i, k]
             for k, name in enumerate(sel):
@@ -77,9 +80,10 @@ def fig_a_strata(res):
                             capsize=2, elinewidth=.8, label=name)
             ax.axhline(1, color="#666666", lw=.7, ls=":")
             ax.set_xticks(range(4), ["E1\n0.2–0.3", "E2\n0.3–0.4", "E3\n0.4–0.6", "E4\n≥0.6"])
-            ax.set_title(f"{b} kb · {'losses' if d == 'loss' else 'all directions'}")
+            ax.set_title(f"{b} kb · {DLAB[d]}")
             ax.set_ylim(0, 8)
-    axes[0, 0].set_ylabel("fold (95% CI)"); axes[1, 0].set_ylabel("fold (95% CI)")
+    for i in range(3):
+        axes[i, 0].set_ylabel("fold (95% CI)")
     axes[0, 0].legend(fontsize=6)
     fig.tight_layout()
     return fig
@@ -90,12 +94,14 @@ def fig_a_sensitivity(res):
             ("same cells", f"{res}/samecells/test_a.tsv")] + \
            [(f"without {d}", f"{res}/main/test_a_without_{d}.tsv") for d in ("P07", "P08", "P18", "P20", "P36")]
     sel = ["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all", "genes_1mb"]
-    fig, axes = plt.subplots(1, 3, figsize=(12, 4.6), sharey=True)
-    for ax, b in zip(axes, (200, 500, 1000)):
+    tabs = {lab: pd.read_csv(f, sep="\t") for lab, f in runs}
+    fig, axs = plt.subplots(3, 3, figsize=(12, 13), sharey=True)
+    for (row, d), (col, b) in [((i, d), (k, b)) for i, d in enumerate(DIRS) for k, b in enumerate((200, 500, 1000))]:
+        ax = axs[row, col]
         for j, name in enumerate(sel):
             for i, (lab, f) in enumerate(runs):
-                t = pd.read_csv(f, sep="\t")
-                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == "loss") & (t.stratum == "main")]
+                t = tabs[lab]
+                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & (t.stratum == "main")]
                 if r.empty:
                     continue
                 y = len(sel) - j + (i - 3.5) * 0.1
@@ -103,9 +109,10 @@ def fig_a_sensitivity(res):
                 ax.plot([r.fold_lo, r.fold_hi], [y, y], color=plt.cm.tab10(i), lw=.8)
                 ax.scatter(r.fold, y, s=10, color=plt.cm.tab10(i), label=lab if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":")
-        ax.set_title(f"{b} kb · losses (E2–E4)"); ax.set_xlabel("fold (95% CI)"); ax.set_xlim(0, 8)
-    axes[0].set_yticks(range(len(sel), 0, -1), sel)
-    axes[2].legend(fontsize=6, loc="lower right")
+        ax.set_title(f"{b} kb · {DLAB[d]} (E2–E4)"); ax.set_xlabel("fold (95% CI)"); ax.set_xlim(0, 8)
+    for i in range(3):
+        axs[i, 0].set_yticks(range(len(sel), 0, -1), sel)
+    axs[0, 2].legend(fontsize=6, loc="lower right")
     fig.tight_layout()
     return fig
 
@@ -113,11 +120,12 @@ def fig_a_sensitivity(res):
 def fig_b_irr(res):
     t = pd.read_csv(f"{res}/main/test_b.tsv", sep="\t")
     sets = t.feature_set.unique().tolist()
-    fig, axes = plt.subplots(1, 3, figsize=(11, 4), sharey=True)
-    for ax, b in zip(axes, (200, 500, 1000)):
+    fig, axs = plt.subplots(3, 3, figsize=(12, 15), sharey=True)
+    for (row, d), (col, b) in [((i, d), (k, b)) for i, d in enumerate(DIRS) for k, b in enumerate((200, 500, 1000))]:
+        ax = axs[row, col]
         for j, name in enumerate(sets):
             for k, m in enumerate(("unadjusted", "adjusted")):
-                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == "loss") & (t.stratum == "main") & (t.model == m)]
+                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & (t.stratum == "main") & (t.model == m)]
                 if r.empty:
                     continue
                 r = r.iloc[0]; y = len(sets) - j + (k - .5) * .3
@@ -125,9 +133,10 @@ def fig_b_irr(res):
                 ax.plot([r.irr_lo, r.irr_hi], [y, y], color=col, lw=1)
                 ax.scatter(r.irr, y, s=12, color=col, label=("unadjusted" if m == "unadjusted" else "adjusted") if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":"); ax.set_xscale("log"); ax.set_xlim(.1, 20)
-        ax.set_title(f"{b} kb · losses (E2–E4)"); ax.set_xlabel("IRR (log scale)")
-    axes[0].set_yticks(range(len(sets), 0, -1), sets)
-    axes[2].legend(fontsize=7)
+        ax.set_title(f"{b} kb · {DLAB[d]} (E2–E4)"); ax.set_xlabel("IRR (log scale)")
+    for i in range(3):
+        axs[i, 0].set_yticks(range(len(sets), 0, -1), sets, fontsize=7)
+    axs[0, 2].legend(fontsize=7)
     fig.tight_layout()
     return fig
 
@@ -136,11 +145,12 @@ def fig_c_donors(res):
     t = pd.read_csv(f"{res}/main/test_c.tsv", sep="\t")
     sel = ["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all"]
     donors = ["pooled", "P07", "P08", "P18", "P20", "P36"]
-    fig, axes = plt.subplots(1, 3, figsize=(11, 3.6), sharey=True)
-    for ax, b in zip(axes, (200, 500, 1000)):
+    fig, axs = plt.subplots(3, 3, figsize=(12, 10), sharey=True)
+    for (row, d), (col, b) in [((i, d), (k, b)) for i, d in enumerate(DIRS) for k, b in enumerate((200, 500, 1000))]:
+        ax = axs[row, col]
         for j, name in enumerate(sel):
             for i, dn in enumerate(donors):
-                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == "loss") & (t.donor == dn)]
+                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & (t.donor == dn)]
                 if r.empty or not np.isfinite(r.ratio.iloc[0]):
                     continue
                 r = r.iloc[0]; y = len(sel) - j + (i - 2.5) * 0.12
@@ -148,16 +158,17 @@ def fig_c_donors(res):
                 ax.plot([r.ratio_lo, r.ratio_hi], [y, y], color=col, lw=.8)
                 ax.scatter(r.ratio, y, s=10, color=col, label=dn if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":"); ax.set_xlim(0, 8)
-        ax.set_title(f"{b} kb · losses (E2–E4), per breakend"); ax.set_xlabel("observed / expected")
-    axes[0].set_yticks(range(len(sel), 0, -1), sel)
-    axes[2].legend(fontsize=6, loc="lower right")
+        ax.set_title(f"{b} kb · {DLAB[d]} (E2–E4), per breakend"); ax.set_xlabel("observed / expected")
+    for i in range(3):
+        axs[i, 0].set_yticks(range(len(sel), 0, -1), sel)
+    axs[0, 2].legend(fontsize=6, loc="lower right")
     fig.tight_layout()
     return fig
 
 
 def fig_regions(res):
     be = pd.read_csv(f"{res}/main/breakends_500kb.tsv", sep="\t", dtype={"chromosome": str})
-    be = be[(be.type == "interstitial") & (be.direction == "loss") & be.stratum.isin(["E2", "E3", "E4"])]
+    be = be[(be.type == "interstitial") & be.direction.isin(["loss", "gain"]) & be.stratum.isin(["E2", "E3", "E4"])]
     cfs = pd.read_csv(f"{ROOT}/data/features/cfs/cfs_catalogs_hg19.tsv", sep="\t")
     cfs["chromosome"] = cfs.chrom.str.replace("chr", "")
     genes = pd.read_csv(f"{ROOT}/data/features/genes/large_genes_300kb.tsv", sep="\t", dtype={"chromosome": str})
@@ -182,12 +193,15 @@ def fig_regions(res):
         x = be[(be.chromosome == c) & (be.hi >= s) & (be.lo <= e)].sort_values("pos")
         for i, r in enumerate(x.itertuples()):
             yy = 4.6 - i * 0.12
-            ax.plot([r.lo / 1e6, r.hi / 1e6], [yy, yy], color=DCOL.get(r.donor, "k"), lw=2)
+            ax.plot([r.lo / 1e6, r.hi / 1e6], [yy, yy], color=DCOL.get(r.donor, "k"), lw=2, ls="-" if r.direction == "loss" else ":")
         ax.set_xlim(s / 1e6, e / 1e6); ax.set_yticks([]); ax.set_ylim(min(3.5, 4.4 - len(x) * .12), 9.8)
-        ax.set_title(f"{g} · chr{c}:{s / 1e6:.0f}–{e / 1e6:.0f} Mb · {len(x)} loss breakends")
+        nl, ng = int((x.direction == "loss").sum()), int((x.direction == "gain").sum())
+        ax.set_title(f"{g} · chr{c}:{s / 1e6:.0f}–{e / 1e6:.0f} Mb · {nl} loss, {ng} gain breakends")
         ax.set_xlabel(f"chr{c} (Mb, hg19)")
     for dn, col in DCOL.items():
         axes[2].plot([], [], color=col, lw=2, label=dn)
+    axes[2].plot([], [], color="#666666", lw=2, ls="-", label="loss")
+    axes[2].plot([], [], color="#666666", lw=2, ls=":", label="gain")
     axes[2].legend(fontsize=6, loc="lower right")
     fig.tight_layout()
     return fig

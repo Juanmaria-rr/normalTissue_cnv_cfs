@@ -186,14 +186,14 @@ def main():
             for d, s, y in subsets(ev2):
                 r = stats(y.o.values, y.p.values, rng)
                 rows.append(dict(bin_kb=b, feature_set=name, direction=d, stratum=s, **r))
-        # negative controls: RT-matched shuffles, main stratum, all directions and losses
+        # negative controls: RT-matched shuffles, main stratum, each direction (loss, gain, all)
         for name in shuffle_sets:
             for k in range(N_SHUF):
                 sf = shuffle_feature(fs[name], null, rng)
                 o, p = event_probs(ev, null, sf)
                 ev2 = ev.assign(o=o, p=p)
                 for d, s, y in subsets(ev2):
-                    if s != "main" or d == "gain":
+                    if s != "main":
                         continue
                     r = stats(y.o.values, y.p.values, rng)
                     ctrl.append(dict(bin_kb=b, feature_set=name, shuffle=k, direction=d, **{x: r.get(x) for x in ("n_events", "observed", "expected", "fold")}))

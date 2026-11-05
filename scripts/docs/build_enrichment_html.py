@@ -112,7 +112,7 @@ def shuffle_rows(res):
     rows = []
     for name in MAIN_SETS:
         for b in BINS:
-            for d in ("loss", "all"):
+            for d in ("loss", "gain", "all"):
                 s = c[(c.feature_set == name) & (c.bin_kb == b) & (c.direction == d)].fold.dropna()
                 o = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & (t.stratum == "main")]
                 if s.empty or o.empty:
@@ -123,7 +123,7 @@ def shuffle_rows(res):
     return pd.DataFrame(rows)
 
 
-def sensitivity_rows(res):
+def sensitivity_rows(res, direction="loss"):
     runs = [("main", f"{res}/main/test_a.tsv"), ("no cuts", f"{res}/nocuts/test_a.tsv"),
             ("same cells", f"{res}/samecells/test_a.tsv")] + \
            [(f"without {d}", f"{res}/main/test_a_without_{d}.tsv") for d in ("P07", "P08", "P18", "P20", "P36")]
@@ -133,7 +133,7 @@ def sensitivity_rows(res):
             r = {"set": name, "bin": f"{b} kb"}
             for lab, f in runs:
                 t = pd.read_csv(f, sep="\t")
-                x = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == "loss") & (t.stratum == "main")]
+                x = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == direction) & (t.stratum == "main")]
                 r[lab] = f"{fmt(x.fold.iloc[0])} ({int(x.observed.iloc[0])}/{fmt(x.expected.iloc[0], 1)})" if len(x) else "–"
             rows.append(r)
     return pd.DataFrame(rows)
@@ -147,24 +147,25 @@ def overlapping_events(res, name, b, direction="loss"):
     cat, ct = name.split(":")
     sites = cfs[(cfs.catalog == cat) & ((cfs.cell_type == ct) | (ct == "all"))]
     e = pd.read_csv(f"{res}/main/events_{b}kb.tsv", sep="\t", dtype={"chromosome": str})
-    e = e[(e.type == "interstitial") & (e.direction == direction) & e.main_def]
+    e = e[(e.type == "interstitial") & e.main_def & ((e.direction == direction) if direction != "all" else True)]
     rows = []
     for r in e.itertuples():
         if overlaps(fs[name], r.chromosome, r.lo, r.hi)[0]:
             m = sites[(sites.chromosome == r.chromosome) & (sites.start <= r.hi) & (sites.end >= r.lo)]
-            rows.append({"donor": r.donor, "position": f"chr{r.chromosome}:{fmt(r.pos / 1e6, 1)} Mb",
+            rows.append({"direction": r.direction, "donor": r.donor, "position": f"chr{r.chromosome}:{fmt(r.pos / 1e6, 1)} Mb",
                          "interval": f"{fmt(r.lo / 1e6, 2)}–{fmt(r.hi / 1e6, 2)} Mb", "stratum": r.stratum,
-                         "ratio (event median)": fmt(1 - r.deviation if direction == "loss" else 1 + r.deviation),
+                         "ratio (event median)": fmt(1 - r.deviation if r.direction == "loss" else 1 + r.deviation),
                          "cells": fmt(int(r.n_cells)), "site annotation (Macheret, Table S1)": "; ".join(sorted(set(m.name.astype(str))))})
     return pd.DataFrame(rows)
 
 
 def test_b_rows(res):
     t = pd.read_csv(f"{res}/main/test_b.tsv", sep="\t")
-    x = t[(t.direction == "loss") & (t.stratum == "main")].copy()
+    x = t[t.stratum == "main"].copy()
     x["order"] = x.feature_set.map({s: i for i, s in enumerate(MAIN_SETS)})
-    x = x.sort_values(["order", "bin_kb", "model"], ascending=[True, True, False])
-    return pd.DataFrame({"set": x.feature_set, "bin": x.bin_kb.astype(str) + " kb", "model": x.model,
+    x["dorder"] = x.direction.map({"loss": 0, "gain": 1, "all": 2})
+    x = x.sort_values(["dorder", "order", "bin_kb", "model"], ascending=[True, True, True, False])
+    return pd.DataFrame({"direction": x.direction, "set": x.feature_set, "bin": x.bin_kb.astype(str) + " kb", "model": x.model,
                          "family": x.family, "events": x.n_events.map(lambda v: fmt(int(v))),
                          "IRR [95% CI]": [f"{fmt(i)} [{fmt(l)}–{fmt(h)}]" for i, l, h in zip(x.irr, x.irr_lo, x.irr_hi)],
                          "p": x.p.map(fp), "q": x.q.map(fp)}), t.family.value_counts().to_dict(), len(t)
@@ -172,8 +173,10 @@ def test_b_rows(res):
 
 def test_c_rows(res):
     t = pd.read_csv(f"{res}/main/test_c.tsv", sep="\t")
-    x = t[(t.direction == "loss") & t.feature_set.isin(["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all", "genes_1mb"])]
-    return pd.DataFrame({"set": x.feature_set, "bin": x.bin_kb.astype(str) + " kb", "donor": x.donor,
+    x = t[t.feature_set.isin(["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all", "genes_1mb"])].copy()
+    x["dorder"] = x.direction.map({"loss": 0, "gain": 1, "all": 2})
+    x = x.sort_values(["dorder", "feature_set", "bin_kb"], kind="stable")
+    return pd.DataFrame({"direction": x.direction, "set": x.feature_set, "bin": x.bin_kb.astype(str) + " kb", "donor": x.donor,
                          "cells": x.cells.map(lambda v: fmt(int(v))), "breakends": x.breakends.map(lambda v: fmt(int(v))),
                          "obs.": x.observed.map(lambda v: fmt(int(v))), "exp.": x.expected.map(fmt),
                          "O/E [95% CI]": [f"{fmt(r)} [{fmt(l)}–{fmt(h)}]" for r, l, h in zip(x.ratio, x.ratio_lo, x.ratio_hi)],
@@ -335,7 +338,7 @@ def main():
     g3 = pd.read_csv(f"{ROOT}/data/features/genes/large_genes_300kb.tsv", sep="\t")
     g1 = pd.read_csv(f"{ROOT}/data/features/genes/large_genes_1mb.tsv", sep="\t")
     tb, fams, nb = test_b_rows(res)
-    hs = overlapping_events(res, "macheret2020:HS68", 500)
+    hs = overlapping_events(res, "macheret2020:HS68", 500, "all")
 
     parts = []
     P = parts.append
@@ -474,34 +477,40 @@ Every number in this document is read from those tables.</p>
     P(flow([f"{R}/main/events_&lt;bin&gt;kb.tsv", f"{R}/main/usable_bins_rt_&lt;bin&gt;kb.tsv", "data/features/cfs/cfs_catalogs_hg19.tsv", "data/features/cfs/cfs_derived_hg19.tsv",
             "data/features/genes/large_genes_*.tsv"], ["scripts/06_enrichment/test_a_permutation.py"], [f"{R}/main/test_a.tsv"],
            "rows of <code>test_a.tsv</code> with direction = loss and stratum = main (all strata and directions are in the file)."))
-    P("<h3>6.3 Results: interstitial gains (E2–E4)</h3>")
+    P("<h3>6.3 Results: interstitial gains and all directions (E2–E4)</h3>")
     P(table(test_a_rows(ta, "gain"), ["set", "bin", "events", "obs.", "exp.", "fold [95% CI]", "p (enrich.)", "q"],
             num=["events", "obs.", "exp.", "p (enrich.)", "q"]))
     P(flow([f"{R}/main/test_a.tsv (output of 6.2)"], ["—"], ["—"], "rows of <code>test_a.tsv</code> with direction = gain and stratum = main."))
-    P(fig("fig_a_forest", "<b>What is shown.</b> Test A fold (point) with bootstrap 95% CI (line), per set and bin, for interstitial E2–E4 losses and gains. "
-          "Grey bar: 2.5–97.5% percentiles of the fold over the 20 shuffled versions of the set (losses in the left panel; all directions in the right one). "
+    P("<h4>All directions (losses and gains pooled)</h4>")
+    P(table(test_a_rows(ta, "all"), ["set", "bin", "events", "obs.", "exp.", "fold [95% CI]", "p (enrich.)", "q"],
+            num=["events", "obs.", "exp.", "p (enrich.)", "q"]))
+    P(flow([f"{R}/main/test_a.tsv (output of 6.2)"], ["—"], ["—"], "rows of <code>test_a.tsv</code> with direction = all and stratum = main."))
+    P(fig("fig_a_forest", "<b>What is shown.</b> Test A fold (point) with bootstrap 95% CI (line), per set and bin, for interstitial E2–E4 losses, gains and all directions. "
+          "Grey bar: 2.5–97.5% percentiles of the fold over the 20 shuffled versions of the set, for the same direction. Panels: losses, gains, all directions. "
           "<b>Limitation.</b> Axis truncated at 6."))
     P(flow([f"{R}/main/test_a.tsv", f"{R}/main/test_a_shuffle_controls.tsv"], ["scripts/docs/enrichment_figures.py (fig_a_forest)"], ["docs/enrichment/fig_a_forest.png"],
            "fold, fold_lo, fold_hi of the stratum main rows; grey bars from the shuffle table."))
     P("<h3>6.4 By deviation stratum</h3>")
-    P(fig("fig_a_strata", "<b>What is shown.</b> Test A fold with bootstrap 95% CI per stratum (E1 0.2–0.3; E2 0.3–0.4; E3 0.4–0.6; E4 ≥ 0.6) for four sets, for losses and for all directions; sets are dodged horizontally. "
+    P(fig("fig_a_strata", "<b>What is shown.</b> Test A fold with bootstrap 95% CI per stratum (E1 0.2–0.3; E2 0.3–0.4; E3 0.4–0.6; E4 ≥ 0.6) for four sets, for losses, gains and all directions; sets are dodged horizontally. "
           "<b>Limitation.</b> E4 has very few events (see the events table); a fold of 0 or a very high fold in E4 reflects counts of 0–2; CIs are truncated at 8."))
     P(flow([f"{R}/main/test_a.tsv"], ["scripts/docs/enrichment_figures.py (fig_a_strata)"], ["docs/enrichment/fig_a_strata.png"],
            "fold, fold_lo, fold_hi of the stratum E1–E4 rows for four sets."))
-    P("<h3>6.5 Loss events overlapping HS68 MiDAS sites (500 kb)</h3>")
+    P("<h3>6.5 Events overlapping HS68 MiDAS sites (500 kb)</h3>")
     P(table(hs, list(hs.columns), num=["cells"]))
-    P(method("<b>What is counted.</b> Main-set interstitial E2–E4 loss events at 500 kb whose interval overlaps an HS68 MiDAS domain; the annotation is the gene/intergenic column of Macheret et al. 2020 Table S1."))
+    P(method("<b>What is counted.</b> Main-set interstitial E2–E4 events (losses, gains and mixed) at 500 kb whose interval overlaps an HS68 MiDAS domain; the annotation is the gene/intergenic column of Macheret et al. 2020 Table S1."))
     P(flow([f"{R}/main/events_500kb.tsv", "data/features/cfs/cfs_catalogs_hg19.tsv (macheret2020, HS68 rows)"], ["scripts/docs/build_enrichment_html.py (overlap of event intervals with HS68 sites)"],
            ["this table (not saved separately; the same overlap flags are in <code>master_events.tsv</code>, column ov:macheret2020:HS68)"],
-           "one row per overlapping loss event."))
-    P("<h3>6.6 Sensitivity</h3><p>Fold (observed / expected) for interstitial E2–E4 losses: main set, without the noise and S-phase cuts, with the same cells in the three bins (those passing the cuts at 200 kb, 500 kb and 1 Mb), and leaving out each donor.</p>")
-    sens = sensitivity_rows(res)
-    P(table(sens, list(sens.columns)))
+           "one row per overlapping event, any direction."))
+    P("<h3>6.6 Sensitivity</h3><p>Fold (observed / expected, in brackets observed / expected events) for interstitial E2–E4 events: main set, without the noise and S-phase cuts, with the same cells in the three bins (those passing the cuts at 200 kb, 500 kb and 1 Mb), and leaving out each donor; one table per direction.</p>")
+    for d, lab in (("loss", "Losses"), ("gain", "Gains"), ("all", "All directions")):
+        sens = sensitivity_rows(res, d)
+        P(f"<h4>{lab}</h4>")
+        P(table(sens, list(sens.columns)))
     P(flow([f"{R}/{{main,nocuts,samecells}}/events_&lt;bin&gt;kb.tsv and usable_bins_rt_&lt;bin&gt;kb.tsv", "the catalogue tables"],
            ["scripts/06_enrichment/test_a_permutation.py (--exclude-donor for the leave-one-out runs)"],
            [f"{R}/main/test_a.tsv", f"{R}/nocuts/test_a.tsv", f"{R}/samecells/test_a.tsv", f"{R}/main/test_a_without_&lt;donor&gt;.tsv"],
-           "fold (observed / expected) of the loss, stratum main rows of each run."))
-    P(fig("fig_a_sensitivity", "<b>What is shown.</b> Test A fold (point) with bootstrap 95% CI (line) for E2–E4 losses for five sets in each sensitivity analysis. "
+           "fold (observed / expected) of the stratum main rows of each run, per direction."))
+    P(fig("fig_a_sensitivity", "<b>What is shown.</b> Test A fold (point) with bootstrap 95% CI (line) for E2–E4 events, one row of panels per direction (losses, gains, all), for five sets in each sensitivity analysis. "
           "<b>Limitation.</b> The runs share most events, so their CIs are not independent; axis truncated at 8."))
     P(flow(["the test_a tables of 6.6"], ["scripts/docs/enrichment_figures.py (fig_a_sensitivity)"], ["docs/enrichment/fig_a_sensitivity.png"], "fold with fold_lo–fold_hi per run."))
 
@@ -515,10 +524,10 @@ Every number in this document is read from those tables.</p>
     P(flow([f"{R}/main/events_&lt;bin&gt;kb.tsv", f"{R}/main/usable_bins_rt_1000kb.tsv (windows)", "bins_with_replicationTime_50kb.tsv (RT, GC, mappability, usable fraction)",
             "data/features/genes/large_genes_300kb.tsv", "the catalogue tables"],
            ["scripts/06_enrichment/test_b_regression.py"], [f"{R}/main/test_b.tsv"],
-           "rows of <code>test_b.tsv</code> with direction = loss and stratum = main, both models."))
-    P(fig("fig_b_irr", "<b>What is shown.</b> IRR (log scale) of overlapping each set for interstitial E2–E4 losses, unadjusted (grey) and adjusted for RT, GC, mappability, genes &gt; 300 kb, chromosome and donor (red). "
+           "rows of <code>test_b.tsv</code> with stratum = main, every direction and both models."))
+    P(fig("fig_b_irr", "<b>What is shown.</b> IRR (log scale) of overlapping each set for interstitial E2–E4 events, one row of panels per direction (losses, gains, all), unadjusted (grey) and adjusted for RT, GC, mappability, genes &gt; 300 kb, chromosome and donor (red). "
           "<b>Limitation.</b> The event midpoint is used (not its width) and the overlap per window is binary."))
-    P(flow([f"{R}/main/test_b.tsv"], ["scripts/docs/enrichment_figures.py (fig_b_irr)"], ["docs/enrichment/fig_b_irr.png"], "irr, irr_lo, irr_hi of the loss, stratum main rows."))
+    P(flow([f"{R}/main/test_b.tsv"], ["scripts/docs/enrichment_figures.py (fig_b_irr)"], ["docs/enrichment/fig_b_irr.png"], "irr, irr_lo, irr_hi of the stratum main rows, every direction."))
     P(method("Most windows have 0 or 1 event per donor; with counts like these the estimated dispersion is below Poisson (alpha ≤ 0) and Poisson with robust errors is used."))
 
     tc = test_c_rows(res)
@@ -530,16 +539,16 @@ Every number in this document is read from those tables.</p>
 <li><b>Change from the plan.</b> The plan was a mixed logistic model with a donor random effect; with 5 donors that variance is not estimable, so per-donor ratios and a heterogeneity test are reported instead.</li></ul>""")
     P(table(tc, list(tc.columns), num=["cells", "breakends", "obs.", "exp.", "heterogeneity p"]))
     P(flow([f"{R}/main/breakends_&lt;bin&gt;kb.tsv", f"{R}/main/usable_bins_rt_&lt;bin&gt;kb.tsv", "the catalogue tables"],
-           ["scripts/06_enrichment/test_c_per_donor.py"], [f"{R}/main/test_c.tsv"], "rows of <code>test_c.tsv</code> with direction = loss for five sets."))
-    P(fig("fig_c_donors", "<b>What is shown.</b> Breakend-level O/E (E2–E4 losses) per donor (colour) and pooled (black), with cell-bootstrap 95% CI. "
+           ["scripts/06_enrichment/test_c_per_donor.py"], [f"{R}/main/test_c.tsv"], "rows of <code>test_c.tsv</code> for five sets, every direction."))
+    P(fig("fig_c_donors", "<b>What is shown.</b> Breakend-level O/E (E2–E4) per donor (colour) and pooled (black), with cell-bootstrap 95% CI; one row of panels per direction (losses, gains, all). "
           "<b>Limitation.</b> Donors with few breakends have very wide CIs or CIs collapsed at 0."))
     P(flow([f"{R}/main/test_c.tsv"], ["scripts/docs/enrichment_figures.py (fig_c_donors)"], ["docs/enrichment/fig_c_donors.png"], "ratio, ratio_lo, ratio_hi per donor and pooled."))
 
     P('<h2 id="regions">9 · Regional views</h2>')
-    P(fig("fig_regions", "<b>What is shown.</b> [lo, hi] intervals of E2–E4 loss breakends (each line is a breakend of one main-set cell, coloured by donor) at 500 kb in three regions, "
+    P(fig("fig_regions", "<b>What is shown.</b> [lo, hi] intervals of E2–E4 interstitial breakends (each line is a breakend of one main-set cell, coloured by donor; solid = loss, dotted = gain) at 500 kb in three regions, "
           "with HS68 and U2OS+HeLa MiDAS domains (Macheret 2020), HumCFS bands, genes &gt; 300 kb and replication timing per bin (green, up = early)."))
     P(flow([f"{R}/main/breakends_500kb.tsv", f"{R}/main/usable_bins_rt_500kb.tsv", "data/features/cfs/cfs_catalogs_hg19.tsv", "data/features/genes/large_genes_300kb.tsv"],
-           ["scripts/docs/enrichment_figures.py (fig_regions)"], ["docs/enrichment/fig_regions.png"], "loss breakends (E2–E4) and tracks in three 10 Mb windows."))
+           ["scripts/docs/enrichment_figures.py (fig_regions)"], ["docs/enrichment/fig_regions.png"], "loss and gain breakends (E2–E4) and tracks in three 10 Mb windows."))
 
     P("""<h2 id="limitations">10 · Method limitations</h2><ul>
 <li>5-donor pilot; event counts range from tens to hundreds depending on the subset.</li>
