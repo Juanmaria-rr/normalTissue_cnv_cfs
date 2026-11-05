@@ -7,7 +7,7 @@ Cell stages (per donor; stages 4-11 per bin):
    3 aligned        aligned and level-1 QC computed
    4 mapping        mapping rate >= 90% (alarm only; not used to exclude)
    5 fitted         >= 20,000 usable reads (pureSamples_absCN --total.reads)
-   6 depth_ok       usable reads >= 15 x 2 x usable bins / 0.91 (396k / 145k / 64k)
+   6 depth_ok       mean corrected reads per usable bin / 2 >= 15 (recalibrate_depth.py)
    7 noise          + noise_excess <= 1.5
    8 rt             + rt_rho <= 0.10  (= pass_cuts, the main analysis set)
    9 any breakend   + >= 1 breakend, main definition (E2-E4)

@@ -3,12 +3,17 @@
 
   fig_a_forest      test A fold (95% bootstrap CI) per feature set, interstitial events,
                     main stratum (E2-E4), losses, gains and all directions, three bins; grey bar =
-                    2.5-97.5% range of the fold over RT-matched shuffles of that set and direction
+                    2.5-97.5% range of the fold over RT-matched shuffles of that set and direction;
+                    hollow marker = expected < 2 events (fold dominated by counting noise)
   fig_a_strata      test A fold (95% bootstrap CI) per deviation stratum (E1-E4), losses, gains and all directions
-  fig_a_sensitivity test A fold (95% bootstrap CI) for losses (main): main set, no cuts, same
-                    cells, and leaving out each donor
-  fig_b_irr         test B IRR (95% CI), unadjusted vs adjusted, losses (main)
-  fig_c_donors      test C ratio (95% cell bootstrap CI) per donor, losses (main)
+  fig_a_sensitivity test A fold (95% bootstrap CI) in every robustness variant (robustness.py):
+                    main, no cuts, same cells, cells500, refined, linkage 1 / 5 Mb, collapse on
+                    E2-E4, leave-one-donor-out
+  fig_top_donors    per-donor observed / expected (exact Poisson 95% CI) of the strongest test A
+                    row (top_row(): smallest permutation p among main-stratum CFS rows)
+  fig_b_irr         test B IRR (95% CI, conservative SE), crude / adjusted /
+                    adjusted + genes > 300 kb
+  fig_c_donors      test C ratio (95% cell bootstrap CI; one-sided when O = 0) per donor
   fig_regions       loss breakend intervals (cells of the main set, 500 kb) around FHIT,
                     LRP1B and IMMP2L, with MiDAS sites, HumCFS bands, gene spans and RT
 
@@ -36,6 +41,21 @@ plt.rcParams.update({"figure.dpi": 110, "axes.spines.top": False, "axes.spines.r
 
 DLAB = {"loss": "losses", "gain": "gains", "all": "all directions"}
 DIRS = ("loss", "gain", "all")
+CONTROLS = ["genes_300kb", "genes_1mb"]
+MCOL = {"crude": "#999999", "adjusted": "#c44e52", "adjusted_genes300": "#4c72b0"}
+
+
+def top_row(t):
+    """Strongest test A row: main stratum, CFS sets (controls excluded), smallest p_perm then p_enrich."""
+    x = t[(t.stratum == "main") & ~t.feature_set.isin(CONTROLS) & t.p_perm.notna()]
+    return x.sort_values(["p_perm", "p_enrich"]).iloc[0]
+
+
+def poisson_ci(o, alpha=.05):
+    from scipy.stats import chi2
+    lo = chi2.ppf(alpha / 2, 2 * o) / 2 if o > 0 else 0.0
+    hi = chi2.ppf(1 - alpha / 2, 2 * (o + 1)) / 2
+    return lo, hi
 
 
 def fig_a_forest(res):
@@ -55,7 +75,9 @@ def fig_a_forest(res):
                 if len(s):
                     ax.plot([s.quantile(.025), s.quantile(.975)], [y, y], color="#d0d0d0", lw=5, solid_capstyle="butt", zorder=0)
                 ax.plot([r.fold_lo, r.fold_hi], [y, y], color=BCOL[b], lw=1)
-                ax.scatter(r.fold, y, s=14, color=BCOL[b], zorder=3, label=f"{b} kb" if j == 0 else None)
+                low = r.expected < 2
+                ax.scatter(r.fold, y, s=14, zorder=3, label=f"{b} kb" if j == 0 else None,
+                           facecolor="white" if low else BCOL[b], edgecolor=BCOL[b], linewidth=1)
         ax.axvline(1, color="#666666", lw=.7, ls=":")
         ax.set_xlim(0, 6); ax.set_title(f"Interstitial {DLAB[d]} (E2–E4)")
         ax.set_xlabel("fold (observed / expected)")
@@ -90,29 +112,55 @@ def fig_a_strata(res):
 
 
 def fig_a_sensitivity(res):
-    runs = [("main", f"{res}/main/test_a.tsv"), ("no cuts", f"{res}/nocuts/test_a.tsv"),
-            ("same cells", f"{res}/samecells/test_a.tsv")] + \
-           [(f"without {d}", f"{res}/main/test_a_without_{d}.tsv") for d in ("P07", "P08", "P18", "P20", "P36")]
-    sel = ["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all", "genes_1mb"]
-    tabs = {lab: pd.read_csv(f, sep="\t") for lab, f in runs}
-    fig, axs = plt.subplots(3, 3, figsize=(12, 13), sharey=True)
+    v = pd.read_csv(f"{res}/robustness_variants.tsv", sep="\t")
+    runs = list(dict.fromkeys(v.variant))
+    sel = ["macheret2020:all", "macheret2020:HS68", "ji2020:all", "humcfs:all", "consensusA:core", "genes_1mb"]
+    fig, axs = plt.subplots(3, 3, figsize=(12, 15), sharey=True)
     for (row, d), (col, b) in [((i, d), (k, b)) for i, d in enumerate(DIRS) for k, b in enumerate((200, 500, 1000))]:
         ax = axs[row, col]
         for j, name in enumerate(sel):
-            for i, (lab, f) in enumerate(runs):
-                t = tabs[lab]
-                r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & (t.stratum == "main")]
-                if r.empty:
+            for i, lab in enumerate(runs):
+                r = v[(v.variant == lab) & (v.feature_set == name) & (v.bin_kb == b) & (v.direction == d)]
+                if r.empty or not np.isfinite(r.fold.iloc[0]):
                     continue
-                y = len(sel) - j + (i - 3.5) * 0.1
+                y = len(sel) - j + (i - (len(runs) - 1) / 2) * 0.06
                 r = r.iloc[0]
-                ax.plot([r.fold_lo, r.fold_hi], [y, y], color=plt.cm.tab10(i), lw=.8)
-                ax.scatter(r.fold, y, s=10, color=plt.cm.tab10(i), label=lab if j == 0 else None)
+                ax.plot([r.fold_lo, r.fold_hi], [y, y], color=plt.cm.tab20(i), lw=.8)
+                ax.scatter(r.fold, y, s=8, color=plt.cm.tab20(i), label=lab if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":")
         ax.set_title(f"{b} kb · {DLAB[d]} (E2–E4)"); ax.set_xlabel("fold (95% CI)"); ax.set_xlim(0, 8)
     for i in range(3):
         axs[i, 0].set_yticks(range(len(sel), 0, -1), sel)
-    axs[0, 2].legend(fontsize=6, loc="lower right")
+    handles, labels = [], []
+    for ax in axs.flat:
+        for h, l in zip(*ax.get_legend_handles_labels()):
+            if l not in labels:
+                handles.append(h); labels.append(l)
+    fig.legend(handles, labels, fontsize=7, loc="lower center", ncol=7, bbox_to_anchor=(.5, -.02))
+    fig.tight_layout(rect=(0, .03, 1, 1))
+    return fig
+
+
+def fig_top_donors(res):
+    t = pd.read_csv(f"{res}/main/test_a.tsv", sep="\t")
+    top = top_row(t)
+    pr = pd.read_csv(f"{res}/main/test_a_event_probs.tsv", sep="\t", dtype={"chromosome": str})
+    x = pr[(pr.bin_kb == top.bin_kb) & (pr.feature_set == top.feature_set) & (pr.type == "interstitial") & pr.main_def & pr.p.notna()]
+    if top.direction != "all":
+        x = x[x.direction == top.direction]
+    g = x.groupby("donor").agg(O=("o", "sum"), E=("p", "sum"), n=("o", "size"))
+    g.loc["pooled"] = [g.O.sum(), g.E.sum(), g.n.sum()]
+    fig, ax = plt.subplots(figsize=(6.5, 2.8))
+    for i, (dn, r) in enumerate(g.iloc[::-1].iterrows()):
+        lo, hi = poisson_ci(int(r.O))
+        col = "#222222" if dn == "pooled" else DCOL.get(dn, "k")
+        ax.plot([lo / r.E, hi / r.E], [i, i], color=col, lw=1.2)
+        ax.scatter(r.O / r.E, i, s=22, color=col, zorder=3)
+        ax.text(10.3, i, f"{int(r.O)} / {r.E:.2f}  (n = {int(r.n)})", va="center", fontsize=7)
+    ax.set_yticks(range(len(g)), list(g.index[::-1]))
+    ax.axvline(1, color="#666666", lw=.7, ls=":"); ax.set_xlim(0, 10)
+    ax.set_xlabel("observed / expected (exact Poisson 95% CI)")
+    ax.set_title(f"{top.feature_set} · {int(top.bin_kb)} kb · interstitial {DLAB[top.direction]} (E2–E4) · per donor   [O / E (events)]")
     fig.tight_layout()
     return fig
 
@@ -124,14 +172,13 @@ def fig_b_irr(res):
     for (row, d), (col, b) in [((i, d), (k, b)) for i, d in enumerate(DIRS) for k, b in enumerate((200, 500, 1000))]:
         ax = axs[row, col]
         for j, name in enumerate(sets):
-            for k, m in enumerate(("unadjusted", "adjusted")):
+            for k, m in enumerate(MCOL):
                 r = t[(t.feature_set == name) & (t.bin_kb == b) & (t.direction == d) & (t.stratum == "main") & (t.model == m)]
-                if r.empty:
+                if r.empty or not np.isfinite(r.irr.iloc[0]):
                     continue
-                r = r.iloc[0]; y = len(sets) - j + (k - .5) * .3
-                col = "#999999" if m == "unadjusted" else "#c44e52"
-                ax.plot([r.irr_lo, r.irr_hi], [y, y], color=col, lw=1)
-                ax.scatter(r.irr, y, s=12, color=col, label=("unadjusted" if m == "unadjusted" else "adjusted") if j == 0 else None)
+                r = r.iloc[0]; y = len(sets) - j + (k - 1) * .25
+                ax.plot([r.irr_lo, r.irr_hi], [y, y], color=MCOL[m], lw=1)
+                ax.scatter(r.irr, y, s=10, color=MCOL[m], label=m if j == 0 else None)
         ax.axvline(1, color="#666666", lw=.7, ls=":"); ax.set_xscale("log"); ax.set_xlim(.1, 20)
         ax.set_title(f"{b} kb · {DLAB[d]} (E2–E4)"); ax.set_xlabel("IRR (log scale)")
     for i in range(3):
@@ -208,7 +255,7 @@ def fig_regions(res):
 
 
 FIGS = {"fig_a_forest": fig_a_forest, "fig_a_strata": fig_a_strata, "fig_a_sensitivity": fig_a_sensitivity,
-        "fig_b_irr": fig_b_irr, "fig_c_donors": fig_c_donors, "fig_regions": fig_regions}
+        "fig_top_donors": fig_top_donors, "fig_b_irr": fig_b_irr, "fig_c_donors": fig_c_donors, "fig_regions": fig_regions}
 
 
 def main():

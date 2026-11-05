@@ -1,30 +1,44 @@
 #!/usr/bin/env python3
 """Test A: positional enrichment of interstitial breakend events in genomic feature sets.
 
-Null: each event is re-placed on its own chromosome, centred on a usable bin of the same
-replication-timing quintile, keeping its interval width, never overlapping a pericentromeric
-block (+/- 1 Mb). Because placements are uniform over that candidate set, each event's null
-overlap probability p_i is computed exactly by enumerating all its candidate placements.
+Null (grid-aligned, revised 2026-11-05 after the independent review): each event is re-placed
+on its own chromosome with its interval starting at a usable bin start, keeping its width,
+never overlapping a pericentromeric block (+/- 1 Mb), and only at placements whose
+replication timing falls in the event's RT quintile. The RT of a placement is computed
+exactly as for events: mean RT of the usable bins overlapping the interval, quintile edges
+from the genome-wide usable-bin RT of that bin size. Placements are uniform over that
+candidate set, so each event's null overlap probability p_i is exact (all candidates are
+enumerated).
   observed O = number of events whose [lo, hi] overlaps a feature
   expected E = sum p_i;  fold = O / E
-  p (enrichment / depletion) from 20,000 simulated sums of independent Bernoulli(p_i),
-  equivalent to 20,000 joint permutations of all events; fold 95% CI from 2,000 bootstrap
-  resamples of events (o_i, p_i)
-  q = BH within each feature set (family) across bins x directions x strata
+  p_enrich / p_deplete  exact Poisson-binomial tails P(S >= O) / P(S <= O), S = sum of
+                        independent Bernoulli(p_i) (no Monte-Carlo error)
+  fold_lo / fold_hi     2.5 / 97.5% of 2,000 bootstrap resamples of events (o_i, p_i)
+  fold_lo_donor / _hi   same, resampling donors (cluster bootstrap; with 5 donors a rough
+                        guide to between-donor variability, not a calibrated interval)
+  p_perm                main stratum only: site-shuffle permutation p. The feature set is
+                        shuffled --perm times (default 5,000; each site moved to a random usable bin of the
+                        same chromosome and RT quintile, width kept) and the whole test is
+                        recomputed; p_perm = (1 + #{fold_shuffled >= fold_observed}) / (N + 1).
+                        Unlike the exact p, it keeps the spatial clustering of events and of
+                        sites, so it is the reference p-value.
+  q_family              BH within each feature set across bins x directions x strata
+  q_global / q_perm_global  BH over all main-stratum rows of every CFS set (bins x directions
+                        x sets; positive controls genes_* excluded), on p_enrich / p_perm
 Subsets: interstitial events; direction loss / gain / all; stratum E1, E2, E3, E4, main
 (E2-E4 = the paper's 1.3 / 0.7).
-Feature sets: each CFS catalogue x cell type and unions (macheret2020, ji2020, letallec2013
-all and epithelial, humcfs, brison2019, sarni2020, wilson2015, simpson2021), and the derived
-catalogues of cfs_derived_hg19.tsv when present (consensusA core / reproducible / all,
-breast_predicted, A_plus_C, union_all); controls: genes > 300 kb and > 1 Mb (positive), and
-RT-matched shuffles of selected sets (negative: sites moved to random usable bins of the
-same chromosome and RT quintile, width kept; fold should be ~1).
+Feature sets (deduplicated): <catalogue>:all for every catalogue; per cell type only where
+cell types differ and are of interest (macheret2020 HS68 / HeLa / U2OS, ji2020 HBE / HeLa /
+U2OS, letallec2013 MCF10A and epithelial = HCT116 / LoVo / LS174T / MCF10A / CAL51,
+consensusA core / reproducible); controls genes > 300 kb and > 1 Mb (positive).
 
 Inputs: <events>/events_<bin>kb.tsv and usable_bins_rt_<bin>kb.tsv (build_event_table.py),
-data/features/cfs/cfs_catalogs_hg19.tsv, data/features/genes/large_genes_{300kb,1mb}.tsv.
-Options: --shuffle unions|all|none (which sets get shuffle controls), --exclude-donor
-(leave-one-donor-out), --tag (output suffix).
-Outputs: <out>/test_a<tag>.tsv, <out>/test_a_shuffle_controls<tag>.tsv.
+data/features/cfs/cfs_catalogs_hg19.tsv (+ cfs_derived_hg19.tsv), data/features/genes/.
+Options: --perm N (0 = no permutation), --bins, --exclude-donor (leave-one-donor-out),
+--tag (output suffix), --workers.
+Outputs: <out>/test_a<tag>.tsv, <out>/test_a_shuffle_controls<tag>.tsv (fold of every
+shuffle, main stratum), <out>/test_a_event_probs<tag>.tsv (o_i, p_i per event and set, for
+robustness.py).
 
 Usage: python3 scripts/06_enrichment/test_a_permutation.py --events results/enrichment/pilot/main \
     --cfs data/features/cfs/cfs_catalogs_hg19.tsv --genes data/features/genes --out results/enrichment/pilot/main
@@ -32,6 +46,8 @@ Usage: python3 scripts/06_enrichment/test_a_permutation.py --events results/enri
 import argparse
 import os
 import sys
+import zlib
+from concurrent.futures import ProcessPoolExecutor
 
 import numpy as np
 import pandas as pd
@@ -41,23 +57,30 @@ from genome_annot import PERICEN  # noqa: E402
 
 BINS = [200, 500, 1000]
 EPITHELIAL = ["HCT116", "LoVo", "LS174T", "MCF10A", "CAL51"]
-N_SIM, N_BOOT, N_SHUF = 20000, 2000, 20
-SHUFFLE_SETS = ["macheret2020:all", "ji2020:all", "humcfs:all", "letallec2013:all", "genes_1mb",
-                "consensusA:all", "breast_predicted:all", "A_plus_C:all", "union_all:all", "simpson2021:all"]
+PER_CELL_TYPE = {"macheret2020": None, "ji2020": None, "consensusA": None, "letallec2013": ["MCF10A"]}
+CONTROLS = ["genes_300kb", "genes_1mb"]
+N_BOOT = 2000
+DIRS = ("loss", "gain", "all")
+STRATA = ("E1", "E2", "E3", "E4", "main")
 
 
 def merge(df):
     out = {}
     for c, g in df.groupby("chromosome"):
-        iv = sorted(zip(g.start.astype(np.int64), g.end.astype(np.int64)))
-        S, E = [], []
-        for s, e in iv:
-            if S and s <= E[-1]:
-                E[-1] = max(E[-1], e)
-            else:
-                S.append(s); E.append(e)
-        out[str(c)] = (np.array(S), np.array(E))
+        out[str(c)] = merge_arrays(g.start.values.astype(np.int64), g.end.values.astype(np.int64))
     return out
+
+
+def merge_arrays(s, e):
+    o = np.argsort(s, kind="stable")
+    s, e = s[o], e[o]
+    ce = np.maximum.accumulate(e)
+    new = np.r_[True, s[1:] > ce[:-1]]
+    g = np.cumsum(new) - 1
+    S = s[new]
+    E = np.zeros(len(S), np.int64)
+    np.maximum.at(E, g, e)
+    return S, E
 
 
 def overlaps(feat, chrom, a, b):
@@ -80,10 +103,12 @@ def feature_sets(cfs_file, genes_dir):
     c = c.assign(chromosome=c.chrom.str.replace("chr", ""))
     c = c[c.chromosome.isin([str(i) for i in range(1, 23)])]
     fs = {}
-    for (cat, ct), g in c.groupby(["catalog", "cell_type"]):
-        fs[f"{cat}:{ct}"] = g
     for cat, g in c.groupby("catalog"):
         fs[f"{cat}:all"] = g
+        if cat in PER_CELL_TYPE:
+            for ct, h in g.groupby("cell_type"):
+                if PER_CELL_TYPE[cat] is None or ct in PER_CELL_TYPE[cat]:
+                    fs[f"{cat}:{ct}"] = h
     lt = c[c.catalog == "letallec2013"]
     fs["letallec2013:epithelial"] = lt[lt.cell_type.isin(EPITHELIAL)]
     for lab in ("300kb", "1mb"):
@@ -93,68 +118,214 @@ def feature_sets(cfs_file, genes_dir):
 
 
 class Null:
-    """Candidate placements per (chromosome, RT quintile): usable-bin midpoints."""
+    """Grid-aligned candidate placements with RT computed as for events."""
 
     def __init__(self, bins):
-        q = np.nanquantile(bins.rt, [.2, .4, .6, .8])
-        bins = bins.assign(rtq=np.searchsorted(q, bins.rt) + 1, mid=(bins.start + bins.end) // 2)
-        self.mids = {k: g.mid.values.astype(np.int64) for k, g in bins.groupby(["chromosome", "rtq"])}
+        self.edges = np.nanquantile(bins.rt, [.2, .4, .6, .8])
+        bins = bins.assign(rtq=np.searchsorted(self.edges, bins.rt) + 1, mid=(bins.start + bins.end) // 2)
+        bins.loc[bins.rt.isna(), "rtq"] = 0
         self.bins = bins
+        self.chrom = {}
+        for c, g in bins.groupby("chromosome"):
+            g = g.sort_values("start")
+            r = g.rt.values
+            fin = np.isfinite(r)
+            self.chrom[c] = dict(start=g.start.values.astype(np.int64), end=g.end.values.astype(np.int64),
+                                 cs=np.r_[0, np.cumsum(np.where(fin, r, 0))], cn=np.r_[0, np.cumsum(fin)],
+                                 rtq=g.rtq.values.astype(int))
+        # shuffle targets: usable-bin midpoints per (chromosome, bin RT quintile)
+        self.mids = {k: g.mid.values.astype(np.int64) for k, g in bins[bins.rtq > 0].groupby(["chromosome", "rtq"])}
+        self.cache = {}
+
+    def interval_rtq(self, chrom, lo, hi):
+        d = self.chrom[chrom]
+        i = np.searchsorted(d["end"], lo, side="left")
+        j = np.searchsorted(d["start"], hi, side="right")
+        n = d["cn"][j] - d["cn"][i]
+        with np.errstate(invalid="ignore", divide="ignore"):
+            rt = (d["cs"][j] - d["cs"][i]) / n
+        q = np.searchsorted(self.edges, rt) + 1
+        q[~np.isfinite(rt)] = 0
+        return q
 
     def candidates(self, chrom, rtq, width):
-        m = self.mids.get((chrom, rtq), np.array([], np.int64))
-        a, b = m - width // 2, m + width // 2
-        bl, bh = PERICEN[int(chrom)]
-        keep = ~((a / 1e6 <= bh + 1) & (b / 1e6 >= bl - 1))
-        return a[keep], b[keep]
+        key = (chrom, width)
+        if key not in self.cache:
+            if chrom not in self.chrom:
+                self.cache[key] = (np.array([], np.int64),) * 2 + (np.array([], int),)
+            else:
+                a = self.chrom[chrom]["start"]
+                b = a + width
+                bl, bh = PERICEN[int(chrom)]
+                keep = ~((a / 1e6 <= bh + 1) & (b / 1e6 >= bl - 1))
+                a, b = a[keep], b[keep]
+                self.cache[key] = (a, b, self.interval_rtq(chrom, a, b))
+        a, b, q = self.cache[key]
+        k = q == rtq
+        return a[k], b[k]
 
 
 def event_probs(ev, null, feat):
-    o, p = np.zeros(len(ev), bool), np.full(len(ev), np.nan)
-    for i, r in enumerate(ev.itertuples()):
-        o[i] = overlaps(feat, r.chromosome, r.lo, r.hi)[0]
-        a, b = null.candidates(r.chromosome, int(r.rt_quintile), int(r.hi - r.lo))
-        if len(a):
-            p[i] = overlaps(feat, r.chromosome, a, b).mean()
+    o = np.zeros(len(ev), bool)
+    p = np.full(len(ev), np.nan)
+    chrom, lo, hi = ev.chromosome.values, ev.lo.values.astype(np.int64), ev.hi.values.astype(np.int64)
+    rtq, width = ev.rt_quintile.values.astype(int), (ev.hi - ev.lo).values.astype(np.int64)
+    for c in np.unique(chrom):
+        k = np.where(chrom == c)[0]
+        o[k] = overlaps(feat, c, lo[k], hi[k])
+    pc = {}
+    for i in range(len(ev)):
+        key = (chrom[i], rtq[i], width[i])
+        if key not in pc:
+            a, b = null.candidates(*key)
+            pc[key] = overlaps(feat, chrom[i], a, b).mean() if len(a) else np.nan
+        p[i] = pc[key]
     return o, p
 
 
-def stats(o, p, rng):
+def pb_pmf(p):
+    """Exact Poisson-binomial probability mass of S = sum of independent Bernoulli(p_i)."""
+    pmf = np.zeros(len(p) + 1)
+    pmf[0] = 1.0
+    for k, x in enumerate(p, start=1):
+        pmf[1:k + 1] = pmf[1:k + 1] * (1 - x) + pmf[:k] * x
+        pmf[0] *= 1 - x
+    return pmf
+
+
+def pb_tails(p, O):
+    """Exact Poisson-binomial P(S >= O), P(S <= O)."""
+    pmf = pb_pmf(p)
+    return float(min(1.0, pmf[O:].sum())), float(min(1.0, pmf[:O + 1].sum()))
+
+
+def rng_for(seed, *key):
+    return np.random.default_rng([seed, zlib.crc32("|".join(map(str, key)).encode())])
+
+
+def stats(o, p, donors, rng):
     k = np.isfinite(p)
-    o, p = o[k], p[k]
+    o, p, donors = o[k], p[k], donors[k]
     n = len(o)
     if n == 0:
         return dict(n_events=0)
     O, E = int(o.sum()), float(p.sum())
-    sims = (rng.random((N_SIM, n)) < p).sum(1)
+    pe, pd_ = pb_tails(p, O)
     bi = rng.integers(0, n, (N_BOOT, n))
     bf = o[bi].sum(1) / np.maximum(p[bi].sum(1), 1e-12)
-    return dict(n_events=n, observed=O, expected=round(E, 2), fold=round(O / E, 3) if E > 0 else np.nan,
+    ud = np.unique(donors)
+    do = np.array([o[donors == d].sum() for d in ud])
+    dp = np.array([p[donors == d].sum() for d in ud])
+    di = rng.integers(0, len(ud), (N_BOOT, len(ud)))
+    df = do[di].sum(1) / np.maximum(dp[di].sum(1), 1e-12)
+    return dict(n_events=n, observed=O, expected=round(E, 3), fold=round(O / E, 3) if E > 0 else np.nan,
                 fold_lo=round(np.quantile(bf, .025), 3), fold_hi=round(np.quantile(bf, .975), 3),
-                p_enrich=(1 + (sims >= O).sum()) / (N_SIM + 1), p_deplete=(1 + (sims <= O).sum()) / (N_SIM + 1))
+                fold_lo_donor=round(np.quantile(df, .025), 3), fold_hi_donor=round(np.quantile(df, .975), 3),
+                p_enrich=pe, p_deplete=pd_)
 
 
 def subsets(ev):
     ev = ev[ev.type == "interstitial"]
-    for d in ("loss", "gain", "all"):
+    for d in DIRS:
         x = ev if d == "all" else ev[ev.direction == d]
-        for s in ("E1", "E2", "E3", "E4", "main"):
+        for s in STRATA:
             y = x[x.main_def] if s == "main" else x[x.stratum == s]
             yield d, s, y
 
 
-def shuffle_feature(feat, null, rng):
-    rows = []
-    for c, (S, E) in feat.items():
-        for s, e in zip(S, E):
-            b = null.bins[(null.bins.chromosome == c) & (null.bins.end >= s) & (null.bins.start <= e)]
-            rtq = int(b.rtq.mode().iloc[0]) if len(b) else int(rng.integers(1, 6))
-            m = null.mids.get((c, rtq))
-            if m is None or not len(m):
+class Shuffler:
+    """Moves each merged site to a random usable-bin midpoint of its chromosome and RT quintile."""
+
+    def __init__(self, feat, null):
+        rows = []
+        for c, (S, E) in feat.items():
+            if c not in null.chrom:
                 continue
-            mid = rng.choice(m)
-            rows.append((c, mid - (e - s) // 2, mid + (e - s) // 2))
-    return merge(pd.DataFrame(rows, columns=["chromosome", "start", "end"]))
+            d = null.chrom[c]
+            i = np.searchsorted(d["end"], S, side="left")
+            j = np.searchsorted(d["start"], E, side="right")
+            for s, e, a, b in zip(S, E, i, j):
+                q = d["rtq"][a:b]
+                q = q[q > 0]
+                rows.append((c, int(e - s), int(np.bincount(q).argmax()) if len(q) else 0))
+        self.sites = pd.DataFrame(rows, columns=["chromosome", "width", "rtq"])
+        self.groups = []
+        for (c, q), g in self.sites.groupby(["chromosome", "rtq"]):
+            m = null.mids.get((c, q))
+            if q == 0:  # no RT information: any usable bin of the chromosome
+                m = null.bins.mid.values[null.bins.chromosome.values == c].astype(np.int64)
+            if m is not None and len(m):
+                self.groups.append((c, g.width.values.astype(np.int64), m))
+
+    def draw(self, rng):
+        per = {}
+        for c, w, m in self.groups:
+            mid = m[rng.integers(0, len(m), len(w))]
+            per.setdefault(c, []).append((mid - w // 2, mid + w // 2))
+        return {c: merge_arrays(np.concatenate([x[0] for x in v]), np.concatenate([x[1] for x in v])) for c, v in per.items()}
+
+
+# worker state (set once per process)
+_W = {}
+
+
+def _init(events_dir, bins, cfs, genes, exclude):
+    _W["fs"] = feature_sets(cfs, genes)
+    _W["ev"], _W["null"] = {}, {}
+    for b in bins:
+        ev = pd.read_csv(f"{events_dir}/events_{b}kb.tsv", sep="\t", dtype={"chromosome": str})
+        ev = ev[ev.rt_quintile.notna()].reset_index(drop=True)
+        if exclude:
+            ev = ev[ev.donor != exclude].reset_index(drop=True)
+        _W["ev"][b] = ev
+        _W["null"][b] = Null(pd.read_csv(f"{events_dir}/usable_bins_rt_{b}kb.tsv", sep="\t", dtype={"chromosome": str}))
+
+
+def _task(args):
+    b, name, n_perm, seed = args
+    ev, null, feat = _W["ev"][b], _W["null"][b], _W["fs"][name]
+    o, p = event_probs(ev, null, feat)
+    ev2 = ev.assign(o=o, p=p)
+    rows, ctrl = [], []
+    main_fold = {}
+    for d, s, y in subsets(ev2):
+        r = stats(y.o.values, y.p.values, y.donor.values, rng_for(seed, b, name, d, s))
+        rows.append(dict(bin_kb=b, feature_set=name, direction=d, stratum=s, **r))
+        if s == "main":
+            main_fold[d] = r.get("fold", np.nan)
+    if n_perm:
+        sh = Shuffler(feat, null)
+        rng = rng_for(seed, "perm", b, name)
+        inter = ev[ev.type == "interstitial"]
+        idx = {d: (inter.main_def if d == "all" else inter.main_def & (inter.direction == d)).values for d in DIRS}
+        for k in range(n_perm):
+            sf = sh.draw(rng)
+            o2, p2 = event_probs(inter, null, sf)
+            for d in DIRS:
+                m = idx[d] & np.isfinite(p2)
+                O, E = o2[m].sum(), p2[m].sum()
+                ctrl.append((b, name, k, d, int(m.sum()), int(O), round(float(E), 3), O / E if E > 0 else np.nan))
+        c = pd.DataFrame(ctrl, columns=["bin_kb", "feature_set", "shuffle", "direction", "n_events", "observed", "expected", "fold"])
+        for r in rows:
+            if r["stratum"] == "main" and r.get("n_events", 0):
+                f = c.fold[c.direction == r["direction"]].values
+                f = f[np.isfinite(f)]
+                r["p_perm"] = (1 + (f >= r["fold"] - 1e-12).sum()) / (len(f) + 1)
+                r["n_perm"] = len(f)
+    probs = ev2[["event_id", "donor", "chromosome", "direction", "type", "stratum", "main_def", "terminal", "o", "p"]].assign(bin_kb=b, feature_set=name)
+    return rows, ctrl, probs
+
+
+def bh(pv):
+    pv = np.asarray(pv, float)
+    m = len(pv)
+    if m == 0:
+        return pv
+    o = np.argsort(pv)
+    q = np.minimum.accumulate((pv[o] * m / np.arange(1, m + 1))[::-1])[::-1]
+    out = np.empty(m)
+    out[o] = np.minimum(q, 1)
+    return out
 
 
 def main():
@@ -164,57 +335,41 @@ def main():
     ap.add_argument("--genes", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--seed", type=int, default=1)
-    ap.add_argument("--shuffle", default="unions", choices=["unions", "all", "none"],
-                    help="feature sets with RT-matched shuffle controls")
+    ap.add_argument("--perm", type=int, default=5000, help="site shuffles per set and bin (0 = none)")
+    ap.add_argument("--bins", default="200,500,1000")
     ap.add_argument("--exclude-donor", default=None, help="leave-one-donor-out sensitivity")
     ap.add_argument("--tag", default="", help="suffix of the output files")
+    ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 2))
     a = ap.parse_args()
-    rng = np.random.default_rng(a.seed)
-    fs = feature_sets(a.cfs, a.genes)
-    shuffle_sets = {"unions": SHUFFLE_SETS, "all": list(fs), "none": []}[a.shuffle]
-
-    rows, ctrl = [], []
-    for b in BINS:
-        ev = pd.read_csv(f"{a.events}/events_{b}kb.tsv", sep="\t", dtype={"chromosome": str})
-        ev = ev[ev.rt_quintile.notna()]
-        if a.exclude_donor:
-            ev = ev[ev.donor != a.exclude_donor]
-        null = Null(pd.read_csv(f"{a.events}/usable_bins_rt_{b}kb.tsv", sep="\t", dtype={"chromosome": str}))
-        for name, feat in fs.items():
-            o, p = event_probs(ev, null, feat)
-            ev2 = ev.assign(o=o, p=p)
-            for d, s, y in subsets(ev2):
-                r = stats(y.o.values, y.p.values, rng)
-                rows.append(dict(bin_kb=b, feature_set=name, direction=d, stratum=s, **r))
-        # negative controls: RT-matched shuffles, main stratum, each direction (loss, gain, all)
-        for name in shuffle_sets:
-            for k in range(N_SHUF):
-                sf = shuffle_feature(fs[name], null, rng)
-                o, p = event_probs(ev, null, sf)
-                ev2 = ev.assign(o=o, p=p)
-                for d, s, y in subsets(ev2):
-                    if s != "main":
-                        continue
-                    r = stats(y.o.values, y.p.values, rng)
-                    ctrl.append(dict(bin_kb=b, feature_set=name, shuffle=k, direction=d, **{x: r.get(x) for x in ("n_events", "observed", "expected", "fold")}))
-        print(f"{b} kb done")
+    bins = [int(x) for x in a.bins.split(",")]
+    names = list(feature_sets(a.cfs, a.genes))
+    tasks = [(b, n, a.perm, a.seed) for b in bins for n in names]
+    rows, ctrl, probs = [], [], []
+    with ProcessPoolExecutor(a.workers, initializer=_init, initargs=(a.events, bins, a.cfs, a.genes, a.exclude_donor)) as ex:
+        for i, (r, c, p) in enumerate(ex.map(_task, tasks)):
+            rows += r; ctrl += c; probs.append(p)
+            if (i + 1) % 20 == 0:
+                print(f"{i + 1}/{len(tasks)} tasks", flush=True)
 
     t = pd.DataFrame(rows)
-    t["q_enrich"] = np.nan
-    for name, g in t.groupby("feature_set"):
+    t["q_family"] = np.nan
+    for _, g in t.groupby("feature_set"):
         k = g.p_enrich.notna()
-        pv = g.loc[k, "p_enrich"].values
-        order = np.argsort(pv); m = len(pv)
-        qv = np.minimum.accumulate((pv[order] * m / np.arange(1, m + 1))[::-1])[::-1]
-        qq = np.empty(m); qq[order] = np.minimum(qv, 1)
-        t.loc[g.index[k], "q_enrich"] = qq
+        t.loc[g.index[k], "q_family"] = bh(g.loc[k, "p_enrich"])
+    glob = (t.stratum == "main") & ~t.feature_set.isin(CONTROLS) & t.p_enrich.notna()
+    t.loc[glob, "q_global"] = bh(t.loc[glob, "p_enrich"])
+    if "p_perm" in t:
+        gp = glob & t.p_perm.notna()
+        t.loc[gp, "q_perm_global"] = bh(t.loc[gp, "p_perm"])
     os.makedirs(a.out, exist_ok=True)
     t.to_csv(f"{a.out}/test_a{a.tag}.tsv", sep="\t", index=False)
-    c = pd.DataFrame(ctrl)
-    if c.empty:
-        return
-    c.to_csv(f"{a.out}/test_a_shuffle_controls{a.tag}.tsv", sep="\t", index=False)
-    print(c.groupby(["bin_kb", "feature_set", "direction"]).fold.describe(percentiles=[.025, .5, .975])[["count", "2.5%", "50%", "97.5%"]].round(2).to_string())
+    pd.concat(probs).to_csv(f"{a.out}/test_a_event_probs{a.tag}.tsv", sep="\t", index=False)
+    if ctrl:
+        c = pd.DataFrame(ctrl, columns=["bin_kb", "feature_set", "shuffle", "direction", "n_events", "observed", "expected", "fold"])
+        c.to_csv(f"{a.out}/test_a_shuffle_controls{a.tag}.tsv", sep="\t", index=False)
+    show = t[(t.stratum == "main") & (t.direction == "loss")]
+    cols = [x for x in ("bin_kb", "feature_set", "observed", "expected", "fold", "p_enrich", "p_perm", "q_family", "q_global") if x in show]
+    print(show.sort_values("p_enrich")[cols].head(12).to_string(index=False))
 
 
 if __name__ == "__main__":

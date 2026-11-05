@@ -46,7 +46,7 @@ from IPython.display import display
 ROOT = os.path.abspath("..") if os.path.basename(os.getcwd()) == "notebooks" else os.getcwd()
 RES = f"{ROOT}/results/enrichment/pilot"
 sys.path.insert(0, f"{ROOT}/scripts/06_enrichment")
-from test_a_permutation import Null, feature_sets, overlaps, stats
+from test_a_permutation import Null, feature_sets, overlaps, stats, rng_for
 from genome_annot import PERICEN
 
 pd.set_option("display.max_columns", 60); pd.set_option("display.width", 220)
@@ -177,8 +177,7 @@ x = x[x[f"p:{SET}"].notna()]
 O, E = int(x[f"ov:{SET}"].sum()), x[f"p:{SET}"].sum()
 print(f"{len(x)} events · O = {O} · E = {E:.2f} · fold = {O / E:.2f}")
 
-rng = np.random.default_rng(1)
-r = stats(x[f"ov:{SET}"].values.astype(bool), x[f"p:{SET}"].values, rng)
+r = stats(x[f"ov:{SET}"].values.astype(bool), x[f"p:{SET}"].values, x.donor.values, rng_for(1, BIN, SET, DIRECTION, STRATUM))
 print("with the same function as the script:", r)
 
 ta = pd.read_csv(f"{RES}/main/test_a.tsv", sep="\t")
@@ -186,7 +185,7 @@ display(ta[(ta.feature_set == SET) & (ta.bin_kb == BIN) & (ta.direction == DIREC
 """)
 
 md(r"""
-*Note:* O, E and the fold match `test_a.tsv` exactly. The p-value and CI come from simulations and can differ in the third digit depending on the random generator state.
+*Note:* O, E, the fold and the exact p-value (Poisson-binomial, no simulation) match `test_a.tsv`; the bootstrap CIs use the same per-test seed (`rng_for`) and match too, up to the rounding of pᵢ in `master_events`. The permutation p (`p_perm`, 5,000 site shuffles) is only in `test_a.tsv`: it is too slow to recompute here.
 
 ### 4.1 The null, step by step
 
@@ -230,22 +229,21 @@ Regression per donor × 1 Mb window, with the same fitting function as the scrip
 """)
 
 code(r"""
-from test_b_regression import windows, fit
+from test_b_regression import windows, assign_windows, feature_effect, MODELS
 w = windows(f"{RES}/main", f"{ROOT}/external/sWGS_relativeCN/bin.annotations/bins_with_replicationTime_50kb.tsv",
             f"{ROOT}/data/features/genes")
 w["feature"] = [int(overlaps(fs[SET], c, s, e2)[0]) for c, s, e2 in zip(w.chromosome, w.start, w.end)]
 evb = pd.read_csv(f"{RES}/main/events_{BIN}kb.tsv", sep="\t", dtype={"chromosome": str})
 evb = evb[(evb.type == "interstitial") & evb.main_def & ((evb.direction == DIRECTION) if DIRECTION != "all" else True)]
-evb = evb.assign(wstart=((evb.pos - 1) // 1_000_000) * 1_000_000 + 1)
-cnt = evb.groupby(["donor", "chromosome", "wstart"]).size()
+evb = evb.assign(widx=assign_windows(evb, w))  # window with the largest overlap; -1 = no eligible window
+print(f"{(evb.widx < 0).sum()} of {len(evb)} events overlap no eligible window")
+cnt = evb[evb.widx >= 0].groupby(["donor", "widx"]).size()
 donors = sorted(pd.read_csv(f"{RES}/main/events_{BIN}kb.tsv", sep="\t").query("type == 'interstitial'").donor.unique())
-df = pd.concat([w.assign(donor=d) for d in donors], ignore_index=True)
-df["events"] = cnt.reindex(list(zip(df.donor, df.chromosome, df.start))).fillna(0).values
-for label, f in (("unadjusted", "events ~ feature + C(donor)"),
-                 ("adjusted", "events ~ feature + rt + gc + map + genes300 + C(chromosome) + C(donor)")):
-    m, fam, alpha = fit(df, f)
-    ci = np.exp(m.conf_int().loc["feature"])
-    print(f"{label}: IRR = {np.exp(m.params['feature']):.2f} [{ci[0]:.2f}-{ci[1]:.2f}], p = {m.pvalues['feature']:.3g} ({fam})")
+df = pd.concat([w.assign(donor=d, widx=w.index) for d in donors], ignore_index=True)
+df["events"] = cnt.reindex(list(zip(df.donor, df.widx))).fillna(0).values
+for label, f in MODELS:
+    r = feature_effect(df, f)
+    print(f"{label}: IRR = {r['irr']:.2f} [{r['irr_lo']:.2f}-{r['irr_hi']:.2f}], p = {r['p']:.3g} ({r['family']}, SE {r['se_source']})")
 tb = pd.read_csv(f"{RES}/main/test_b.tsv", sep="\t")
 display(tb[(tb.feature_set == SET) & (tb.bin_kb == BIN) & (tb.direction == DIRECTION) & (tb.stratum == "main")])
 """)

@@ -33,7 +33,7 @@ For each, it first shows what the paper (Lin et al. 2024) did and then our data 
 **Data.** Pilot: 5 donors and 3 bins, with metrics from `scripts/03_cn_qc/cn_qc_metrics.R` and segments from `call_breakends.R`. The profiles are 199 example cells chosen by `select_example_cells.py` (random, per batch, noisiest, highest `rt_rho`, altered and shallow) and exported with `export_relcn.R`. Everything is in `results/pilot_cn/` (git-ignored).
 
 **Conventions.**
-- "Enough depth" = `depth_ok`: usable reads ≥ 15 × 2 × bins / 0.91.
+- "Enough depth" = `depth_ok`: mean corrected reads per usable bin / 2 ≥ 15 (15 reads per bin per copy, diploid; recalibrated 2026-11-05, formerly usable reads ≥ 15 × 2 × bins / 0.91, kept as `depth_ok_reads`).
 - "Batch" = assay × instrument × read length.
 - Ratio = segment value / cell median.
 """)

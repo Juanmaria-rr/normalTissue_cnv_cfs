@@ -15,9 +15,9 @@ this README only orients.
 |---|---|
 | Metadata, data inventory, pilot selection | done — 5 donors (P07, P08, P18, P20, P36), 9,181 cells |
 | Alignment and CN on AWS HealthOmics | done for the pilot (200 kb, 500 kb, 1 Mb bins) |
-| Cell QC and breakend criteria | fixed: `depth_ok`, `noise_excess` ≤ 1.5, `rt_rho` ≤ 0.10; ratio 1.3 / 0.7, segments ≥ 1 Mb |
+| Cell QC and breakend criteria | fixed: `depth_ok` (mean reads per usable bin / 2 ≥ 15), `noise_excess` ≤ 1.5, `rt_rho` ≤ 0.10; ratio 1.3 / 0.7, segments ≥ 1 Mb of usable bins |
 | CFS catalogues | 8 published sources harmonised to hg19, plus consensus, breast-predicted, A+C and union sets |
-| Enrichment tests A–C | run on the pilot (exploratory) |
+| Enrichment tests A–C | run on the pilot (exploratory), revised after an independent review: grid-aligned null, exact and site-shuffle permutation p-values, global BH, robustness and cross-resolution variants, power projection |
 | Manual-fit audit (~100 cells) | pending |
 | Full dataset (49 donors) | pending: scale-up decisions and cost check |
 
@@ -28,6 +28,7 @@ this README only orients.
 | Documents hub (all reports, notebooks, project structure guide) | `python3 scripts/docs/build_hub.py --out docs/hub` → `docs/hub/index.html` |
 | Technical report: methodology, worked examples, decisions | `docs/technical_report/` |
 | Enrichment methods and pilot results (generated) | `docs/enrichment/` |
+| Tests A–C explained step by step on real data (generated) | `docs/enrichment/tests_explainer.html` |
 | QC levels 1–2 (29 Oct 2026) | `docs/qc_levels_1_2/` |
 | AWS procedure (staging, costs, failure modes) | [`docs/AWS_RUNBOOK.md`](docs/AWS_RUNBOOK.md) |
 | Exploration notebooks (calibration; master tables and test reproduction) | `notebooks/` |
@@ -93,5 +94,9 @@ xlrd, openpyxl, nbformat/nbconvert; R with QDNAseq; `curl`, `pdftotext`, Docker,
 
 - Depth depends on the sequencing batch, so depth-based cell selection is partly batch selection.
 - Replication timing and most CFS catalogues are not from breast epithelium.
-- The pilot has 5 donors; event counts are small and results are exploratory.
+- The pilot has 5 donors; event counts are small and results are exploratory. No primary hypothesis
+  was declared before the pilot tests, so the strongest pilot result is hypothesis-generating and
+  needs a pre-declared test in the full dataset.
+- Events cluster (recurrent regions, clones, donor-specific losses); permutation p-values are
+  larger than the exact ones, which assume independence.
 - Breakends are inferred from CN changes only (no junctions, no balanced events).

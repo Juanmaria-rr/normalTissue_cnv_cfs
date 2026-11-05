@@ -10,8 +10,12 @@
 # Metrics (autosomes, bins with use == TRUE only):
 #   reads            QDNAseq total.reads (MAPQ >= 37, non-duplicate reads counted in bins)
 #   nrpbpcc          mean corrected reads per used bin / ploidy (reads per bin per chromosome copy)
-#   depth_ok         reads >= 15 x 2 x used_bins / 0.91: the 15-nrpbpcc requirement at the DIPLOID
-#                    threshold (breakends come from relative CN, so depth is not tied to the fit)
+#   depth_ok         mean corrected reads per used bin / 2 >= 15: the 15-nrpbpcc requirement at the
+#                    DIPLOID threshold, measured on the reads actually counted in used bins
+#                    (breakends come from relative CN, so depth is not tied to the fit)
+#   depth_ok_reads   former rule, reads >= 15 x 2 x used_bins / 0.91; it assumed 91% of the reads
+#                    land in used bins, but the observed fraction is ~0.77 and donor-dependent
+#                    (review 2026-11-05), so it let cells with ~12.7 reads per bin per copy pass
 #   ploidy, clonality  fit chosen by pureSamples_absCN.R --filters powered (kept for reference)
 #   ploidy_best, clonality_best  minimum-clonality fit with no filter, from <cell>_resfitting.txt;
 #                    clonality = mean squared distance to integer CN (lower = cleaner)
@@ -82,7 +86,8 @@ cell_metrics <- function(rel, abscn, resdir) {
             used_bins = length(x),
             ploidy = pd[cell, "ploidy"],
             nrpbpcc = round(mean(x, na.rm = TRUE) / pd[cell, "ploidy"], 2),
-            depth_ok = as.integer(rel$total.reads[colnames(rel) == cell] >= 15 * 2 * length(x) / 0.91),
+            depth_ok = as.integer(mean(x, na.rm = TRUE) / 2 >= 15),
+            depth_ok_reads = as.integer(rel$total.reads[colnames(rel) == cell] >= 15 * 2 * length(x) / 0.91),
             clonality = round(fit$clonality, 4),
             ploidy_best = res$ploidy[which.min(res$clonality)],
             clonality_best = round(min(res$clonality), 4),
