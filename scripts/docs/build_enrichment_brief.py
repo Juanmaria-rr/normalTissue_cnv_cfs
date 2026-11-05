@@ -69,6 +69,12 @@ def matrix(rows, cell, sets):
     return f'<div class="tablebox"><table class="mx"><thead>{h1}{h2}</thead><tbody>{"".join(body)}</tbody></table></div>'
 
 
+def qa(question, not_answered):
+    """The question a test answers and what it leaves to the other tests."""
+    return (f'<div class="keys"><div class="key"><b>Question it answers</b><p>{question}</p></div>'
+            f'<div class="key"><b>What it does not answer</b><p>{not_answered}</p></div></div>')
+
+
 def flow_line(inputs, script, outputs):
     c = lambda xs: ", ".join(f"<code>{x}</code>" for x in xs)
     return f'<div class="flow"><b>Data flow.</b> <span>Input:</span> {c(inputs)} → <span>Script:</span> {c(script)} → <span>Output:</span> {c(outputs)}.</div>'
@@ -157,6 +163,9 @@ The full document (<code>docs/enrichment/enrichment_pilot.html</code>) has every
 
     P(f"""<h2 id="question">1 · Question and data</h2>
 <p>Do interstitial copy-number breakends of normal breast epithelial cells (Lin et al. 2024, PRJNA1003661) overlap common fragile sites (CFS) more often than expected under a null that keeps chromosome and replication timing? Three tests answer it with different units and nulls; all are exploratory (no primary hypothesis was declared before the pilot).</p>
+<ul><li><b>Test A</b>: do break events fall in the set more often than the same events placed elsewhere at the same replication timing?</li>
+<li><b>Test B</b>: is the event rate higher in genomic windows that contain the set, after adjusting for other features that make a region break-prone?</li>
+<li><b>Test C</b>: is the excess shared by the donors, and does it hold when every cell carrying an alteration counts?</li></ul>
 <div class="keys">
 <div class="key"><b>Cells</b><p>Main set: {st('8 rt_rho <= 0.10', 200):,} / {st('8 rt_rho <= 0.10', 500):,} / {st('8 rt_rho <= 0.10', 1000):,} cells at 200 kb / 500 kb / 1 Mb, of {st('2 imaging', 500):,} imaging-selected cells. Cuts: ≥ 15 reads per usable bin per copy (diploid), noise_excess ≤ 1.5, rt_rho ≤ 0.10 (S phase).</p></div>
 <div class="key"><b>Breakend</b><p>Boundary between two segments (≥ 1 Mb of usable bins) of different state in one cell; interval [lo, hi] = one bin on each side. Main definition E2–E4: flank ratio &gt; 1.3 or &lt; 0.7 (the paper's threshold).</p></div>
@@ -194,6 +203,8 @@ The full document (<code>docs/enrichment/enrichment_pilot.html</code>) has every
                 ["data/features/cfs/cfs_catalogs_hg19.tsv", "cfs_derived_hg19.tsv", "data/features/genes/large_genes_*.tsv"]))
 
     P(f"""<h2 id="testa">3 · Test A: events re-placed on the genome</h2>
+{qa("Do copy-number break events (each clone counted once, however many cells carry it) overlap the set more often than the same events would if they had happened elsewhere on their own chromosome, with the same width and replication timing? The answer is the fold O / E and its p-value.",
+    "Whether GC, mappability or large genes explain the excess (only chromosome and RT are held constant: test B); whether one donor or one expanded clone drives it (test C); which individual event is due to fragility (with E events expected by chance, some of the O hits are chance).")}
 <ul><li><b>Unit:</b> one event. <b>Observed O:</b> events whose [lo, hi] overlaps the set.</li>
 <li><b>Null:</b> each event is moved, with its width, to every usable-bin start of its own chromosome where the placement has the event's replication-timing quintile and does not touch a pericentromere; p<sub>i</sub> = fraction of those placements that overlap the set (exact). <b>E</b> = Σ p<sub>i</sub>; <b>fold</b> = O / E.</li>
 <li><b>p perm.</b> (reference): the set is shuffled 5,000 times (each site to a random usable bin of the same chromosome and RT quintile) and the fold recomputed; it keeps the clustering of events and sites. The exact Poisson-binomial p assumes independent events and is smaller.</li></ul>
@@ -226,6 +237,8 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
 
     gb = tb_top.loc["adjusted_genes300"] if "adjusted_genes300" in tb_top.index else None
     P(f"""<h2 id="testb">4 · Test B: regression on 1 Mb windows</h2>
+{qa("Is the rate of break events higher in 1 Mb windows that contain the set than in other windows, once replication timing, GC, mappability, chromosome and donor are accounted for, and how much remains when large genes are adjusted for too? The answer is the IRR.",
+    "Where exactly a break falls inside the window (an event counts in one window only); whether one clone or donor drives the result (events are collapsed as in test A).")}
 <ul><li><b>Unit:</b> donor × usable 1 Mb window outside pericentromeres. Each event is assigned to the window it overlaps most (events overlapping no eligible window are excluded and counted).</li>
 <li><b>Model:</b> Poisson (negative binomial if over-dispersed): events ~ overlaps set (yes/no) + RT + GC + mappability + chromosome + donor, offset log(usable fraction). <b>IRR</b> = event rate in windows of the set relative to the rest.</li>
 <li>Standard error = the larger of the model-based and the chromosome-clustered one. Rows with no event in set windows have no estimate (separation).</li>
@@ -242,6 +255,8 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
                 ["scripts/06_enrichment/test_b_regression.py"], [f"{R}/main/test_b.tsv"]))
 
     P(f"""<h2 id="testc">5 · Test C: every cell's breakend, per donor</h2>
+{qa("Is the excess present in each donor or carried by one, and does it hold when every cell's breakend counts, so that expanded clones weigh by their number of cells? The answer is O/E per donor and pooled, and the heterogeneity between donors.",
+    "Whether the break rate itself is higher at sites (clonal expansion and selection are mixed in); a population-level estimate (five donors are too few for a random-effects model).")}
 <ul><li><b>Unit:</b> one breakend of one cell, not collapsed: a clone weighs as many times as it has cells. o and p<sub>i</sub> as in test A.</li>
 <li><b>Per donor and pooled:</b> O/E with a 95% CI from resampling cells (2,000 times; one-sided upper bound 3.0 / E when O = 0). Heterogeneity between donors: X² on donors with E ≥ 1.</li>
 <li>It asks whether the excess is shared by donors and how clonal expansion changes it; it mixes break rate with clonal expansion.</li></ul>
