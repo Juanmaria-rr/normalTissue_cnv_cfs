@@ -6,7 +6,9 @@ Same inputs as build_enrichment_html.py (results/enrichment/pilot/: main/test_a.
 test_a_shuffle_controls.tsv, test_b.tsv, test_c.tsv, events_<bin>kb.tsv; robustness_*.tsv;
 power_scaleup.tsv; funnel_cells.tsv) and its figures (fig_a_forest, fig_top_donors, fig_b_irr,
 fig_c_donors, written to the same folder by enrichment_figures.py). Every number is read from
-those tables; the full document (enrichment_pilot.html) keeps every table and variant.
+those tables; the full document (enrichment_pilot.html) keeps every table and variant. The
+site-set section reuses CATALOG_METHODS of build_enrichment_html.py, with set sizes from
+data/features/cfs/cfs_catalogs_summary.tsv, cfs_derived_hg19.tsv and data/features/genes/.
 
 Usage: python3 scripts/docs/build_enrichment_brief.py --res results/enrichment/pilot --out docs/enrichment
 """
@@ -21,7 +23,7 @@ import pandas as pd
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, os.path.dirname(__file__))
-from build_enrichment_html import CSS, MAIN_SETS, fig, fmt, fp, method  # noqa: E402
+from build_enrichment_html import CATALOG_METHODS, CSS, MAIN_SETS, fig, fmt, fp, method, table  # noqa: E402
 from enrichment_figures import top_row  # noqa: E402
 
 BINS = [200, 500, 1000]
@@ -161,10 +163,37 @@ The full document (<code>docs/enrichment/enrichment_pilot.html</code>) has every
 <div class="key"><b>Event</b><p>Breakends of one donor with the same chromosome, direction and type within 2 Mb, collapsed into one: a clone counts once. Interstitial = interval does not touch a pericentromeric block ± 1 Mb.</p></div>
 <div class="key"><b>Events tested</b><p>Interstitial E2–E4 losses / gains: {" · ".join(f"{'1 Mb' if b == 1000 else f'{b} kb'} {l} / {g}" for b, l, g, _ in ev_rows)}.</p></div>
 </div>
-<p><b>Site sets.</b> Eight published CFS catalogues in hg19 (MiDAS: Macheret 2020 HS68 / HeLa / U2OS, Ji 2020 HBE / HeLa / U2OS; cytogenetic: HumCFS; FISH: Le Tallec 2013; aphidicolin replication delay: Brison 2019; fragility signature: Sarni 2020; CNV hotspots: Wilson 2015; cancer SV hotspots: Simpson 2021), derived sets (consensus A core / reproducible / all, breast-predicted from scATAC and RT, A+C, union of all), and two controls (genes &gt; 300 kb, genes &gt; 1 Mb). How each is built: full document, section 5.1.</p>
+<p><b>Site sets.</b> Eight published CFS catalogues, derived sets and two gene-size controls; see section 2.</p>
 <p><b>Multiple testing.</b> Benjamini–Hochberg over all {n_glob} main-stratum rows of the CFS sets (sets × bins × directions; controls excluded): <b>q global</b> on the exact p, <b>q perm. global</b> on the permutation p. A q computed within one set only (q family) is in the full tables but does not control the error across sets.</p>""")
 
-    P(f"""<h2 id="testa">2 · Test A: events re-placed on the genome</h2>
+    # site sets: sizes per catalogue (all cell types) and per controls
+    cs = pd.read_csv(f"{ROOT}/data/features/cfs/cfs_catalogs_summary.tsv", sep="\t")
+    dv = pd.read_csv(f"{ROOT}/data/features/cfs/cfs_derived_hg19.tsv", sep="\t")
+    size = {c: (int(g.n.sum()), float(g.total_mb.sum())) for c, g in cs.groupby("catalog")}
+    for c, g in dv.groupby("catalog"):
+        size[c] = (len(g), float((g.end - g.start).sum() / 1e6))
+    for lab in ("300kb", "1mb"):
+        g = pd.read_csv(f"{ROOT}/data/features/genes/large_genes_{lab}.tsv", sep="\t")
+        size[f"genes_{lab}"] = (len(g), float(g.span_kb.sum() / 1e3))
+    kind = lambda c: "control" if c.startswith("genes_") else ("derived" if c in set(dv.catalog) else "measured")
+    rows = []
+    for sets_, src, assay, ct, site, proc, script in CATALOG_METHODS:
+        c = sets_.split(":")[0].split(" ")[0]
+        n, mbs = size.get(c, (None, None))
+        rows.append({"set(s)": sets_, "kind": kind(c), "source": src, "what is measured": assay, "cell type": ct, "one site is": site,
+                     "processing": proc, "sites (Mb)": f"{n:,} ({mbs:,.0f})" if n is not None else "–"})
+    cm = pd.DataFrame(rows)
+    P(f"""<h2 id="sets">2 · Site sets (CFS catalogues)</h2>
+<p><b>Names.</b> Each set is written <code>&lt;catalogue&gt;:&lt;cell type&gt;</code>: the catalogue is the source study (first author and year) and the cell type the line in which the sites were measured; <code>:all</code> is the union of all the catalogue's cell types (for example <code>macheret2020:all</code> = MiDAS domains of HS68, HeLa and U2OS; <code>letallec2013:MCF10A</code> = sites mapped by FISH in MCF10A breast epithelial cells). Gene controls have no cell type.</p>
+<p><b>Three kinds.</b> <i>Measured</i> catalogues each capture one facet of fragility in specific cell types (MiDAS = DNA synthesis in mitosis after mild aphidicolin; replication delay; FISH or cytogenetic breaks; CNV or cancer-SV hotspots). <i>Derived</i> sets combine them (consensus) or predict fragility in breast epithelium (breast_predicted). <i>Controls</i> are genes &gt; 300 kb and &gt; 1 Mb: most CFS lie in very large genes, so an enrichment at CFS should be read against an enrichment at large genes as such. All coordinates are hg19 (hg38 sources lifted with the UCSC chain).</p>""")
+    P('<div class="tablebox wrap">' + table(cm, list(cm.columns))[len('<div class="tablebox">'):])
+    P(method("<b>What is counted.</b> Sites per catalogue over all its cell types (overlapping sites of different cell types counted separately, so Mb can exceed the genome they cover). "
+             "<b>Limitation.</b> Measured catalogues come from other cell types (mostly tumour lines, lymphocytes, fibroblasts); only Le Tallec's MCF10A sites (3) are breast epithelium, and breast_predicted is a prediction, not a measurement."))
+    P(flow_line(["published supplements (data/features/cfs/raw/)", "UCSC refGene hg19", "GSE272504 scATAC"],
+                ["scripts/05_features/build_cfs_catalogs.py", "build_gene_features.py", "build_breast_predicted_cfs.py", "build_cfs_consensus.py"],
+                ["data/features/cfs/cfs_catalogs_hg19.tsv", "cfs_derived_hg19.tsv", "data/features/genes/large_genes_*.tsv"]))
+
+    P(f"""<h2 id="testa">3 · Test A: events re-placed on the genome</h2>
 <ul><li><b>Unit:</b> one event. <b>Observed O:</b> events whose [lo, hi] overlaps the set.</li>
 <li><b>Null:</b> each event is moved, with its width, to every usable-bin start of its own chromosome where the placement has the event's replication-timing quintile and does not touch a pericentromere; p<sub>i</sub> = fraction of those placements that overlap the set (exact). <b>E</b> = Σ p<sub>i</sub>; <b>fold</b> = O / E.</li>
 <li><b>p perm.</b> (reference): the set is shuffled 5,000 times (each site to a random usable bin of the same chromosome and RT quintile) and the fold recomputed; it keeps the clustering of events and sites. The exact Poisson-binomial p assumes independent events and is smaller.</li></ul>
@@ -181,7 +210,7 @@ The full document (<code>docs/enrichment/enrichment_pilot.html</code>) has every
     sens = rv_top.pivot_table(index="variant", columns="bin_kb", values="fold")
     sens = sens.reindex([v for v in dict.fromkeys(rv.variant) if v in sens.index])
     srows = "".join(f"<tr><td>{esc(v)}</td>" + "".join(f'<td class="num">{fmt(sens.loc[v].get(b, np.nan))}</td>' for b in BINS) + "</tr>" for v in sens.index)
-    P(f"""<h3>2.1 Strongest row: {esc(top.feature_set)}, {int(top.bin_kb)} kb, {tdir}</h3>
+    P(f"""<h3>3.1 Strongest row: {esc(top.feature_set)}, {int(top.bin_kb)} kb, {tdir}</h3>
 <p>Chosen by a fixed rule (smallest p perm. among main-stratum CFS rows), so it is the pilot's best lead, not a planned test.
 Fold <b>{fmt(top.fold)}</b> ({int(top.observed)} observed / {fmt(top.expected)} expected), p exact {fp(top.p_enrich)}, p perm. {fp(top.p_perm)},
 q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out one chromosome at a time the fold stays between {fmt(lc_top.fold.min())} and {fmt(lc_top.fold.max())} (lowest without chr{lo_c.chromosome_out}).</p>""")
@@ -196,7 +225,7 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
                 [f"{R}/robustness_variants.tsv", f"{R}/robustness_loco.tsv"]))
 
     gb = tb_top.loc["adjusted_genes300"] if "adjusted_genes300" in tb_top.index else None
-    P(f"""<h2 id="testb">3 · Test B: regression on 1 Mb windows</h2>
+    P(f"""<h2 id="testb">4 · Test B: regression on 1 Mb windows</h2>
 <ul><li><b>Unit:</b> donor × usable 1 Mb window outside pericentromeres. Each event is assigned to the window it overlaps most (events overlapping no eligible window are excluded and counted).</li>
 <li><b>Model:</b> Poisson (negative binomial if over-dispersed): events ~ overlaps set (yes/no) + RT + GC + mappability + chromosome + donor, offset log(usable fraction). <b>IRR</b> = event rate in windows of the set relative to the rest.</li>
 <li>Standard error = the larger of the model-based and the chromosome-clustered one. Rows with no event in set windows have no estimate (separation).</li>
@@ -212,7 +241,7 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
     P(flow_line([f"{R}/main/events_&lt;bin&gt;kb.tsv", f"{R}/main/usable_bins_rt_1000kb.tsv", "bins_with_replicationTime_50kb.tsv", "data/features/genes/large_genes_300kb.tsv"],
                 ["scripts/06_enrichment/test_b_regression.py"], [f"{R}/main/test_b.tsv"]))
 
-    P(f"""<h2 id="testc">4 · Test C: every cell's breakend, per donor</h2>
+    P(f"""<h2 id="testc">5 · Test C: every cell's breakend, per donor</h2>
 <ul><li><b>Unit:</b> one breakend of one cell, not collapsed: a clone weighs as many times as it has cells. o and p<sub>i</sub> as in test A.</li>
 <li><b>Per donor and pooled:</b> O/E with a 95% CI from resampling cells (2,000 times; one-sided upper bound 3.0 / E when O = 0). Heterogeneity between donors: X² on donors with E ≥ 1.</li>
 <li>It asks whether the excess is shared by donors and how clonal expansion changes it; it mixes break rate with clonal expansion.</li></ul>
@@ -238,7 +267,7 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
                 f"<td class=num>{(fmt(rb.irr) + ' (' + fp(rb.p) + ')') if rb is not None and np.isfinite(rb.irr) else '–'}</td>"
                 f"<td class=num>{(fmt(rc.ratio) + ' [' + fmt(rc.ratio_lo) + '–' + fmt(rc.ratio_hi) + ']') if rc is not None else '–'}</td></tr>")
     cases = [(top.feature_set, int(top.bin_kb), top.direction), ("macheret2020:all", 500, "loss"), ("consensusA:core", 500, "loss"), ("union_all:all", 500, "loss")]
-    P(f"""<h2 id="together">5 · The three tests side by side</h2>
+    P(f"""<h2 id="together">6 · The three tests side by side</h2>
 <div class="tablebox"><table><thead><tr><th>set · bin · direction</th><th class=num>A: fold (p perm.)</th><th class=num>A: q perm. global</th><th class=num>B: adjusted IRR (p)</th><th class=num>C: pooled O/E [CI]</th></tr></thead>
 <tbody>{"".join(row3(*c) for c in cases)}</tbody></table></div>""")
     P(method("<b>What is counted.</b> The strongest test A row and three reference sets at 500 kb (losses): the MiDAS union, the consensus core, and the union of all catalogues. "
@@ -248,7 +277,7 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
     pw = pd.read_csv(f"{res}/power_scaleup.tsv", sep="\t")
     pt = pw[(pw.feature_set == top.feature_set) & (pw.bin_kb == top.bin_kb) & (pw.direction == top.direction)]
     pl = pw[(pw.bin_kb == 500) & (pw.direction == "loss") & pw.feature_set.isin(["macheret2020:all", "consensusA:core"])]
-    P(f"""<h2 id="limits">6 · What limits these results</h2><ul>
+    P(f"""<h2 id="limits">7 · What limits these results</h2><ul>
 <li>Five donors and few events: the strongest row rests on {int(top.observed)} events; per-donor expectations are below 1–2.</li>
 <li>No pre-declared primary test: the strongest row was picked from {n_glob} tests; only the global q values account for that.</li>
 <li>Events cluster (clones, recurrent regions, donor-specific losses): the permutation p is larger than the exact p.</li>
