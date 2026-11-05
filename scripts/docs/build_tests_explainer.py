@@ -283,14 +283,15 @@ confounders they neutralise. Running three tests is a way of checking that an an
 <li><b>Breakend</b>: the boundary between two segments of different copy-number state in <i>one cell</i>. Its position is uncertain
 by about one bin, so it is stored as an interval <code>[lo, hi]</code> (from the start of the last bin of the left segment to the end
 of the first bin of the right one).</li>
-<li><b>Event</b>: breakends of the <i>same donor</i>, chromosome, direction and type that lie within 2 Mb of each other, collapsed
-into one. A clone of 100 cells that inherited the same deletion is 100 breakends but 1 event: the break happened once.</li>
+<li><b>Event</b>: breakends of the <i>same donor</i>, chromosome, direction and type, chained when each lies within 2 Mb of the
+previous one (sorted by position), collapsed into one; its interval is the median lo and hi of its breakends. A clone of 100 cells that inherited the same deletion is 100 breakends but 1 event: the break happened once.</li>
 <li><b>Set</b>: a list of genomic intervals (a CFS catalogue, a consensus, or a control such as genes &gt; 1 Mb). “Overlap” means
 the breakend or event interval shares at least one base with any site of the set.</li>
 <li><b>O, E and fold</b>: O is how many events overlap the set; E is how many would overlap if the events had been placed at
 random under a defined null; fold = O / E. A fold of 1 means “as expected”, 2 means “twice as often as expected”.</li>
-<li><b>Subsets</b>: every test is run per bin size (200 kb, 500 kb, 1 Mb), direction (loss, gain, all) and deviation stratum
-(E1–E4; “main” = E2–E4, the paper's 1.3 / 0.7 ratio threshold). Only interstitial events (not touching a centromere) enter.</li>
+<li><b>Subsets</b>: every test is run per bin size (200 kb, 500 kb, 1 Mb) and direction (loss, gain, all) on the main definition
+E2–E4 (flank ratio &gt; 1.3 or &lt; 0.7, the paper's threshold). Test A is also run per deviation stratum (E1–E4) and test B on E3 alone.
+Only interstitial events enter: their interval does not touch a pericentromeric block ± 1 Mb (they can still run to the telomere).</li>
 </ul>
 <figure>{fig_concept()}{caption(
         "A schematic (not data): three cells of one donor carrying the same loss, and the site set.",
@@ -309,6 +310,7 @@ def section_a(ev, ex, null, fs, ta, sh, pz):
     O, E = int(ev.o.sum()), float(ev.p.sum())
     row = ta[(ta.feature_set == SET) & (ta.bin_kb == BIN) & (ta.direction == DIRN) & (ta.stratum == "main")].iloc[0]
     hist, p_ex = fig_hist(ev.p.values, O, E)
+    n_glob = int(ta.q_global.notna().sum())
     hits = ev[ev.o].sort_values(["donor", "chromosome", "pos"])
     tab = pd.DataFrame({
         "donor": hits.donor, "event interval": [f"chr{c}:{mb(lo)}–{mb(hi)} Mb" for c, lo, hi in zip(hits.chromosome, hits.lo, hits.hi)],
@@ -320,7 +322,8 @@ def section_a(ev, ex, null, fs, ta, sh, pz):
     pz_tab = table(pzs.assign(bin_kb=pzs.bin_kb.map(lambda b: f"{b} kb")), ["bin_kb", "direction", "O", "of which p_i = 0"], num=("O", "of which p_i = 0"))
     return f"""<h2 id="testa">2 · Test A: positional permutation of events</h2>
 <p class="meta">Script <code>scripts/06_enrichment/test_a_permutation.py</code> · unit: one collapsed event · worked example:
-interstitial E2–E4 losses at {BIN} kb against <code>{SET}</code> (MiDAS domains of HS68 normal fibroblasts, Macheret 2020).</p>
+interstitial E2–E4 losses at {BIN} kb against <code>{SET}</code> (MiDAS domains of HS68 normal fibroblasts, Macheret 2020). It is used
+because it is the strongest row of the pilot (picked after seeing the results; see the multiple-testing paragraph below), not because it was planned.</p>
 <p><b>The idea in one sentence.</b> Take each real event and ask: <i>if this exact event (same chromosome, same width, same
 replication timing) had happened somewhere else, how likely would it have been to hit a fragile site?</i> Sum those
 probabilities over all events and compare with how many actually hit one.</p>
@@ -339,7 +342,7 @@ exact, no simulation needed: <b>p<sub>i</sub> = {n_h} / {n_c} = {n_h / n_c:.3f}<
 <li>Observed: the real interval does overlap a site, so <b>o<sub>i</sub> = 1</b>.</li>
 </ol>
 <figure>{fig_null(ex, null, fs)}{caption(
-        f"Chromosome {r.chromosome}: usable {BIN} kb bins coloured by whether their RT quintile equals the event's (Q{int(r.rt_quintile)}); the HS68 MiDAS sites; the {n_c} null placements of the event (staggered in four rows only for legibility), coloured when they overlap a site; and the observed event. Hover any mark for its coordinates.",
+        f"Chromosome {r.chromosome}: usable {BIN} kb bins, dark where a placement of the event's width starting at that bin has the event's RT quintile (Q{int(r.rt_quintile)}); the HS68 MiDAS sites; the {n_c} null placements of the event (staggered in four rows only for legibility), coloured when they overlap a site; and the observed event. Hover any mark for its coordinates.",
         f"Placements = intervals of the event's width starting at each usable bin of chromosome {r.chromosome}, kept when their interval RT is in quintile Q{int(r.rt_quintile)}, excluding the pericentromere ± 1 Mb (test_a_permutation.Null.candidates).",
         "The null only moves an event along its own chromosome and within its RT quintile; anything else that makes a region break-prone (gene size, transcription, GC) is not held constant.")}</figure>
 
@@ -350,7 +353,7 @@ exact, no simulation needed: <b>p<sub>i</sub> = {n_h} / {n_c} = {n_h / n_c:.3f}<
 fold = O / E = {O} / {E:.2f} = <b>{O / E:.2f}</b></div>
 <p>These are the {O} overlapping events (the other {len(ev) - O} contribute only their p<sub>i</sub> to E):</p>
 {table(tab, list(tab.columns), num=("cells", "null placements", "placements overlapping", "p_i"))}
-<div class="method"><b>What is counted.</b> Main-set interstitial E2–E4 loss events at {BIN} kb whose interval overlaps an HS68 MiDAS domain; “cells” = cells carrying the event (it still counts once). <b>How.</b> As in step 1, for every event. <b>Limitations.</b> Rows with p<sub>i</sub> = 0 are discussed below (“a null that cannot reproduce the observation”).</div>
+<div class="method"><b>What is counted.</b> Main-set interstitial E2–E4 loss events at {BIN} kb whose interval overlaps an HS68 MiDAS domain; “cells” = cells carrying the event (it still counts once). <b>How.</b> As in step 1, for every event. <b>Limitations.</b> An event with p<sub>i</sub> = 0 would add 1 to O and nothing to E; the box at the end of this section explains why that can no longer happen.</div>
 
 <h3>Step 3 · Is O = {O} surprising? The p-value</h3>
 <p>Under the null each event overlaps independently with its own probability p<sub>i</sub>, so the number of overlaps S is a sum of
@@ -368,14 +371,14 @@ clustering of sites along the genome all make the exact p too optimistic. So the
 site moved to a random usable bin of the same chromosome and RT quintile, width kept) and test A is re-run on each shuffled set. The
 shuffled folds have median {s.median():.2f} and 2.5–97.5% range {s.quantile(.025):.2f}–{s.quantile(.975):.2f}; the real set gives
 {row.fold:.2f}. <b>p perm.</b> = (1 + shuffles with fold ≥ {row.fold:.2f}) / ({len(s):,} + 1) = <b>{fp(row.p_perm)}</b>, against p exact {fp(row.p_enrich)}.
-The shuffles centring near 1 also checks that the null is not biased.</p>
-<p><b>Multiple testing.</b> This is one of about 200 main-stratum tests (sets × bins × directions). Benjamini–Hochberg gives
+That the shuffled folds centre near 1 also shows that the null is not biased.</p>
+<p><b>Multiple testing.</b> This is one of {n_glob} main-stratum tests of CFS sets (sets × bins × directions; the gene-size controls excluded). Benjamini–Hochberg gives
 q family = {fp(row.q_family)} (only within the HS68 set), q global = {fp(row.q_global)} (all sets) and q perm. global = {fp(row.q_perm_global)}
 (all sets, on permutation p). With no set chosen in advance, the global values are the ones that control the error.</p>
 {cards([
         "Do events (each break counted once, however many cells inherited it) overlap the set more than events of the same width and replication timing placed elsewhere on the same chromosome?",
         "How large is the excess (fold) and how consistent across bins, directions and strata?"],
-        ["Whether the excess is explained by large genes, GC or mappability (only RT and chromosome are matched): that is test B.",
+        ["Whether the excess is explained by GC, mappability or large genes (only RT and chromosome are matched): that is test B (its adjusted_genes300 model for large genes).",
          "Whether one donor or one expanded clone drives it: that is test C (and the leave-one-donor-out runs).",
          f"Which individual event is due to fragility: a fold of {row.fold:.1f} with {O} overlaps still means some of the {O} would be there by chance (E ≈ {E:.1f})."])}
 <h3>Limitations of test A</h3>
@@ -385,7 +388,7 @@ RT removes part of that, not gene size or transcription.</li>
 <li><b>Independence.</b> The exact p and the event bootstrap assume each event's overlap is independent. Events of the same donor or
 region may not be; clonal collapse removes the most obvious dependence, the permutation p keeps the clustering of events, and a
 bootstrap over donors (in <code>test_a.tsv</code>) shows the spread between donors.</li>
-<li><b>Coarse positions.</b> Event intervals are 0.5 to several Mb wide, comparable to the sites. A wide interval overlaps more easily;
+<li><b>Coarse positions.</b> Event intervals span at least two bins (0.4 Mb at 200 kb, 1 Mb at 500 kb, 2 Mb at 1 Mb), comparable to or wider than the sites. A wide interval overlaps more easily;
 the null keeps the width so this is fair, but it limits how precisely a break can be assigned to a site.</li>
 <li><b>Many sets, many subsets.</b> q family corrects within one set only; q global and q perm. global correct across all sets.
 With no pre-registered hypothesis, one isolated small p is a lead, not a finding.</li>
@@ -410,6 +413,11 @@ def section_b(w, df, x, donors, tb, ta, ex):
     lost = int((~x.in_window).sum())
     c0, p0 = ex["event"].chromosome, ex["event"].pos
     ex_w = df[(df.chromosome == c0) & (df.start > p0 - 3e6) & (df.start < p0 + 2e6)]
+    span = range(int((p0 - 3e6) // 1e6) + 1, int((p0 + 2e6) // 1e6) + 1)
+    have = set(int((v - 1) // 1e6) for v in ex_w.start.unique())
+    missing = [m for m in span if m not in have]
+    miss_txt = (f" Windows {', '.join(f'{m}–{m + 1}' for m in missing)} Mb of this stretch are not eligible (no usable 1 Mb bin or no RT annotation), so they are not rows of the model; "
+                f"an event overlapping them is assigned to the eligible window it overlaps most.") if missing else ""
     piv = ex_w.pivot_table(index=["chromosome", "start", "end", "feature", "rt", "gc", "map", "genes300", "usable"], columns="donor", values="events").reset_index()
     tab = pd.DataFrame({"window": [f"chr{c}:{mb(s - 1, 0)}–{mb(e, 0)} Mb" for c, s, e in zip(piv.chromosome, piv.start, piv.end)],
                         "overlaps HS68": piv.feature.map({1: "yes", 0: "no"}), "RT (z)": piv.rt.round(2), "GC (z)": piv.gc.round(2),
@@ -434,7 +442,7 @@ the three event bin sizes. With {len(donors)} donors that is {len(w) * len(donor
 with which its interval [lo, hi] overlaps most. {lost} of the {len(x)} events overlap no eligible window (non-usable or too close to a
 centromere) and drop out, leaving {len(x) - lost}. For each window the script records:</p>
 {table(tab, list(tab.columns), num=tuple(c for c in tab.columns if c not in ("window", "overlaps HS68")))}
-<div class="method"><b>What is counted.</b> Windows of chromosome {c0} around the event drawn in test A ({ex["event"].donor}, chr{c0}:{mb(ex["event"].lo, 1)}–{mb(ex["event"].hi, 1)} Mb); the donor columns are the number of E2–E4 loss events assigned to the window. <b>How.</b> RT, GC and mappability are the means of the 50 kb annotation of sWGS_relativeCN, z-scored over all windows; “fraction in genes &gt; 300 kb” from refGene loci; usable fraction = share of the window's 50 kb bins that pass the QDNAseq filters (used as an offset). <b>Limitations.</b> Overlap with the set is yes / no, whatever fraction of the window the site covers.</div>
+<div class="method"><b>What is counted.</b> Eligible windows of chromosome {c0} around the event drawn in test A ({ex["event"].donor}, chr{c0}:{mb(ex["event"].lo, 1)}–{mb(ex["event"].hi, 1)} Mb); the donor columns are the number of E2–E4 loss events assigned to the window.{miss_txt} <b>How.</b> RT, GC and mappability are the means of the 50 kb annotation of sWGS_relativeCN, z-scored over all windows; “fraction in genes &gt; 300 kb” from refGene loci; usable fraction = share of the window's 50 kb bins that pass the QDNAseq filters (used as an offset). <b>Limitations.</b> Overlap with the set is yes / no, whatever fraction of the window the site covers.</div>
 
 <h3>Step 2 · The crude comparison (what the crude model estimates)</h3>
 {table(pd.DataFrame({"windows": ["overlap HS68", "do not overlap"], "windows × donors": [f"{n1:,}", f"{n0:,}"], "events": [e1, e0],
@@ -457,7 +465,7 @@ adjusted_genes300: the same + γ<sub>4</sub>·genes300<br>IRR = exp(β)</div>
 <p>Result: adjusted IRR <b>{a.irr:.2f} [{a.irr_lo:.2f}–{a.irr_hi:.2f}]</b>, p = {fp(a.p)}, q family = {fp(a.q_family)}, q global = {fp(a.q_global)};
 adjusted_genes300 IRR <b>{g.irr:.2f} [{g.irr_lo:.2f}–{g.irr_hi:.2f}]</b>, p = {fp(g.p)} (IRR of genes300 {g.irr_genes300:.2f}, of RT {g.irr_rt:.2f} per SD).
 Large genes are probably part of how fragile sites break (a mediator, not only a confounder), so adjusting for them is conservative:
-it can remove part of the very effect being tested.</p>
+it can remove part of the very effect being tested. {"In this example it does not: the IRR does not decrease when large genes are added." if g.irr >= a.irr else "In this example the IRR decreases when large genes are added."}</p>
 <p><b>Which distribution and which errors.</b> Counts are modelled as negative binomial if they are more variable than Poisson. Here
 the estimated over-dispersion is negative (α = {a.alpha:.2f}): almost every donor × window has 0 or 1 events, so the model is Poisson
 (<code>family = {a.family}</code>, as in {int((fitted.family == 'poisson').sum())} of the {len(fitted)} fitted models). Windows of one
@@ -484,7 +492,7 @@ removed (test A's quintile matching is more flexible for RT).</li>
            "window table and crude rates recomputed with the test's own functions; IRRs, p, q, α, family and SE source read from test_b.tsv.")}"""
 
 
-def section_c(res, tc, ta):
+def section_c(res, tc, ta, fs):
     sub = tc[(tc.feature_set == SET) & (tc.bin_kb == BIN) & (tc.direction == DIRN)]
     pooled = sub[sub.donor == "pooled"].iloc[0]
     don = sub[sub.donor != "pooled"]
@@ -501,6 +509,20 @@ def section_c(res, tc, ta):
     per["breakends per event"] = (per.breakends / per.events).round(1)
     big = be.groupby(["donor", "event_id", "direction", "chromosome"]).agg(cells=("cell_id", "nunique"), lo=("lo", "min"), hi=("hi", "max")).reset_index().sort_values("cells").iloc[-1]
     g = tc[(tc.feature_set == SET) & (tc.bin_kb == BIN) & (tc.direction == "gain")].set_index("donor")
+    # P08 gain breakends: o and p per breakend (as test C), summed per event, to show what the largest clones contribute
+    null = Null(pd.read_csv(f"{res}/main/usable_bins_rt_{BIN}kb.tsv", sep="\t", dtype={"chromosome": str}))
+    pg = be[(be.donor == "P08") & (be.direction == "gain") & be.rt.notna()].copy()
+    pg["rtq"] = np.searchsorted(null.edges, pg.rt) + 1
+    pg["o"] = [bool(overlaps(fs[SET], c, lo, hi)[0]) for c, lo, hi in zip(pg.chromosome, pg.lo, pg.hi)]
+    pg["p"] = [overlaps(fs[SET], c, *null.candidates(c, int(q), int(hi - lo))).mean() if len(null.candidates(c, int(q), int(hi - lo))[0]) else np.nan
+               for c, q, lo, hi in zip(pg.chromosome, pg.rtq, pg.lo, pg.hi)]
+    pe = pg.groupby("event_id").agg(cells=("cell_id", "nunique"), O=("o", "sum"), E=("p", "sum")).sort_values("cells", ascending=False)
+    top3 = pe.head(2)
+    rest = g.drop(index=["pooled", "P08"], errors="ignore")
+    o_rest, e_rest = int(rest.observed.sum()), float(rest.expected.sum())
+    # breakends vs events for the worked loss subset
+    lb = be[(be.direction == DIRN)]
+    lev = lb.groupby("event_id").cell_id.nunique()
     ga = ta[(ta.feature_set == SET) & (ta.bin_kb == BIN) & (ta.direction == "gain") & (ta.stratum == "main")].iloc[0]
     al = tc[(tc.feature_set == SET) & (tc.bin_kb == BIN) & (tc.direction == "all") & (tc.donor == "pooled")].iloc[0]
     return f"""<h2 id="testc">4 · Test C: per breakend and per donor</h2>
@@ -528,6 +550,7 @@ copy-number changes we <i>observe in cells</i> enriched?” (which mixes break r
         "95% CI by bootstrap of cells (2,000 resamples): the cells of a donor are resampled with replacement, carrying all their breakends; the pooled CI resamples cells within each donor.",
         "Donors with E &lt; 1 have very wide CIs (when O = 0 the upper limit is the one-sided exact Poisson bound 3.0 / E); cells of one clone are not independent, so the cell bootstrap understates the uncertainty when clones dominate.")}</figure>
 <p>Pooled: O/E = {pooled.observed} / {pooled.expected:.2f} = <b>{pooled.ratio:.2f} [{pooled.ratio_lo:.2f}–{pooled.ratio_hi:.2f}]</b>.
+O and E differ from test A ({int(ta[(ta.feature_set == SET) & (ta.bin_kb == BIN) & (ta.direction == DIRN) & (ta.stratum == "main")].observed.iloc[0])} events) because here an event carried by k cells contributes k breakends, each with its own o and p: of the {len(lev)} interstitial E2–E4 loss events at {BIN} kb, {int((lev > 1).sum())} are carried by more than one cell.
 {int((don.ratio > 1).sum())} of the {len(don)} donors point above 1 ({", ".join(f"{r.donor} {r.ratio:.2f}" for r in don.itertuples())}). With {int(don.observed.min())}–{int(don.observed.max())} overlaps per donor, every per-donor estimate is very imprecise.</p>
 
 <h3>Step 3 · Do donors disagree? The heterogeneity test</h3>
@@ -539,10 +562,11 @@ deviations from that, Pearson style, over donors with E<sub>d</sub> ≥ 1 (the o
 <h3>Step 4 · When A and C disagree: the gains</h3>
 <p>For gains against the same set, test A gives fold {ga.fold:.2f} ({int(ga.observed)} / {ga.expected:.2f} events). Test C gives pooled
 {g.loc['pooled'].ratio:.2f} ({g.loc['pooled'].observed} / {g.loc['pooled'].expected:.2f} breakends), and P08 alone {g.loc['P08'].ratio:.2f}
-({g.loc['P08'].observed} / {g.loc['P08'].expected:.2f}, {g.loc['P08'].breakends} breakends in {g.loc['P08'].cells} cells). P08's gains are
-dominated by a few large clones (the {big.cells}-cell event above among them) whose breakends carry a sizeable null probability but do not
-overlap a site; counted once per cell, they add many times to E and nothing to O, swamp the other donors and pull the pooled ratio below 1. Pooling losses and gains, test C's heterogeneity p is {fp(al.het_p)}. This is the kind of discrepancy test C exists to
-expose: a ratio driven by one donor's clonal structure, not by break location.</p>
+({g.loc['P08'].observed} / {g.loc['P08'].expected:.2f}, {g.loc['P08'].breakends} breakends in {g.loc['P08'].cells} cells); the other four donors together
+{o_rest} / {e_rest:.2f} = {o_rest / e_rest if e_rest > 0 else float('nan'):.2f}. P08 alone supplies {100 * g.loc['P08'].expected / g.loc['pooled'].expected:.0f}% of the pooled expectation. Its two largest gain events
+({", ".join(f"{int(r.cells)} cells: {int(r.O)} / {r.E:.2f}" for r in top3.itertuples())}, as observed / expected breakends) show how a clone counted once per cell
+moves E without moving O. Pooling losses and gains, test C's heterogeneity p is {fp(al.het_p)}. This is the kind of discrepancy test C exists to
+expose: a ratio shaped by one donor's clonal structure.</p>
 <p><b>Change from the original plan.</b> The plan was a mixed logistic model (breakend overlaps ~ set, with a donor random effect).
 With five donors the random-effect variance cannot be estimated, so the test reports per-donor ratios plus this heterogeneity test.</p>
 {cards([
@@ -571,7 +595,7 @@ def section_compare(ta, tb, tc):
         c = tc[(tc.feature_set == name) & (tc.bin_kb == b) & (tc.direction == d) & (tc.donor == "pooled")].iloc[0]
         rows.append({"set · bin · direction": f"{name} · {b} kb · {d}",
                      "A: fold [CI] (O/E)": f"{a.fold:.2f} [{a.fold_lo:.2f}–{a.fold_hi:.2f}] ({int(a.observed)}/{a.expected:.1f})",
-                     "A: p perm.": fp(a.p_perm), "A: q global": fp(a.q_global),
+                     "A: p perm.": fp(a.p_perm), "A: q perm. global": fp(a.q_perm_global),
                      "B: adjusted IRR [CI]": f"{m.irr:.2f} [{m.irr_lo:.2f}–{m.irr_hi:.2f}]" if np.isfinite(m.irr) else "– (separation)", "B: q global": fp(m.q_global),
                      "C: pooled O/E [CI]": f"{c.ratio:.2f} [{c.ratio_lo:.2f}–{c.ratio_hi:.2f}]", "C: heterogeneity p": fp(c.het_p)})
     t = pd.DataFrame(rows)
@@ -579,16 +603,15 @@ def section_compare(ta, tb, tc):
 <div class="tablebox"><table><thead><tr><th></th><th>Test A</th><th>Test B</th><th>Test C</th></tr></thead><tbody>
 <tr><td>unit</td><td>event (clone counts once)</td><td>donor × 1 Mb window</td><td>breakend of a cell (clone counts per cell)</td></tr>
 <tr><td>“hits the set”</td><td>event interval overlaps a site</td><td>event assigned (largest overlap) to a window that overlaps a site</td><td>breakend interval overlaps a site</td></tr>
-<tr><td>chance defined by</td><td>re-placing the event on its chromosome, same RT quintile and width</td><td>regression on RT, GC, mappability, large genes, chromosome, donor</td><td>as test A, per breakend</td></tr>
+<tr><td>chance defined by</td><td>re-placing the event on its chromosome, same RT quintile and width</td><td>regression on RT, GC, mappability, chromosome, donor (plus large genes in a second model)</td><td>as test A, per breakend</td></tr>
 <tr><td>effect size</td><td>fold = O / E</td><td>IRR</td><td>O / E per donor and pooled</td></tr>
-<tr><td>main strength</td><td>exact, flexible RT matching; keeps event width</td><td>adjusts several confounders at once, incl. large genes</td><td>shows donor-to-donor consistency and clonal weight</td></tr>
+<tr><td>main strength</td><td>exact, flexible RT matching; keeps event width</td><td>adjusts several confounders at once (and large genes in a second model)</td><td>shows donor-to-donor consistency and clonal weight</td></tr>
 <tr><td>main weakness</td><td>RT is the only covariate</td><td>1 Mb grid and binary overlap; sparse counts</td><td>clones dominate; 5 donors</td></tr>
 </tbody></table></div>
 <p>Three real cases (E2–E4):</p>
 {table(t, list(t.columns))}
 <div class="method"><b>What is counted.</b> One row per set, bin and direction; A and C on interstitial E2–E4 events / breakends; B the adjusted model (without genes300). <b>How.</b> Read from test_a.tsv (stratum main), test_b.tsv (stratum main, model adjusted) and test_c.tsv (donor pooled); q global = BH across all CFS sets. <b>Limitations.</b> The three tests share most of the data, so agreement between them is not three independent replications; genes_1mb is a control and has no q global.</div>
-<p>{"<br>".join(f"<b>{r['set · bin · direction']}</b>: test A fold {r['A: fold [CI] (O/E)']} (p perm. {r['A: p perm.']}); test B adjusted IRR {r['B: adjusted IRR [CI]']}; test C pooled O/E {r['C: pooled O/E [CI]']}." for r in rows)}</p>
-<p><b>Rule of thumb.</b> A agrees with B → the excess is not explained by large genes or GC. A agrees with C → it is not an artefact of
+<p><b>Rule of thumb.</b> A agrees with B → the excess is not explained by RT, GC or mappability (nor by large genes, if adjusted_genes300 agrees too). A agrees with C → it is not an artefact of
 one donor or one clone. A disagrees with C → look at clone sizes. A disagrees with B → look at event widths and large genes.</p>"""
 
 
@@ -620,7 +643,7 @@ enrichment document (<code>docs/enrichment/enrichment_pilot.html</code>).</p>
 <li><a href="#testb">Test B: window regression</a></li><li><a href="#testc">Test C: per breakend and donor</a></li>
 <li><a href="#compare">Reading them together</a></li></ol></nav>""",
              section_shared(), section_a(ev, ex, null, fs, ta, sh, pz), section_b(w, df, x, donors, tb, ta, ex),
-             section_c(res, tc, ta), section_compare(ta, tb, tc), "</main>"]
+             section_c(res, tc, ta, fs), section_compare(ta, tb, tc), "</main>"]
     os.makedirs(a.out, exist_ok=True)
     out = f"{a.out}/tests_explainer.html"
     with open(out, "w") as fh:
