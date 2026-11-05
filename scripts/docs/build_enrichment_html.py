@@ -172,6 +172,71 @@ def test_c_rows(res):
                          "heterogeneity p": x.het_p.map(fp)})
 
 
+# How each site set is built: (set names in the tests, source, assay / what was measured, cell type,
+# what one site is, processing, script)
+CATALOG_METHODS = [
+    ("macheret2020:U2OS / HeLa / HS68 / all", "Macheret et al. 2020, Cell Res 30:997, Table S1",
+     "MiDAS-seq: EdU labelling of mitotic DNA synthesis after mild aphidicolin; marks regions still under-replicated at mitosis",
+     "U2OS (osteosarcoma), HeLa (cervical cancer), HS68 (normal foreskin fibroblasts)",
+     "A MiDAS domain (single, double or merged peak), given as 10 kb bins",
+     "Native hg19; bin b = bp b·10,000+1…(b+1)·10,000; no filtering", "build_cfs_catalogs.py"),
+    ("ji2020:U2OS / HeLa / HBE / all", "Ji et al. 2020, Cell Res 30:1009, Tables S1–S3",
+     "MiDAS-seq (MiDASeq) after aphidicolin",
+     "U2OS, HeLa, HBE (normal bronchial epithelium)",
+     "A MiDAS site (MDS), 100 kb resolution",
+     "PDF tables parsed (coordinates by position, nearest gene, FRA names); hg38 → hg19 liftover", "build_cfs_catalogs.py"),
+    ("humcfs:all", "Kumar et al. 2019, BMC Genomics (HumCFS database)",
+     "Cytogenetics: chromosome gaps/breaks in metaphase spreads, compiled from the literature",
+     "Mostly peripheral blood lymphocytes",
+     "A fragile-site band (cytogenetic band coordinates)",
+     "Only common, aphidicolin-induced sites; 4 sites > 20 Mb dropped as annotation errors; hg38 → hg19 liftover", "build_cfs_catalogs.py"),
+    ("letallec2013:<cell line> / all / epithelial", "Le Tallec et al. 2013, Cell Rep 4:420, Table S4",
+     "FISH with BAC probes on metaphases after aphidicolin: CFS borders set where ≥ 85% of breaks fall",
+     "12 lines incl. MCF10A and CAL51 (breast), HCT116/LoVo/LS174T (colon), lymphocytes, fibroblasts, K562",
+     "A molecularly mapped CFS in one cell type (49 distinct CFS)",
+     "Native hg19; mouse/chicken rows and 5 single-BAC sites dropped; ‘epithelial’ = HCT116, LoVo, LS174T, MCF10A, CAL51", "build_cfs_catalogs.py"),
+    ("brison2019:all", "Brison et al. 2019, Nat Commun 10:5693, Supplementary Data 1",
+     "Repli-seq: regions whose replication is significantly delayed by aphidicolin (SDR)",
+     "JEFF lymphoblastoid cells",
+     "A significantly delayed region", "Native hg19", "build_cfs_catalogs.py"),
+    ("sarni2020:all", "Sarni et al. 2020, Nat Commun 11:3613, Supplementary Table 3",
+     "Fragility signature: aphidicolin replication-timing delay (Repli-seq) + transcription (Bru-seq) + TAD boundary (Hi-C)",
+     "BJ-hTERT fibroblasts (Hi-C from HFF-hTERT)",
+     "A candidate gene carrying the signature (not all validated as fragile)",
+     "hg38 → hg19 liftover (1 gene lost)", "build_cfs_catalogs.py"),
+    ("wilson2015:all", "Wilson et al. 2015, Genome Res 25:189, Table S3A",
+     "De novo CNVs in clones after aphidicolin; regions where CNVs cluster",
+     "090 and HF1 normal human fibroblasts",
+     "A CNV cluster region with ≥ 1 aphidicolin-induced CNV", "Native hg19", "build_cfs_catalogs.py"),
+    ("simpson2021:all", "Simpson et al. 2021, Commun Biol 4:567, Table 1 (from Li et al. 2020 Nature, ED Fig. 9B)",
+     "Somatic structural variants in cancer genomes (PCAWG): the fragile sites most altered by deletions/duplications",
+     "Pan-cancer tumours",
+     "One of the 21 most SV-altered fragile sites (gene span, or the region between two genes)",
+     "GRCh38 coordinates as printed → hg19 liftover; chrX sites kept but outside the autosomal tests", "build_cfs_catalogs.py"),
+    ("consensusA:core / reproducible / all", "Derived from the eight sources above",
+     "Evidence integration (rules fixed before testing)",
+     "All of the above",
+     "A region = merged overlapping intervals of the sequencing / gene-resolution sources (MiDAS, RT-delay, CNV, cancer-SV); FISH and cytogenetic sites add evidence by overlap only",
+     "Method classes: MiDAS, RT-delay, FISH, cytogenetic, CNV, cancer-SV. core = ≥ 1 replication class (MiDAS, RT-delay) and ≥ 1 breakage class (FISH, cytogenetic, CNV, cancer-SV); "
+     "reproducible = not core and ≥ 2 cell types; single-source regions are listed but not tested; all = core + reproducible", "build_cfs_consensus.py"),
+    ("breast_predicted:all", "Derived: genes from refGene; accessibility from GSE272504 (this study's co-assay)",
+     "Prediction from CFS determinants: large genes that are open (promoter accessibility, proxy for transcription) and late-replicating",
+     "Normal breast epithelium (28,547 co-assay cells of 19 donors, all lineages pooled)",
+     "A gene > 300 kb",
+     "Promoter accessibility = max over the gene's TSSs of Tn5 insertions in TSS ± 1 kb (per million insertions), ≥ median of all genes; "
+     "mean replication timing of the gene < genome median", "build_breast_predicted_cfs.py"),
+    ("A_plus_C:all", "Derived", "Union of consensusA:all and breast_predicted:all", "—", "A site of either set", "—", "build_cfs_consensus.py"),
+    ("union_all:all", "Derived", "Union of every site of every catalogue above", "—", "Any site", "—", "build_cfs_consensus.py"),
+    ("genes_300kb", "refGene hg19 (UCSC)",
+     "Control set: gene length only (no fragility measurement). Le Tallec 2013 found CFS in genes > 300 kb",
+     "— (annotation)", "A gene locus = union of overlapping transcripts with the same name, span > 300 kb",
+     "Transcripts with the same name at non-overlapping loci give separate loci; not filtered by expression", "build_gene_features.py"),
+    ("genes_1mb", "refGene hg19 (UCSC)",
+     "Control set: gene length only. Wilson 2015 found transcription units > 1 Mb predictive of CFS and CNV hotspots",
+     "— (annotation)", "A gene locus with span > 1 Mb", "As genes_300kb", "build_gene_features.py"),
+]
+
+
 THRESHOLDS = [
     ("Cell selection", "Well imaging: qc_flag = Good, cell_flag = yes, not a control well", "Excludes cell", "Authors' metadata"),
     ("Reads", "R1 only; cutadapt (Tn5 mosaic end), reads < 20 bp discarded", "Excludes reads", "Decided"),
@@ -227,6 +292,7 @@ thead th{background:var(--code);font-weight:600}.num{text-align:right}
 .method b{color:var(--fg)}figure{margin:1.2rem 0}figure img{width:100%;border-radius:6px;background:#fff}
 pre{font:.8rem/1.5 var(--mono);background:var(--code);padding:.7rem .9rem;border-radius:6px;overflow-x:auto}
 nav ol{columns:2;font-size:.88rem}nav a{color:var(--accent)}
+.wrap td{white-space:normal;min-width:9rem;max-width:22rem}
 """
 
 
@@ -312,17 +378,23 @@ Every number in this document is read from those tables.</p>
     P('<h2 id="features">5 · Site sets</h2><p>CFS catalogues harmonised to hg19 (<code>scripts/05_features/build_cfs_catalogs.py</code>), '
       'derived catalogues (<code>build_breast_predicted_cfs.py</code>, <code>build_cfs_consensus.py</code>), '
       'and two large-gene sets from refGene (<code>build_gene_features.py</code>; span = union of overlapping transcripts).</p>')
+    P("<h3>5.1 How each set is built</h3><p>One row per set as it appears in the test tables (<code>&lt;catalog&gt;:&lt;cell type&gt;</code>, "
+      "or <code>:all</code> for the union of a catalogue's cell types). All coordinates are hg19; hg38/GRCh38 sources are converted with the UCSC "
+      "hg38ToHg19 chain, lifting each end separately and dropping an interval that changes chromosome or whose length changes by more than 20%. "
+      "Every script is in <code>scripts/05_features/</code> and documents its inputs and rules in its header.</p>")
+    cm = pd.DataFrame(CATALOG_METHODS, columns=["set(s)", "source", "assay / what is measured", "cell type", "one site is",
+                                                 "processing", "script"])
+    P('<div class="tablebox wrap">' + table(cm, list(cm.columns))[len('<div class="tablebox">'):])
+    P(method("<b>Why three kinds of sets.</b> Measured catalogues (MiDAS, replication delay, FISH, cytogenetics, CNV hotspots, cancer SVs) each capture "
+             "one facet of fragility in specific cell types. Derived sets combine them (consensus) or predict fragility in breast epithelium from "
+             "known determinants (breast_predicted). Large-gene sets are controls: most known CFS lie in very large genes, so an enrichment in CFS "
+             "should be compared with an enrichment in large genes as such; test B also adjusts for the fraction of each window in genes &gt; 300 kb. "
+             "<b>Limitation.</b> The gene sets ignore expression; breast_predicted is their expression-aware counterpart."))
+    P("<h3>5.2 Size of each set</h3>")
     P(table(cat_t.rename(columns={"cell_type": "cell type / tier", "total": "total Mb", "med": "median Mb"}),
             ["catalog", "cell type / tier", "n", "total Mb", "median Mb"], num=["n", "total Mb", "median Mb"]))
-    P(method(f"<b>Sources.</b> MiDAS-seq: Macheret 2020, Ji 2020. Aphidicolin replication delay: Brison 2019 (JEFF lymphoblastoid), Sarni 2020 (fragility-signature candidate genes, BJ-hTERT). "
-             "FISH: Le Tallec 2013 Table S4. Cytogenetic: HumCFS (common, aphidicolin). Aphidicolin CNV hotspots: Wilson 2015 (090 and HF1 fibroblasts). "
-             "Cancer SVs: Simpson 2021 Table 1 (PCAWG, Li et al. 2020). "
-             "<b>Derived.</b> consensusA: regions merged from the sequencing / gene-resolution sources, tier core = ≥ 1 replication class and ≥ 1 breakage class, "
-             "reproducible = ≥ 2 cell types; breast_predicted: genes &gt; 300 kb with promoter accessibility ≥ median in breast epithelium (GSE272504 scATAC) and late replication; "
-             "A_plus_C = consensus A ∪ breast_predicted; union_all = every site. "
-             f"<b>Genes.</b> &gt; 300 kb: {fmt(len(g3))} loci ({fmt(g3.span_kb.sum() / 1e3, 0)} Mb); &gt; 1 Mb: {fmt(len(g1))} loci ({fmt(g1.span_kb.sum() / 1e3, 0)} Mb). "
-             "Unions used in the tests: <code>&lt;catalog&gt;:all</code>; <code>letallec2013:epithelial</code> = HCT116, LoVo, LS174T, MCF10A, CAL51. "
-             "<b>Limitation.</b> No measured set is from normal breast epithelium except 3 MCF10A sites; HumCFS has band resolution; total Mb counts overlapping sites more than once."))
+    P(method(f"<b>What is counted.</b> Sites per set after harmonisation (overlapping sites within a set are counted separately, so total Mb can exceed the covered genome). "
+             f"Genes: &gt; 300 kb {fmt(len(g3))} loci ({fmt(g3.span_kb.sum() / 1e3, 0)} Mb); &gt; 1 Mb {fmt(len(g1))} loci ({fmt(g1.span_kb.sum() / 1e3, 0)} Mb)."))
 
     P("""<h2 id="testa">6 · Test A: positional permutation</h2>
 <p><b>Null.</b> Each interstitial event is re-placed on its chromosome, centred on a usable bin of the same replication-timing quintile (RT of the interval; quintiles of the usable bins of the same size), with the same width and without overlapping pericentromeric blocks ± 1 Mb. Because candidate placements are equiprobable, each event's null overlap probability p<sub>i</sub> is computed exactly by enumerating all its candidate placements.</p>

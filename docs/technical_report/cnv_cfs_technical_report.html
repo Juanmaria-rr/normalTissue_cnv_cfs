@@ -491,7 +491,7 @@ P07_chip1_co_r30c35: rt_rho 0.157 and noise_excess 2.27 at 200 kb</div>
 <tr><td>Breakend definition</td><td>Ratio 1.3 / 0.7 only (as in the paper); the absolute fit remains a flag. Measured: 97.5% of the pilot's altered cells have a diploid fit that is stable across bins</td></tr>
 <tr><td>Deviation strata</td><td>E1 0.2–0.3 (exploratory), E2 0.3–0.4, E3 0.4–0.6, E4 ≥ 0.6; main definition E2–E4</td></tr>
 <tr><td>Primary hypothesis</td><td>None: all tests are exploratory, with BH within each site set</td></tr>
-<tr><td>CFS catalogues</td><td>All in parallel: Macheret 2020, Ji 2020, HumCFS (common) and Le Tallec 2013 Table S4</td></tr>
+<tr><td>CFS catalogues</td><td>All in parallel: Macheret 2020, Ji 2020, HumCFS (common), Le Tallec 2013 Table S4; from 5 Nov also Brison 2019, Sarni 2020, Wilson 2015, Simpson 2021 and the derived consensus A, breast-predicted C, A+C and union sets</td></tr>
 <tr><td>Test C</td><td>Per-donor O/E ratios with a heterogeneity test, instead of the mixed logistic model (with 5 donors the random-effect variance is not estimable)</td></tr>
 </tbody></table></div>
 <p>Methodology and results of the enrichment analysis on the pilot: <code>docs/enrichment/enrichment_pilot.html</code> (<a href="https://claude.ai/artifact/2MJ7GZFfJtoTGmEx7pHh1R">published version</a>).</p>
@@ -654,7 +654,7 @@ events contributed by the clone                          2</div>
 <p>Whole-arm changes (for example, 1q gain or 16q loss) break at the centromere, by a mechanism different from CFS and in regions poorly covered by bins. They are excluded from the main test and analysed separately.</p>
 
 <h3>3.3 CFS catalogues <span class="chip done">built</span></h3>
-<p>CFS depend on cell type: Le Tallec 2013 reports that epithelial and erythroid lines share only ~14% of their sites. No catalogue is from normal breast epithelium, except 3 MCF10A sites. By the decision of 3 November, all are analysed in parallel.</p>
+<p>CFS depend on cell type: Le Tallec 2013 reports that epithelial and erythroid lines share only ~14% of their sites. No measured catalogue is from normal breast epithelium, except 3 MCF10A sites. By the decision of 3 November, all are analysed in parallel; on 5 November four sources, four derived sets and the large-gene controls were added.</p>
 <div class="tablebox"><table>
 <thead><tr><th>Catalogue</th><th>Method</th><th>Cell type</th><th class="num">Sites</th><th class="num">Median size</th><th>Notes</th></tr></thead>
 <tbody>
@@ -662,8 +662,16 @@ events contributed by the clone                          2</div>
 <tr><td>Ji 2020</td><td>MiDAS-seq (hg38 → hg19)</td><td>U2OS / HeLa / HBE</td><td class="num">273 / 85 / 27</td><td class="num">0.2–0.4 Mb</td><td>HBE is normal bronchial epithelium</td></tr>
 <tr><td>HumCFS</td><td>Cytogenetic bands (hg38 → hg19)</td><td>Mostly lymphocytes</td><td class="num">67</td><td class="num">5.1 Mb</td><td>Common aphidicolin-induced only; 4 errors removed; FRA16D does not cover WWOX</td></tr>
 <tr><td>Le Tallec 2013</td><td>FISH with BACs (hg19)</td><td>12 lines, including MCF10A</td><td class="num">67 (49 CFS)</td><td class="num">~3 Mb</td><td>MCF10A: FRA2I, FRA13H, FRA20B; CAL51: FRA4D</td></tr>
+<tr><td>Brison 2019</td><td>Repli-seq: aphidicolin-delayed regions (hg19)</td><td>JEFF lymphoblastoid</td><td class="num">57</td><td class="num">0.15 Mb</td><td>Added 5 Nov</td></tr>
+<tr><td>Sarni 2020</td><td>Fragility signature: RT delay + transcription + TAD (hg38 → hg19)</td><td>BJ-hTERT fibroblasts</td><td class="num">118 genes</td><td class="num">0.46 Mb</td><td>Candidates, not all validated; added 5 Nov</td></tr>
+<tr><td>Wilson 2015</td><td>Aphidicolin-induced CNV hotspots (hg19)</td><td>090 and HF1 fibroblasts</td><td class="num">36 + 36</td><td class="num">0.15–0.67 Mb</td><td>Added 5 Nov</td></tr>
+<tr><td>Simpson 2021</td><td>Most SV-altered fragile sites in PCAWG cancers (GRCh38 → hg19)</td><td>Pan-cancer tumours</td><td class="num">21</td><td class="num">1.5 Mb</td><td>Added 5 Nov</td></tr>
+<tr><td>Consensus A</td><td>Derived: regions with evidence from several sources (core = replication + breakage evidence; reproducible = ≥ 2 cell types)</td><td>All of the above</td><td class="num">156 + 169</td><td class="num">—</td><td>Rules fixed before testing</td></tr>
+<tr><td>Breast-predicted (C)</td><td>Derived: genes &gt; 300 kb with accessible promoter in breast epithelium (GSE272504 scATAC) and late replication</td><td>Normal breast epithelium</td><td class="num">210 genes</td><td class="num">—</td><td>A prediction, not a fragility measurement</td></tr>
+<tr><td>A+C, union</td><td>Derived: union of A and C; union of every site</td><td>—</td><td class="num">535; 1,531</td><td class="num">—</td><td></td></tr>
+<tr><td>genes_300kb, genes_1mb</td><td>Control sets: refGene genes longer than 300 kb / 1 Mb (no fragility measurement)</td><td>— (annotation)</td><td class="num">786; 61</td><td class="num">—</td><td>Most known CFS lie in very large genes; not filtered by expression</td></tr>
 </tbody></table></div>
-<div class="method"><b>What is counted.</b> Sites per catalogue and cell type after harmonising to hg19 (<code>data/features/cfs/cfs_catalogs_hg19.tsv</code>). <b>How.</b> hg38 coordinates are converted end by end with the UCSC chain; an interval is discarded if it changes chromosome or its length changes by more than 20%. <b>Limitations.</b> The MiDAS catalogues include "CFS-like" sites that are not cytogenetic CFS, and mostly come from tumour lines. HumCFS has band resolution. Le Tallec only includes CFS mapped at the molecular level.</div>
+<div class="method"><b>Full methodology of every set</b> (source, assay, cell type, what one site is, processing, script): enrichment document, section 5.1. <b>What is counted.</b> Sites per catalogue and cell type after harmonising to hg19 (<code>data/features/cfs/cfs_catalogs_hg19.tsv</code>, derived sets in <code>cfs_derived_hg19.tsv</code>, gene lists in <code>data/features/genes/</code>). <b>How.</b> hg38 coordinates are converted end by end with the UCSC chain; an interval is discarded if it changes chromosome or its length changes by more than 20%. <b>Limitations.</b> The MiDAS catalogues include "CFS-like" sites that are not cytogenetic CFS, and mostly come from tumour lines. HumCFS has band resolution. Le Tallec only includes CFS mapped at the molecular level.</div>
 
 <h3>3.4 Expected power</h3>
 <div class="tablebox"><table>
