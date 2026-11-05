@@ -27,7 +27,7 @@ REPORTS = [
          title="Breakend enrichment at CFS (pilot)",
          desc="Thresholds and data funnel, catalogues, tests A–C, sensitivity and regional views; generated from the result tables."),
     dict(slug="enrichment-brief", src="docs/enrichment/enrichment_brief.html",
-         assets="docs/enrichment/fig_[abct]*.png",
+         assets="docs/enrichment/fig_*.png",
          title="Enrichment results, concise",
          desc="Results of tests A, B and C in short form, with only the method needed to read them; the full document keeps every table and variant."),
     dict(slug="tests-explained", src="docs/enrichment/tests_explainer.html", assets=None,
