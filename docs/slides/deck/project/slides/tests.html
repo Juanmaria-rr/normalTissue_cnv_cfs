@@ -1,0 +1,12 @@
+<section id="tests" data-transition="fade" style="background:#F6F7F4;color:#1B2A33;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">Three tests, three questions</h2>
+<table style="font-size:28px;color:#1B2A33">
+<tr><th style="width:9%">Test</th><th style="width:15%">Unit</th><th style="width:30%">Null or model</th><th style="width:12%">Effect</th><th style="width:34%">Question</th></tr>
+<tr><td>A</td><td>event (clone once)</td><td>event re-placed on its chromosome, same width and RT quintile</td><td>fold = O / E</td><td>Do break events fall in the set more than by chance?</td></tr>
+<tr><td>B</td><td>donor × 1 Mb window</td><td>Poisson regression: RT, GC, mappability, chromosome, donor</td><td>IRR</td><td>Is the event rate higher in set windows after covariates?</td></tr>
+<tr><td>C</td><td>breakend of a cell</td><td>as A, per breakend; per donor and pooled</td><td>O / E</td><td>Do donors share the excess? Does it hold weighting clones?</td></tr>
+</table>
+<p style="font-size:28px;color:#4A5A63;width:1500px">24 site sets: 8 published CFS catalogues (MiDAS, FISH, cytogenetic, replication delay, CNV and cancer-SV hotspots), derived consensus and breast-predicted sets, and genes &gt; 300 kb / &gt; 1 Mb as controls.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6B75">Reference p-value of A: 5,000 site shuffles. Multiple testing: BH over all 198 main-stratum CFS rows.</p>
+<aside>Test A p exact: Poisson-binomial tail, assumes independent events. p perm: the site set shuffled 5,000 times within chromosome and RT quintile; it keeps the clustering of events and sites. Test B standard error: the larger of model-based and chromosome-clustered. Test C confidence intervals: bootstrap of cells. Set names: catalogue:cell type, :all = union of the catalogue’s cell types.</aside>
+</section>

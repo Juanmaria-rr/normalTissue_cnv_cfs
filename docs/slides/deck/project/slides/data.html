@@ -1,0 +1,25 @@
+<section id="data" data-transition="fade" style="background:#F6F7F4;color:#1B2A33;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">From cells to tested events</h2>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:40px;border:1px solid #D5DCDF;border-radius:16px">
+<p style="font-size:72px;font-weight:600;color:#0F6E73">9,181</p>
+<p style="font-size:28px;color:#4A5A63">cells selected by imaging (5 donors)</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:40px;border:1px solid #D5DCDF;border-radius:16px">
+<p style="font-size:72px;font-weight:600;color:#0F6E73">5,032</p>
+<p style="font-size:28px;color:#4A5A63">pass depth, noise and S-phase cuts at 500 kb</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px;background:#FFFFFF;padding:40px;border:1px solid #D5DCDF;border-radius:16px">
+<p style="font-size:72px;font-weight:600;color:#C2571A">93 / 186</p>
+<p style="font-size:28px;color:#4A5A63">interstitial loss / gain events tested at 500 kb</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px 64px">
+<p style="font-size:28px;color:#1B2A33"><b>Breakend</b>: boundary between two segments (≥ 1 Mb) of different copy-number state in one cell; interval = one bin each side.</p>
+<p style="font-size:28px;color:#1B2A33"><b>Main definition E2–E4</b>: flank ratio &gt; 1.3 or &lt; 0.7, the paper’s threshold.</p>
+<p style="font-size:28px;color:#1B2A33"><b>Event</b>: breakends of one donor, same chromosome, direction and type within 2 Mb, collapsed; a clone counts once.</p>
+<p style="font-size:28px;color:#1B2A33"><b>Interstitial</b>: the interval does not touch a pericentromeric block ± 1 Mb.</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#5B6B75">Bins of 200 kb, 500 kb and 1 Mb run in parallel; 500 kb shown. Source: funnel_cells.tsv, events_500kb.tsv</p>
+<aside>Cell cuts: at least 15 reads per usable bin per chromosome copy (diploid), noise_excess at most 1.5, rt_rho at most 0.10 (S phase). Main-set cells: 2,052 / 5,032 / 6,297 at 200 kb / 500 kb / 1 Mb. Interstitial E2–E4 losses / gains: 71 / 232 at 200 kb, 93 / 186 at 500 kb, 86 / 72 at 1 Mb.</aside>
+</section>

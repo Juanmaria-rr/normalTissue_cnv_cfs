@@ -18,6 +18,8 @@ this README only orients.
 | Cell QC and breakend criteria | fixed: `depth_ok` (mean reads per usable bin / 2 ≥ 15), `noise_excess` ≤ 1.5, `rt_rho` ≤ 0.10; ratio 1.3 / 0.7, segments ≥ 1 Mb of usable bins |
 | CFS catalogues | 8 published sources harmonised to hg19, plus consensus, breast-predicted, A+C and union sets |
 | Enrichment tests A–C | run on the pilot (exploratory), revised after an independent review: grid-aligned null, exact and site-shuffle permutation p-values, global BH, robustness and cross-resolution variants, power projection |
+| Pilot results shared | concise report, results deck and methods README (5 Nov 2026); strongest row HS68 MiDAS, 500 kb losses, fold 4.0, q perm. global 0.079 |
+| Primary test for the full dataset | pending decision (candidates: consensusA:core or macheret2020:all losses at 500 kb, or HS68 as replication) |
 | Manual-fit audit (~100 cells) | pending |
 | Full dataset (49 donors) | pending: scale-up decisions and cost check |
 
@@ -27,7 +29,10 @@ this README only orients.
 |---|---|
 | Documents hub (all reports, notebooks, project structure guide) | `python3 scripts/docs/build_hub.py --out docs/hub` → `docs/hub/index.html` |
 | Technical report: methodology, worked examples, decisions | `docs/technical_report/` |
-| Enrichment methods and pilot results (generated) | `docs/enrichment/` |
+| Enrichment methods and pilot results, full (generated) | `docs/enrichment/enrichment_pilot.html` |
+| Enrichment results, concise (generated; `--standalone` gives one file with embedded figures) | `docs/enrichment/enrichment_brief.html` |
+| Methods README for sharing | [`docs/enrichment/METHODS.md`](docs/enrichment/METHODS.md) |
+| Results deck: figures (`scripts/docs/summary_figures.py`) and slide sources | `docs/slides/figs/`, `docs/slides/deck/` |
 | Tests A–C explained step by step on real data (generated) | `docs/enrichment/tests_explainer.html` |
 | QC levels 1–2 (29 Oct 2026) | `docs/qc_levels_1_2/` |
 | AWS procedure (staging, costs, failure modes) | [`docs/AWS_RUNBOOK.md`](docs/AWS_RUNBOOK.md) |
