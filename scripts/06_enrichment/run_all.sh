@@ -31,5 +31,5 @@ python3 scripts/06_enrichment/funnel.py --res $R --cells data/metadata/cells.tsv
 python3 scripts/docs/enrichment_figures.py --res $R --out docs/enrichment
 python3 scripts/docs/build_enrichment_html.py --res $R --out docs/enrichment
 python3 scripts/docs/build_tests_explainer.py --res $R --out docs/enrichment
-python3 scripts/docs/build_enrichment_brief.py --res $R --out docs/enrichment
+python3 scripts/docs/build_enrichment_brief.py --res $R --out docs/enrichment --standalone
 echo "all done"

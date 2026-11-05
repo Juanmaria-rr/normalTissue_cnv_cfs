@@ -5,12 +5,13 @@ focused on the results of tests A, B and C, keeping only the method needed to re
 Same inputs as build_enrichment_html.py (results/enrichment/pilot/: main/test_a.tsv,
 test_a_shuffle_controls.tsv, test_b.tsv, test_c.tsv, events_<bin>kb.tsv; robustness_*.tsv;
 power_scaleup.tsv; funnel_cells.tsv) and its figures (fig_a_forest, fig_top_donors, fig_b_irr,
-fig_c_donors, written to the same folder by enrichment_figures.py). Every number is read from
+fig_c_donors, written to the same folder by enrichment_figures.py; fig_funnel by funnel.py). Every number is read from
 those tables; the full document (enrichment_pilot.html) keeps every table and variant. The
 site-set section reuses CATALOG_METHODS of build_enrichment_html.py, with set sizes from
 data/features/cfs/cfs_catalogs_summary.tsv, cfs_derived_hg19.tsv and data/features/genes/.
 
 Usage: python3 scripts/docs/build_enrichment_brief.py --res results/enrichment/pilot --out docs/enrichment
+  --standalone also writes enrichment_brief_standalone.html with the figures embedded (one file to send).
 """
 import argparse
 import html
@@ -23,7 +24,7 @@ import pandas as pd
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path.insert(0, os.path.dirname(__file__))
-from build_enrichment_html import CATALOG_METHODS, CSS, MAIN_SETS, fig, fmt, fp, method, table  # noqa: E402
+from build_enrichment_html import CATALOG_METHODS, CSS, MAIN_SETS, STAGE_DEFS, fig, fmt, fp, funnel_tables, method, table  # noqa: E402
 from enrichment_figures import top_row  # noqa: E402
 
 BINS = [200, 500, 1000]
@@ -84,6 +85,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--res", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--standalone", action="store_true")
     a = ap.parse_args()
     res = a.res
     ta = pd.read_csv(f"{res}/main/test_a.tsv", sep="\t")
@@ -174,6 +176,24 @@ The full document (<code>docs/enrichment/enrichment_pilot.html</code>) has every
 </div>
 <p><b>Site sets.</b> Eight published CFS catalogues, derived sets and two gene-size controls; see section 2.</p>
 <p><b>Multiple testing.</b> Benjamini–Hochberg over all {n_glob} main-stratum rows of the CFS sets (sets × bins × directions; controls excluded): <b>q global</b> on the exact p, <b>q perm. global</b> on the permutation p. A q computed within one set only (q family) is in the full tables but does not control the error across sets.</p>""")
+
+    tot, don, br = funnel_tables(res)
+    sd = pd.DataFrame(STAGE_DEFS, columns=["stage", "what it means"])
+    P("""<h3 id="funnel">1.1 Data funnel: how many cells and events remain at each step</h3>
+<p>Each stage keeps the cells of the previous one that meet one more criterion. Stages 1–4 do not depend on the bin size; from stage 6 on, the counts differ by bin because the depth needed per bin changes with its size.</p>""")
+    P('<div class="tablebox wrap">' + table(sd, list(sd.columns))[len('<div class="tablebox">'):])
+    P(table(tot, list(tot.columns), num=["200 kb", "500 kb", "1 Mb"]))
+    P(fig("fig_funnel", "<b>What is shown.</b> Cells left after each criterion, cumulative, per bin (log scale); in brackets, % of the imaging-selected cells (stage 2). "
+          "Stages 1–4 do not depend on the bin; the mapping stage removes no cells and is not drawn."))
+    P("<p><b>Per donor at 500 kb.</b> The same stages per donor show how unevenly the donors contribute cells and events.</p>")
+    P(table(don, list(don.columns), num=list(don.columns[1:])))
+    P("<p><b>From breakends to events (main set).</b> Breakends of every cell, then interstitial E2–E4 events after clonal collapse, and how many overlap MiDAS domains.</p>")
+    P(table(br, list(br.columns), num=["200 kb", "500 kb", "1 Mb"]))
+    P(method("<b>What is counted.</b> Pilot wells and cells per stage (stages 1–2: ENA and authors' metadata; 3: aligned; 5–8: QC tables; 9–11: main-set cells with ≥ 1 E2–E4 breakend, interstitial, and interstitial loss); "
+             "the last table counts breakends (one per cell) and collapsed events. "
+             "<b>Limitation.</b> Stage 1 counts every well in ENA, including control and empty wells; the depth stage depends on the sequencing batch, so donors lose different fractions of cells."))
+    P(flow_line(["data/metadata/cells.tsv", "data/pilot/align_qc_pilot.tsv", f"{R}/master_cells.tsv", f"{R}/master_breakends.tsv", f"{R}/master_events.tsv"],
+                ["scripts/06_enrichment/funnel.py"], [f"{R}/funnel_cells.tsv", f"{R}/funnel_breakends.tsv", "docs/enrichment/fig_funnel.png"]))
 
     # site sets: sizes per catalogue (all cell types) and per controls
     cs = pd.read_csv(f"{ROOT}/data/features/cfs/cfs_catalogs_summary.tsv", sep="\t")
@@ -305,6 +325,17 @@ q global {fp(top.q_global)}, q perm. global {fp(top.q_perm_global)}. Leaving out
     with open(f"{a.out}/enrichment_brief.html", "w") as f:
         f.write("\n".join(parts))
     print("wrote", f"{a.out}/enrichment_brief.html")
+    if a.standalone:
+        import base64
+        import re
+        doc = "\n".join(parts)
+        embed = lambda m: 'src="data:image/png;base64,' + base64.b64encode(open(f"{a.out}/{m.group(1)}", "rb").read()).decode() + '"'
+        doc = re.sub(r'src="([\w-]+\.png)"', embed, doc)
+        doc = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+               '<meta name="viewport" content="width=device-width,initial-scale=1"></head><body>' + doc + "</body></html>")
+        with open(f"{a.out}/enrichment_brief_standalone.html", "w") as f:
+            f.write(doc)
+        print("wrote", f"{a.out}/enrichment_brief_standalone.html")
 
 
 if __name__ == "__main__":
